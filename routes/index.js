@@ -8,10 +8,10 @@ if(typeof require !== "undefined") XLSX = require("xlsx");
 router.get("/", function(req, res, next) {
 	res.render("index", { title: "Excel Merge Tool" });
 
-	var wb1 = XLSX.readFile("files/test.xlsx");
-	var wb2 = XLSX.readFile("files/test2.xlsx");
+	var wb1 = XLSX.readFile("files/t1.xlsx");
+	var wb2 = XLSX.readFile("files/t2.xlsx");
 	var wb3 = EMT.mergeSheets(wb1, wb2);
-	XLSX.writeFile(wb3, "files/test3.xlsx");
+	XLSX.writeFile(wb3, "files/t3.xlsx");
 
 });
 

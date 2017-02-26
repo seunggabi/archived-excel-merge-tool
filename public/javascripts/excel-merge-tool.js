@@ -21,8 +21,10 @@ module.exports = {
 				if(c === "!ref") {
 					this.extendsRange(s1[c], s2[c]);
 				}
-				s1[c].t = "s";
-				s1[c].v = s1[c].v+String.fromCharCode(13)+s2[c].v;
+				else if(String(s1[c].v).indexOf(s2[c].v) === -1) {
+					s1[c].t = "s";
+					s1[c].v = s1[c].v+String.fromCharCode(13)+s2[c].v;
+				}
 			} else {
 				s1[c] = s2[c];
 			}
