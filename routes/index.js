@@ -1,17 +1,15 @@
-var express = require("express");
+if(typeof require !== "undefined") {
+	express = require("express");
+	EMT = require("../public/javascripts/excel-merge-tool.js");
+	fs = require("fs");
+	XLSX = require("xlsx");
+}
+
 var router = express.Router();
-
-var EMT = require("../public/javascripts/excel-merge-tool.js");
-
-var fs = require("fs");
 var fileNames = fs.readdirSync("./files/");
-
 fileNames = EMT.selectXLSX(fileNames);
 
-if(typeof require !== "undefined") XLSX = require("xlsx");
-
 var wbList = EMT.readFiles(fileNames);
-
 var wb = EMT.mergeSheets(wbList);
 XLSX.writeFile(wb, "./files/output/merge.xlsx");
 
