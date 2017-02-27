@@ -3,6 +3,19 @@
  */
 
 module.exports = {
+	PATH: "files/",
+	EXTENSION: ".xlsx",
+
+	readFiles: function(fileNames) {
+		var self = this;
+		var wbList = [];
+
+		fileNames.forEach(function(value) {
+			wbList.push(XLSX.readFile(self.PATH+value));
+		});
+		return wbList;
+	},
+
 	mergeSheet: function(wb1, wb2) {
 		for(var s in wb2.Sheets) {
 			if(wb1.Sheets.hasOwnProperty(s)) {
@@ -26,6 +39,14 @@ module.exports = {
 
 				if(c === "!ref") {
 					this.extendsRange(s1[c], s2[c]);
+				}
+				else if(v1.length === 1 && v2.length === 1) {
+					if(v1.toUpperCase() === v2.toUpperCase()) {
+						s1[c].t = "s";
+						s1[c].v = v1.toUpperCase();
+					} else {
+						s1[c].v = v1+String.fromCharCode(13)+v2;
+					}
 				}
 				else if(v1.indexOf(v2) === -1 && v2.indexOf(v1) === -1) {
 					s1[c].t = "s";
@@ -73,5 +94,18 @@ module.exports = {
 	enterOnce: function(text) {
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, String.fromCharCode(13));
+	},
+
+	selectXLSX: function(fileNames) {
+		var self = this;
+		var fileXLSX = [];
+
+		fileNames.forEach(function(fileName) {
+			if(fileName.lastIndexOf(self.EXTENSION) !== -1
+			&& fileName.lastIndexOf("$") === -1) {
+				fileXLSX.push(fileName);
+			}
+		});
+		return fileXLSX;
 	}
 };
