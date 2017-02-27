@@ -11,7 +11,9 @@ module.exports = {
 		var wbList = [];
 
 		fileNames.forEach(function(value) {
-			wbList.push(XLSX.readFile(self.PATH+value));
+			var wb = XLSX.readFile(self.PATH+value);
+			wb.fileName = value;
+			wbList.push(wb);
 		});
 		return wbList;
 	},
