@@ -130,10 +130,22 @@ module.exports = {
 	},
 
 	max: function(a, b) {
-		return a > b ? a : b;
+		if(a.length > b.length) {
+			return a;
+		} else if(a.length < b.length) {
+			return b;
+		} else {
+			return a > b ? a : b;
+		}
 	},
 
 	min: function(a, b) {
-		return a < b ? a : b;
+		if(a.length < b.length) {
+			return a;
+		} else if(a.length > b.length) {
+			return b;
+		} else {
+			return a < b ? a : b;
+		}
 	},
 };
