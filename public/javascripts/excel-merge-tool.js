@@ -5,23 +5,27 @@
 module.exports = {
 	PATH: "files/",
 	EXTENSION: ".xlsx",
+	LOG: true,
+	IGNORE_LENGTH: 2,
 
 	readFiles: function(fileNames) {
 		var self = this;
 		var wbList = [];
 
 		fileNames.forEach(function(value) {
-			var wb = XLSX.readFile(self.PATH+value);
+			var wb = XLSX.readFile(self.PATH + value);
 			wb.fileName = value;
 			wbList.push(wb);
 		});
 		return wbList;
 	},
 
-	mergeSheet: function(wb1, wb2) {
+	_mergeSheet: function(wb1, wb2) {
 		for(var s in wb2.Sheets) {
 			if(wb1.Sheets.hasOwnProperty(s)) {
-				wb1.Sheets[s] = this.mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
+				wb1.Sheets[s].fileName = wb1.fileName;
+				wb2.Sheets[s].fileName = wb2.fileName;
+				wb1.Sheets[s] = this._mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
 			} else {
 				wb1.Sheets[s] = wb2.Sheets[s];
 				wb1.SheetNames.push(s);
@@ -30,39 +34,48 @@ module.exports = {
 		return wb1;
 	},
 
-	mergeCells: function(s1, s2) {
+	_mergeCells: function(s1, s2) {
 		for(var c in s2) {
 			var v2 = String(s2[c].v);
-			v2 = this.enterOnce(v2);
+			v2 = this._enterOnce(v2);
 
 			if(s1.hasOwnProperty(c)) {
 				var v1 = String(s1[c].v);
-				v1 = this.enterOnce(v1);
+				v1 = this._enterOnce(v1);
 
 				if(c === "!ref") {
-					this.extendsRange(s1[c], s2[c]);
+					this._extendsRange(s1[c], s2[c]);
 				}
-				else if(v1.length === 1 && v2.length === 1) {
-					if(v1.toUpperCase() === v2.toUpperCase()) {
+				else if(v1.length <= this.IGNORE_LENGTH && v2.length <= this.IGNORE_LENGTH) {
+					v1 = v1.toUpperCase();
+					v2 = v2.toUpperCase();
+
+					if(v1 === v2) {
 						s1[c].t = "s";
-						s1[c].v = v1.toUpperCase();
+						s1[c].v = v1;
 					} else {
-						s1[c].v = v1+String.fromCharCode(13)+v2;
+						s1[c].v = v1 + String.fromCharCode(13) + v2;
 					}
 				}
-				else if(v1.indexOf(v2) === -1 && v2.indexOf(v1) === -1) {
+				else if(this.isInclude(v1, v2)) {
 					s1[c].t = "s";
-					s1[c].v = v1+String.fromCharCode(13)+v2;
+					s1[c].v = this.concatLog(s1.fileName, v1)
+						+ String.fromCharCode(13)
+						+ this.concatLog(s2.fileName, v2);
 				}
 			} else {
-				s2[c].v = v2;
+				if(v2.length <= this.IGNORE_LENGTH) {
+					s2[c].v = v2;
+				} else {
+					s2[c].v =  this.concatLog(s2.fileName, v2);
+				}
 				s1[c] = s2[c];
 			}
 		}
 		return s1;
 	},
 
-	extendsRange: function(r1, r2) {
+	_extendsRange: function(r1, r2) {
 		var r;
 		var regRow = /\w+/g;
 		var regCol = /\d+/g;
@@ -90,10 +103,10 @@ module.exports = {
 	},
 
 	mergeSheets: function(sheets) {
-		return sheets.reduce(this.mergeSheet.bind(this));
+		return sheets.reduce(this._mergeSheet.bind(this));
 	},
 
-	enterOnce: function(text) {
+	_enterOnce: function(text) {
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, String.fromCharCode(13));
 	},
@@ -109,5 +122,18 @@ module.exports = {
 			}
 		});
 		return fileXLSX;
+	},
+
+	concatLog: function(a, b) {
+		var concatText = b;
+		if(this.LOG) {
+			concatText = a + String.fromCharCode(13) + b;
+		}
+
+		return concatText;
+	},
+
+	isInclude: function(a, b) {
+		return a.indexOf(b) === -1 && a.indexOf(b) === -1;
 	}
 };
