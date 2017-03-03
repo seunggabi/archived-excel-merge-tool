@@ -5,7 +5,7 @@
 module.exports = {
 	PATH: "files/",
 	EXTENSION: ".xlsx",
-	LOG: true,
+	LOG: false,
 	IGNORE_LENGTH: 2,
 
 	readFiles: function(fileNames) {
@@ -130,9 +130,12 @@ module.exports = {
 	},
 
 	max: function(a, b) {
-		if(a.length > b.length) {
+		var aLength = this.length(a);
+		var bLength = this.length(b);
+
+		if(aLength > bLength) {
 			return a;
-		} else if(a.length < b.length) {
+		} else if(aLength < bLength) {
 			return b;
 		} else {
 			return a > b ? a : b;
@@ -140,12 +143,24 @@ module.exports = {
 	},
 
 	min: function(a, b) {
-		if(a.length < b.length) {
+		var aLength = this.length(a);
+		var bLength = this.length(b);
+
+		if(aLength < bLength) {
 			return a;
-		} else if(a.length > b.length) {
+		} else if(aLength > bLength) {
 			return b;
 		} else {
 			return a < b ? a : b;
 		}
 	},
+
+	length: function(a) {
+		if(typeof a === "string") {
+			return a.length;
+		}
+		else {
+			return 0;
+		}
+	}
 };

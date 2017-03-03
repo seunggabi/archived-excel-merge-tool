@@ -6,15 +6,16 @@ if(typeof require !== "undefined") {
 }
 
 var router = express.Router();
-var fileNames = fs.readdirSync("./files/");
-fileNames = EMT.selectXLSX(fileNames);
-
-var wbList = EMT.readFiles(fileNames);
-var wb = EMT.mergeSheets(wbList);
-XLSX.writeFile(wb, "./files/output/merge.xlsx");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
+	var fileNames = fs.readdirSync("./files/");
+	fileNames = EMT.selectXLSX(fileNames);
+
+	var wbList = EMT.readFiles(fileNames);
+	var wb = EMT.mergeSheets(wbList);
+	XLSX.writeFile(wb, "./files/output/merge.xlsx");
+
 	res.render("index", { title: "Excel Merge Tool" });
 });
 

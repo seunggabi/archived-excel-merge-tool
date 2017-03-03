@@ -121,5 +121,5 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/webstorm
 .idea/vcs.xml
-files/
 public/images/
+*.xlsx
