@@ -133,7 +133,7 @@ module.exports = {
 	},
 
 	isInclude: function(a, b) {
-		return a.indexOf(b) < 0 && a.indexOf(b) < 0;
+		return a.indexOf(b) < 0 && b.indexOf(a) < 0;
 	},
 
 	max: function(a, b) {
