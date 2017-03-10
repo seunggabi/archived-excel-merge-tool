@@ -5,8 +5,15 @@
 module.exports = {
 	PATH: "files/",
 	EXTENSION: ".xlsx",
-	LOG: false,
-	IGNORE_LENGTH: 2,
+	OUTPUT_MODE: {
+		NONE: 0,
+		FILE_NAME: 1,
+		ALL: 2
+	},
+
+	output_mode: this.OUTPUT_MODE.FILE_NAME,
+	log_mode: false,
+	ignore_length: 2,
 
 	readFiles: function(fileNames) {
 		var self = this;
@@ -26,15 +33,15 @@ module.exports = {
 
 	selectXLSX: function(fileNames) {
 		var self = this;
-		var fileXLSX = [];
+		var filesXLSX = [];
 
 		fileNames.forEach(function(fileName) {
-			if(fileName.lastIndexOf(self.EXTENSION) !== -1
-				&& fileName.lastIndexOf("$") === -1) {
-				fileXLSX.push(fileName);
+			if(fileName.lastIndexOf(self.EXTENSION) >= 0
+				&& fileName.lastIndexOf("$") < 0) {
+				filesXLSX.push(fileName);
 			}
 		});
-		return fileXLSX;
+		return filesXLSX;
 	},
 
 	_mergeSheet: function(wb1, wb2) {
@@ -63,7 +70,7 @@ module.exports = {
 				if(c === "!ref") {
 					this._extendsRange(s1[c], s2[c]);
 				}
-				else if(v1.length <= this.IGNORE_LENGTH && v2.length <= this.IGNORE_LENGTH) {
+				else if(v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
 					v1 = v1.toUpperCase();
 					v2 = v2.toUpperCase();
 
@@ -76,15 +83,15 @@ module.exports = {
 				}
 				else if(this.isInclude(v1, v2)) {
 					s1[c].t = "s";
-					s1[c].v = this._concatLog(s1.fileName, v1)
+					s1[c].v = this._concatFileName(s1.fileName, v1)
 						+ String.fromCharCode(13)
-						+ this._concatLog(s2.fileName, v2);
+						+ this._concatFileName(s2.fileName, v2);
 				}
 			} else {
-				if(v2.length <= this.IGNORE_LENGTH) {
+				if(v2.length <= this.ignore_length) {
 					s2[c].v = v2;
 				} else {
-					s2[c].v =  this._concatLog(s2.fileName, v2);
+					s2[c].v =  this._concatFileName(s2.fileName, v2);
 				}
 				s1[c] = s2[c];
 			}
@@ -116,17 +123,17 @@ module.exports = {
 		return text.replace(regEnter, String.fromCharCode(13));
 	},
 
-	_concatLog: function(a, b) {
-		var concatText = b;
-		if(this.LOG) {
-			concatText = a + String.fromCharCode(13) + b;
+	_concatFileName: function(fileName, text) {
+		var concatText = text;
+		if(this.output_mode >= this.OUTPUT_MODE.FILE_NAME) {
+			concatText = fileName + String.fromCharCode(13) + text;
 		}
 
 		return concatText;
 	},
 
 	isInclude: function(a, b) {
-		return a.indexOf(b) === -1 && a.indexOf(b) === -1;
+		return a.indexOf(b) < 0 && a.indexOf(b) < 0;
 	},
 
 	max: function(a, b) {
