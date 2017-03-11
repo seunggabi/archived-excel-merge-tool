@@ -19,15 +19,26 @@ module.exports = {
 		CONFLICT: "CONFLICT",
 		ALL: "ALL"
 	},
+	DEFAULT: {
+		WRITE_MODE: "CONFLICT",
+		LOG_MODE: true,
+		IGNORE_LENGTH: 2
+	},
+	MSG: {
+		UNDEFINED: "사용되지 않는 모드입니다."
+	},
+	USING_CHECK: "$",
+	RANGE_KEY: "!ref",
 
 	write_mode: null,
 	log_mode: null,
 	ignore_length: null,
 
 	init: function(data) {
-		this.write_mode = data.write_mode || this.WRITE_MODE.CONFLICT;
-		this.log_mode = data.log_mode || false;
-		this.ignore_length = data.ignore_length || 2;
+		data = data || {};
+		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
+		this.log_mode = data.log_mode || this.DEFAULT.LOG_MODE;
+		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
 	},
 
 	readFiles: function(fileNames) {
@@ -49,7 +60,7 @@ module.exports = {
 
 		fileNames.forEach(function(fileName) {
 			if(fileName.lastIndexOf(this.EXTENSION) >= 0
-				&& fileName.lastIndexOf("$") < 0) {
+				&& fileName.lastIndexOf(this.USING_CHECK) < 0) {
 				filesXLSX.push(fileName);
 			}
 		}.bind(this));
@@ -79,7 +90,7 @@ module.exports = {
 				var v1 = String(s1[c].v);
 				v1 = this._enterOnce(v1);
 
-				if(c === "!ref") {
+				if(c === this.RANGE_KEY) {
 					this._extendsRange(s1[c], s2[c]);
 				}
 				else if(v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
@@ -153,7 +164,7 @@ module.exports = {
 				this.write_mode = this.WRITE_MODE.ALL;
 				break;
 			default:
-				console.log("사용되지 않는 모드입니다.");
+				console.log(this.MSG.UNDEFINED);
 		}
 	},
 
