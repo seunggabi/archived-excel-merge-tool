@@ -3,44 +3,56 @@
  */
 
 module.exports = {
-	PATH: "files/",
+	XLSX: require("xlsx"),
+
+	PATH: {
+		READ: "files/",
+		WRITE: "files/output/"
+	},
+	WRITE_NAME: {
+		NONE: "merge.xlsx",
+		CONFLICT: "merge_conflict.xlsx"
+	},
 	EXTENSION: ".xlsx",
-	OUTPUT_MODE: {
-		NONE: 0,
-		FILE_NAME: 1,
-		ALL: 2
+	WRITE_MODE: {
+		NONE: "NONE",
+		CONFLICT: "CONFLICT",
+		ALL: "ALL"
 	},
 
-	output_mode: this.OUTPUT_MODE.FILE_NAME,
-	log_mode: false,
-	ignore_length: 2,
+	write_mode: null,
+	log_mode: null,
+	ignore_length: null,
+
+	init: function(data) {
+		this.write_mode = data.write_mode || this.WRITE_MODE.CONFLICT;
+		this.log_mode = data.log_mode || false;
+		this.ignore_length = data.ignore_length || 2;
+	},
 
 	readFiles: function(fileNames) {
-		var self = this;
 		var wbList = [];
-
-		fileNames.forEach(function(value) {
-			var wb = XLSX.readFile(self.PATH + value);
-			wb.fileName = value;
+		fileNames.forEach(function(fileName) {
+			var wb = this.XLSX.readFile(this.PATH.READ + fileName);
+			wb.fileName = fileName;
 			wbList.push(wb);
-		});
+		}.bind(this));
 		return wbList;
 	},
 
-	mergeSheets: function(sheets) {
+	_mergeSheets: function(sheets) {
 		return sheets.reduce(this._mergeSheet.bind(this));
 	},
 
 	selectXLSX: function(fileNames) {
-		var self = this;
 		var filesXLSX = [];
 
 		fileNames.forEach(function(fileName) {
-			if(fileName.lastIndexOf(self.EXTENSION) >= 0
+			if(fileName.lastIndexOf(this.EXTENSION) >= 0
 				&& fileName.lastIndexOf("$") < 0) {
 				filesXLSX.push(fileName);
 			}
-		});
+		}.bind(this));
 		return filesXLSX;
 	},
 
@@ -118,18 +130,41 @@ module.exports = {
 		return r;
 	},
 
-	_enterOnce: function(text) {
-		var regEnter = /[\r\n]+/g;
-		return text.replace(regEnter, String.fromCharCode(13));
-	},
-
 	_concatFileName: function(fileName, text) {
 		var concatText = text;
-		if(this.output_mode >= this.OUTPUT_MODE.FILE_NAME) {
-			concatText = fileName + String.fromCharCode(13) + text;
+		if(this.write_mode === this.WRITE_MODE.CONFLICT) {
+			concatText = "["+fileName+"]" + String.fromCharCode(13) + text;
 		}
 
 		return concatText;
+	},
+
+	writeFile: function(wbList) {
+		switch(this.write_mode) {
+			case this.WRITE_MODE.NONE:
+			case this.WRITE_MODE.CONFLICT:
+				this._writeFile(wbList);
+				break;
+			case this.WRITE_MODE.ALL:
+				this.write_mode = this.WRITE_MODE.NONE;
+				this._writeFile(wbList);
+				this.write_mode = this.WRITE_MODE.CONFLICT;
+				this._writeFile(wbList);
+				this.write_mode = this.WRITE_MODE.ALL;
+				break;
+			default:
+				console.log("사용되지 않는 모드입니다.");
+		}
+	},
+
+	_writeFile: function(wbList) {
+		var wb = EMT._mergeSheets(wbList);
+		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
+	},
+
+	_enterOnce: function(text) {
+		var regEnter = /[\r\n]+/g;
+		return text.replace(regEnter, String.fromCharCode(13));
 	},
 
 	isInclude: function(a, b) {
