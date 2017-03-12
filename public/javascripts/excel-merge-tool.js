@@ -20,7 +20,7 @@ module.exports = {
 		ALL: "ALL"
 	},
 	DEFAULT: {
-		WRITE_MODE: "CONFLICT",
+		WRITE_MODE: "ALL",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 2
 	},
@@ -154,13 +154,13 @@ module.exports = {
 		switch(this.write_mode) {
 			case this.WRITE_MODE.NONE:
 			case this.WRITE_MODE.CONFLICT:
-				this._writeFile(wbList);
+				this._writeFile(this.clone(wbList));
 				break;
 			case this.WRITE_MODE.ALL:
 				this.write_mode = this.WRITE_MODE.NONE;
-				this._writeFile(wbList);
+				this._writeFile(this.clone(wbList));
 				this.write_mode = this.WRITE_MODE.CONFLICT;
-				this._writeFile(wbList);
+				this._writeFile(this.clone(wbList));
 				this.write_mode = this.WRITE_MODE.ALL;
 				break;
 			default:
@@ -215,5 +215,9 @@ module.exports = {
 		else {
 			return 0;
 		}
+	},
+
+	clone: function(obj) {
+		return JSON.parse(JSON.stringify(obj));
 	}
 };
