@@ -5,6 +5,8 @@
 module.exports = {
 	XLSX: require("xlsx-style"),
 	UTIL: require("./excel-merge-tool-utils.js"),
+	LOG: require("./excel-merge-tool-log.js"),
+	DATA: require("./excel-merge-tool-data.js"),
 
 	PATH: {
 		READ: "files/",
