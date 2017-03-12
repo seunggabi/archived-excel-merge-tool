@@ -4,6 +4,7 @@
 
 module.exports = {
 	XLSX: require("xlsx"),
+	UTIL: require("./excel-merge-tool-utils.js"),
 
 	PATH: {
 		READ: "files/",
@@ -51,10 +52,6 @@ module.exports = {
 		return wbList;
 	},
 
-	_mergeSheets: function(sheets) {
-		return sheets.reduce(this._mergeSheet.bind(this));
-	},
-
 	selectXLSX: function(fileNames) {
 		var filesXLSX = [];
 
@@ -65,6 +62,10 @@ module.exports = {
 			}
 		}.bind(this));
 		return filesXLSX;
+	},
+
+	_mergeSheets: function(sheets) {
+		return sheets.reduce(this._mergeSheet.bind(this));
 	},
 
 	_mergeSheet: function(wb1, wb2) {
@@ -84,11 +85,11 @@ module.exports = {
 	_mergeCells: function(s1, s2) {
 		for(var c in s2) {
 			var v2 = String(s2[c].v);
-			v2 = this._enterOnce(v2);
+			v2 = this.UTIL.enterOnce(v2);
 
 			if(s1.hasOwnProperty(c)) {
 				var v1 = String(s1[c].v);
-				v1 = this._enterOnce(v1);
+				v1 = this.UTIL.enterOnce(v1);
 
 				if(c === this.RANGE_KEY) {
 					this._extendsRange(s1[c], s2[c]);
@@ -104,7 +105,7 @@ module.exports = {
 						s1[c].v = v1 + String.fromCharCode(13) + v2;
 					}
 				}
-				else if(this.isInclude(v1, v2)) {
+				else if(this.UTIL.isInclude(v1, v2)) {
 					s1[c].t = "s";
 					s1[c].v = this._concatFileName(s1.fileName, v1)
 						+ String.fromCharCode(13)
@@ -132,11 +133,11 @@ module.exports = {
 		var r2Row = r2.match(regRow);
 		var r2Col = r2.match(regCol);
 
-		r = this.min(r1Row[0], r2Row[0])
-			+ this.min(r1Col[0], r2Col[0])
+		r = this.UTIL.min(r1Row[0], r2Row[0])
+			+ this.UTIL.min(r1Col[0], r2Col[0])
 			+ ":"
-			+ this.max(r1Row[1], r2Row[1])
-			+ this.max(r1Col[1], r2Col[1]);
+			+ this.UTIL.max(r1Row[1], r2Row[1])
+			+ this.UTIL.max(r1Col[1], r2Col[1]);
 
 		return r;
 	},
@@ -154,13 +155,13 @@ module.exports = {
 		switch(this.write_mode) {
 			case this.WRITE_MODE.NONE:
 			case this.WRITE_MODE.CONFLICT:
-				this._writeFile(this.clone(wbList));
+				this._writeFile(this.UTIL.clone(wbList));
 				break;
 			case this.WRITE_MODE.ALL:
 				this.write_mode = this.WRITE_MODE.NONE;
-				this._writeFile(this.clone(wbList));
+				this._writeFile(this.UTIL.clone(wbList));
 				this.write_mode = this.WRITE_MODE.CONFLICT;
-				this._writeFile(this.clone(wbList));
+				this._writeFile(this.UTIL.clone(wbList));
 				this.write_mode = this.WRITE_MODE.ALL;
 				break;
 			default:
@@ -173,51 +174,4 @@ module.exports = {
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
 	},
 
-	_enterOnce: function(text) {
-		var regEnter = /[\r\n]+/g;
-		return text.replace(regEnter, String.fromCharCode(13));
-	},
-
-	isInclude: function(a, b) {
-		return a.indexOf(b) < 0 && b.indexOf(a) < 0;
-	},
-
-	max: function(a, b) {
-		var aLength = this.length(a);
-		var bLength = this.length(b);
-
-		if(aLength > bLength) {
-			return a;
-		} else if(aLength < bLength) {
-			return b;
-		} else {
-			return a > b ? a : b;
-		}
-	},
-
-	min: function(a, b) {
-		var aLength = this.length(a);
-		var bLength = this.length(b);
-
-		if(aLength < bLength) {
-			return a;
-		} else if(aLength > bLength) {
-			return b;
-		} else {
-			return a < b ? a : b;
-		}
-	},
-
-	length: function(a) {
-		if(typeof a === "string") {
-			return a.length;
-		}
-		else {
-			return 0;
-		}
-	},
-
-	clone: function(obj) {
-		return JSON.parse(JSON.stringify(obj));
-	}
 };
