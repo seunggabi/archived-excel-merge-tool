@@ -30,6 +30,7 @@ module.exports = {
 	},
 	USING_CHECK: "$",
 	RANGE_KEY: "!ref",
+	FORMULA_KEY: "f",
 
 	write_mode: null,
 	log_mode: null,
@@ -83,6 +84,9 @@ module.exports = {
 	},
 
 	_mergeCells: function(s1, s2) {
+		this._setCellFomula(s1);
+		this._setCellFomula(s2);
+
 		for(var c in s2) {
 			var v2 = String(s2[c].v);
 			v2 = this.UTIL.enterOnce(v2);
@@ -121,6 +125,15 @@ module.exports = {
 			}
 		}
 		return s1;
+	},
+
+	_setCellFomula: function(s) {
+		for(var c in s) {
+			if(s[c].hasOwnProperty(this.FORMULA_KEY)) {
+				s[c].t = "s";
+				s[c].v = "="+s[c].f;
+			}
+		}
 	},
 
 	_extendsRange: function(r1, r2) {
