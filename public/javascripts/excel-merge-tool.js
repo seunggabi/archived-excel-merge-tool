@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-	XLSX: require("xlsx"),
+	XLSX: require("xlsx-style"),
 	UTIL: require("./excel-merge-tool-utils.js"),
 
 	PATH: {
@@ -45,7 +45,7 @@ module.exports = {
 	readFiles: function(fileNames) {
 		var wbList = [];
 		fileNames.forEach(function(fileName) {
-			var wb = this.XLSX.readFile(this.PATH.READ + fileName);
+			var wb = this.XLSX.readFile(this.PATH.READ + fileName, {cellStyles: true});
 			wb.fileName = fileName;
 			wbList.push(wb);
 		}.bind(this));
