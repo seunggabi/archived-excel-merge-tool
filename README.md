@@ -1,5 +1,5 @@
 # Excel Merge Tool
-Excel collaboration tool
+Excel Collaboration Tool
 
 ```javascript
 	var fileNames = fs.readdirSync("./files/");
