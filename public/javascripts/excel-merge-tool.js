@@ -30,6 +30,12 @@ module.exports = {
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."
 	},
+	LOG_TYPE: {
+		SYSTEM: "SYSTEM",
+		MERGE: "MERGE",
+		CONFLICT: "CONFLICT"
+	},
+
 	USING_CHECK: "$",
 	RANGE_KEY: "!ref",
 	FORMULA_KEY: "f",
@@ -43,6 +49,8 @@ module.exports = {
 		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
 		this.log_mode = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
+
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
 	},
 
 	readFiles: function(fileNames) {
@@ -171,6 +179,7 @@ module.exports = {
 			case this.WRITE_MODE.NONE:
 			case this.WRITE_MODE.CONFLICT:
 				this._writeFile(this.UTIL.clone(wbList));
+				this.LOG.writeFile();
 				break;
 			case this.WRITE_MODE.ALL:
 				this.write_mode = this.WRITE_MODE.NONE;
@@ -178,6 +187,7 @@ module.exports = {
 				this.write_mode = this.WRITE_MODE.CONFLICT;
 				this._writeFile(this.UTIL.clone(wbList));
 				this.write_mode = this.WRITE_MODE.ALL;
+				this.LOG.writeFile();
 				break;
 			default:
 				console.log(this.MSG.UNDEFINED);
