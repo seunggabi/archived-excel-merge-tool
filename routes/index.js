@@ -2,7 +2,6 @@ if(typeof require !== "undefined") {
 	express = require("express");
 	EMT = require("../public/javascripts/excel-merge-tool.js");
 	fs = require("fs");
-	XLSX = require("xlsx");
 	EMT.init();
 }
 
