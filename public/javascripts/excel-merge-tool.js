@@ -14,18 +14,21 @@ module.exports = {
 	},
 	WRITE_NAME: {
 		NONE: "merge.xlsx",
-		CONFLICT: "merge_conflict.xlsx"
+		CONFLICT: "merge_conflict.xlsx",
+		LIST: "merge_list.xlsx"
 	},
 	EXTENSION: ".xlsx",
 	WRITE_MODE: {
 		NONE: "NONE",
 		CONFLICT: "CONFLICT",
-		ALL: "ALL"
+		ALL: "ALL",
+		LIST: "LIST"
 	},
 	DEFAULT: {
-		WRITE_MODE: "NONE",
+		WRITE_MODE: "LIST",
 		LOG_MODE: true,
-		IGNORE_LENGTH: 2
+		IGNORE_LENGTH: 2,
+		TITLE_RANGE: "A1:D1"
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."
@@ -36,7 +39,10 @@ module.exports = {
 		NEW: "NEW     ",
 		CONFLICT: "CONFLICT"
 	},
-
+	REG: {
+		regCol: /\w+/g,
+		regRow: /\d+/g
+	},
 	USING_CHECK: "$",
 	RANGE_KEY: "!ref",
 	FORMULA_KEY: "f",
@@ -44,12 +50,19 @@ module.exports = {
 	write_mode: null,
 	log_mode: null,
 	ignore_length: null,
+	title: {
+		range: "",
+		cols: [],
+		rows: []
+	},
 
 	init: function(data) {
 		data = data || {};
 		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
 		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
+		this.title.range = data.title.range || this.DEFAULT.TITLE_RANGE;
+		this.setListTitle(this.title.range);
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
 	},
@@ -156,19 +169,17 @@ module.exports = {
 
 	_extendsRange: function(r1, r2) {
 		var r;
-		var regRow = /\w+/g;
-		var regCol = /\d+/g;
+		var r1Col = r1.match(this.REG.regCol);
+		var r1Row = r1.match(this.REG.regRow);
 
-		var r1Row = r1.match(regRow);
-		var r1Col = r1.match(regCol);
-		var r2Row = r2.match(regRow);
-		var r2Col = r2.match(regCol);
+		var r2Col = r2.match(this.REG.regCol);
+		var r2Row = r2.match(this.REG.regRow);
 
-		r = this.UTIL.min(r1Row[0], r2Row[0])
-			+ this.UTIL.min(r1Col[0], r2Col[0])
+		r = this.UTIL.min(r1Col[0], r2Col[0])
+			+ this.UTIL.min(r1Row[0], r2Row[0])
 			+ ":"
-			+ this.UTIL.max(r1Row[1], r2Row[1])
-			+ this.UTIL.max(r1Col[1], r2Col[1]);
+			+ this.UTIL.max(r1Col[1], r2Col[1])
+			+ this.UTIL.max(r1Row[1], r2Row[1]);
 
 		return r;
 	},
@@ -209,6 +220,27 @@ module.exports = {
 		var wb = EMT._mergeSheets(wbList);
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write "+this.WRITE_NAME[this.write_mode]);
-	}
+	},
 
+	readSheets: function(wb) {
+		for(var s in wb.Sheets) {
+			this.readCells(wb[s]);
+		}
+	},
+
+	readCells: function(s) {
+		//key list 제외하고 셀,
+		//셀인 경우에 범위 내에서만 동작하도록함
+		//row[1] 보다 무조건 커야함
+		//col[0] ~ col[1] 사이의 것만
+	},
+
+	setListTitle: function(titleRnage) {
+		var cols = titleRnage.match(this.REG.Col);
+		var rows = titleRnage.match(this.REG.Row);
+
+		this.title.range = titleRnage;
+		this.title.cols = cols;
+		this.title.rows = rows;
+	},
 };
