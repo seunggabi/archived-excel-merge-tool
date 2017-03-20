@@ -1,0 +1,12 @@
+[SYSTEM  ][2017-03-20 15:31:38] EMT init
+[SYSTEM  ][2017-03-20 15:31:40] Read 1.xlsx
+[SYSTEM  ][2017-03-20 15:31:40] Read 2.xlsx
+[SYSTEM  ][2017-03-20 15:31:40] Mode is NONE
+[MERGE   ][2017-03-20 15:31:40] TO 1.xlsx, FROM 2.xlsx
+[CONFLICT][2017-03-20 15:31:40] 시트1 Sheet ==> Conflict
+[CONFLICT][2017-03-20 15:31:40] A1 Cell ==> Conflict (asdfasdf1 asdf ㅁㄴㅇㄹ1)
+[CONFLICT][2017-03-20 15:31:40] A2 Cell ==> Conflict (asdfasdf2asdf asdefefef)
+[NEW     ][2017-03-20 15:31:40] 시트4 Sheet ==> New
+[CONFLICT][2017-03-20 15:31:40] 시트2 Sheet ==> Conflict
+[CONFLICT][2017-03-20 15:31:40] A1 Cell ==> Conflict (asdf qfe)
+[SYSTEM  ][2017-03-20 15:31:40] Write merge.xlsx

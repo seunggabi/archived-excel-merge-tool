@@ -3,5 +3,9 @@
  */
 
 module.exports = {
-	
+	items: [],
+
+	Item: function() {
+		this.datas;
+	}
 };

@@ -23,7 +23,7 @@ module.exports = {
 		ALL: "ALL"
 	},
 	DEFAULT: {
-		WRITE_MODE: "ALL",
+		WRITE_MODE: "NONE",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 2
 	},
@@ -34,7 +34,7 @@ module.exports = {
 		SYSTEM: "SYSTEM  ",
 		MERGE: "MERGE   ",
 		NEW: "NEW     ",
-		CONFLICT: "CONFLICT",
+		CONFLICT: "CONFLICT"
 	},
 
 	USING_CHECK: "$",
@@ -48,7 +48,7 @@ module.exports = {
 	init: function(data) {
 		data = data || {};
 		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
-		this.log_mode = data.log_mode || this.DEFAULT.LOG_MODE;
+		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");

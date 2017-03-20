@@ -3,7 +3,7 @@
  */
 Date.prototype.timestamp = function() {
 	var y = this.getFullYear();
-	var m = this.getMonth() + 1; // getMonth() is zero-based
+	var m = this.getMonth() + 1;
 	var d = this.getDate();
 	var h = this.getHours();
 	var i = this.getMinutes();
@@ -22,24 +22,33 @@ module.exports = {
 	FS: require("fs"),
 	PATH: "files/output/",
 	FILE_NAME: "log.txt",
+	status: true,
+	items: [],
 
 	Item: function(type, content) {
 		this.type = type;
 		this.content = content;
-		this.time = new Date().timestamp();
+		this.time = (new Date()).timestamp();
 	},
 
-	items: [],
-
 	addItem: function(type, content) {
+		if(!this.status) {
+			return;
+		}
 		this.items.push(new this.Item(type, content));
 	},
 
 	_getItem: function(item) {
+		if(!this.status) {
+			return;
+		}
 		return "["+item.type+"]["+item.time+"] "+this._removeEnter(item.content);
 	},
 
 	_getItems: function() {
+		if(!this.status) {
+			return;
+		}
 		var items = "";
 
 		this.items.forEach(function(item) {
@@ -49,10 +58,17 @@ module.exports = {
 	},
 
 	writeFile: function() {
-		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems())
+		if(!this.status) {
+			return;
+		}
+		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
+		this.items = [];
 	},
 
 	_removeEnter: function(text) {
+		if(!this.status) {
+			return;
+		}
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, " ");
 	}

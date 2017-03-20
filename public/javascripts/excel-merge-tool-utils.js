@@ -4,12 +4,16 @@
 
 module.exports = {
 	enterOnce: function(text) {
+		text = text.trim();
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, String.fromCharCode(13));
 	},
 
 	isInclude: function(a, b) {
-		return a.indexOf(b) >= 0 && b.indexOf(a) >= 0;
+		if(a === "" || b === "") {
+			return false;
+		}
+		return a.indexOf(b) >= 0 || b.indexOf(a) >= 0;
 	},
 
 	max: function(a, b) {
