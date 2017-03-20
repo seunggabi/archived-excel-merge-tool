@@ -31,9 +31,10 @@ module.exports = {
 		UNDEFINED: "사용되지 않는 모드입니다."
 	},
 	LOG_TYPE: {
-		SYSTEM: "SYSTEM",
-		MERGE: "MERGE",
-		CONFLICT: "CONFLICT"
+		SYSTEM: "SYSTEM  ",
+		MERGE: "MERGE   ",
+		NEW: "NEW     ",
+		CONFLICT: "CONFLICT",
 	},
 
 	USING_CHECK: "$",
@@ -59,6 +60,8 @@ module.exports = {
 			var wb = this.XLSX.readFile(this.PATH.READ + fileName, {cellStyles: true});
 			wb.fileName = fileName;
 			wbList.push(wb);
+
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read "+fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -80,12 +83,16 @@ module.exports = {
 	},
 
 	_mergeSheet: function(wb1, wb2) {
+		this.LOG.addItem(this.LOG_TYPE.MERGE, "TO "+wb1.fileName+", FROM "+wb2.fileName);
+
 		for(var s in wb2.Sheets) {
 			if(wb1.Sheets.hasOwnProperty(s)) {
+				this.LOG.addItem(this.LOG_TYPE.CONFLICT, s+" Sheet ==> Conflict");
 				wb1.Sheets[s].fileName = wb1.fileName;
 				wb2.Sheets[s].fileName = wb2.fileName;
 				wb1.Sheets[s] = this._mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
 			} else {
+				this.LOG.addItem(this.LOG_TYPE.NEW, s+" Sheet ==> New");
 				wb1.Sheets[s] = wb2.Sheets[s];
 				wb1.SheetNames.push(s);
 			}
@@ -119,11 +126,12 @@ module.exports = {
 						s1[c].v = v1 + String.fromCharCode(13) + v2;
 					}
 				}
-				else if(this.UTIL.isInclude(v1, v2)) {
+				else if(!this.UTIL.isInclude(v1, v2)) {
 					s1[c].t = "s";
 					s1[c].v = this._concatFileName(s1.fileName, v1)
 						+ String.fromCharCode(13)
 						+ this._concatFileName(s2.fileName, v2);
+					this.LOG.addItem(this.LOG_TYPE.CONFLICT, c+" Cell ==> Conflict ("+s1[c].v+")");
 				}
 			} else {
 				if(v2.length <= this.ignore_length) {
@@ -178,13 +186,16 @@ module.exports = {
 		switch(this.write_mode) {
 			case this.WRITE_MODE.NONE:
 			case this.WRITE_MODE.CONFLICT:
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
 				this.LOG.writeFile();
 				break;
 			case this.WRITE_MODE.ALL:
 				this.write_mode = this.WRITE_MODE.NONE;
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
 				this.write_mode = this.WRITE_MODE.CONFLICT;
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
 				this.write_mode = this.WRITE_MODE.ALL;
 				this.LOG.writeFile();
@@ -197,6 +208,7 @@ module.exports = {
 	_writeFile: function(wbList) {
 		var wb = EMT._mergeSheets(wbList);
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
-	},
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write "+this.WRITE_NAME[this.write_mode]);
+	}
 
 };

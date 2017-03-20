@@ -35,20 +35,25 @@ module.exports = {
 		this.items.push(new this.Item(type, content));
 	},
 
-	getItem: function(item) {
-		return "["+item.type+"]["+item.time+"]"+item.content;
+	_getItem: function(item) {
+		return "["+item.type+"]["+item.time+"] "+this._removeEnter(item.content);
 	},
 
-	getItems: function() {
+	_getItems: function() {
 		var items = "";
 
 		this.items.forEach(function(item) {
-			items += this.getItem(item)+"\n";
+			items += this._getItem(item)+"\n";
 		}.bind(this));
 		return items;
 	},
 
 	writeFile: function() {
-		this.FS.writeFile(this.PATH+this.FILE_NAME, this.getItems())
+		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems())
+	},
+
+	_removeEnter: function(text) {
+		var regEnter = /[\r\n]+/g;
+		return text.replace(regEnter, " ");
 	}
 };
