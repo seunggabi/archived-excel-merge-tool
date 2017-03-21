@@ -3,8 +3,19 @@
  */
 
 module.exports = {
-	items: {},
-	splitter: "{{$s$}}",
+	items: [],
+	SPLITTER: "{{$s$}}",
+	REG: {
+		COL: /[A-Z]+/g,
+		ROW: /\d+/g,
+		CELL: /[A-Z]\d+/g
+	},
+	field: {
+		range: null,
+		colsIndex: [],
+		rowsIndex: [],
+		cols: []
+	},
 
 	Item: function(datas) {
 		this.datas = datas || [];
@@ -15,6 +26,15 @@ module.exports = {
 	},
 
 	getIdentifier: function(datas) {
-		return datas.join(this.splitter);
+		return datas.join(this.SPLITTER);
+	},
+
+	setFields: function(fieldRange) {
+		var cols = fieldRange.match(this.REG.COL);
+		var rows = fieldRange.match(this.REG.ROW);
+
+		this.field.range = fieldRange;
+		this.field.colsIndex = cols;
+		this.field.rowsIndex = rows;
 	},
 };

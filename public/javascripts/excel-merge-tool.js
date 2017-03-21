@@ -28,7 +28,7 @@ module.exports = {
 		WRITE_MODE: "LIST",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 2,
-		TITLE_RANGE: "A1:D1"
+		FIELD_RANGE: "A1:D1"
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."
@@ -39,11 +39,6 @@ module.exports = {
 		NEW: "NEW     ",
 		CONFLICT: "CONFLICT"
 	},
-	REG: {
-		COL: /\w+/g,
-		ROW: /\d+/g,
-		CELL: /\w+\d+/g
-	},
 	USING_CHECK: "$",
 	RANGE_KEY: "!ref",
 	FORMULA_KEY: "f",
@@ -51,19 +46,15 @@ module.exports = {
 	write_mode: null,
 	log_mode: null,
 	ignore_length: null,
-	title: {
-		range: "",
-		cols: [],
-		rows: []
-	},
+	field_range: null,
 
 	init: function(data) {
 		data = data || {};
 		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
 		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
-		this.title.range = (data.title && data.title.range) || this.DEFAULT.TITLE_RANGE;
-		this.setListTitle(this.title.range);
+		this.field_range = data.field_range || this.DEFAULT.FIELD_RANGE;
+		this.DATA.setFields(this.field_range);
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
 	},
@@ -170,11 +161,11 @@ module.exports = {
 
 	_extendsRange: function(r1, r2) {
 		var r;
-		var r1Col = r1.match(this.REG.COL);
-		var r1Row = r1.match(this.REG.ROW);
+		var r1Col = r1.match(this.DATA.REG.COL);
+		var r1Row = r1.match(this.DATA.REG.ROW);
 
-		var r2Col = r2.match(this.REG.COL);
-		var r2Row = r2.match(this.REG.ROW);
+		var r2Col = r2.match(this.DATA.REG.COL);
+		var r2Row = r2.match(this.DATA.REG.ROW);
 
 		r = this.UTIL.min(r1Col[0], r2Col[0])
 			+ this.UTIL.min(r1Row[0], r2Row[0])
@@ -196,6 +187,7 @@ module.exports = {
 
 	writeFile: function(wbList) {
 		switch(this.write_mode) {
+			case this.WRITE_MODE.LIST:
 			case this.WRITE_MODE.NONE:
 			case this.WRITE_MODE.CONFLICT:
 				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
@@ -218,42 +210,76 @@ module.exports = {
 	},
 
 	_writeFile: function(wbList) {
-		var wb = EMT._mergeSheets(wbList);
+		var wb;
+
+		if(this.write_mode === this.WRITE_MODE.LIST) {
+			wb = this._addSheets(wbList);
+		} else {
+			wb = this._mergeSheets(wbList);
+		}
+
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write "+this.WRITE_NAME[this.write_mode]);
 	},
 
-	readSheets: function(wb) {
+	_readSheets: function(wb) {
 		for(var s in wb.Sheets) {
-			this.readCells(wb[s]);
+			this._readCells(wb.Sheets[s]);
 		}
 	},
 
-	readCells: function(s) {
+	_readCells: function(s) {
 		var item = [];
 
-		var lineNumber = row[1]+1;
+		var rowNumber = +this.DATA.field.rowsIndex[1];
+		var row, col;
+		var cellTable = {};
 		for(var c in s) {
-			if(c.match(this.REG.CELL)) {
+			if(c.match(this.DATA.REG.CELL)) {
+				row = c.match(this.DATA.REG.ROW);
+				col = c.match(this.DATA.REG.COL);
 
+				if(this.DATA.field.cols.indexOf(c) < 0) {
+					this.DATA.field.cols.push(c);
+				}
+
+				if(!cellTable[row]) {
+					cellTable[row] = {};
+				}
+				cellTable[row][col] = s[c].v;
 			}
 		}
-		//key list 제외하고 셀,
-		//셀인 경우에 범위 내에서만 동작하도록함
-		//col[0] ~ col[1] 사이의 것만
-		//끝 lineNumber 구해야함. range사용
 
-		//1. 타이틀 영역부터 데이터에 넣어야함
-		//2. 라인 넘버로 골라내서 접근. 키 인덱스오브
-		//3. 라인 계속 더한 후 마지막 한셀식 직접 입력
+		while(cellTable[rowNumber]) {
+			for(var k in cellTable[this.DATA.field.rowsIndex[1]]) {
+				item.push(cellTable[rowNumber][k]);
+			}
+			rowNumber++;
+			this.DATA.addItem(item);
+			item = [];
+		}
 	},
 
-	setListTitle: function(titleRnage) {
-		var cols = titleRnage.match(this.REG.COL);
-		var rows = titleRnage.match(this.REG.ROW);
+	_addSheets: function(wbList) {
+		for(var wb in wbList) {
+			this._readSheets(wbList[wb]);
+		}
 
-		this.title.range = titleRnage;
-		this.title.cols = cols;
-		this.title.rows = rows;
-	},
+		var rowNumber = this.DATA.field.rowsIndex[1];
+		for(var s in wbList[0].Sheets) {
+			var sheet = wbList[0].Sheets[s];
+
+			sheet["!ref"] = "A1:D4";
+			for(var i=0; i<this.DATA.items.length; i++) {
+				for(var j=0; j<this.DATA.field.cols.length; j++) {
+					sheet[this.DATA.field.cols[c]+rowNumber+i].t = "s";
+					sheet[this.DATA.field.cols[c]+rowNumber+i].v = this.DATA.items[i].datas[j];
+				}
+			}
+			console.log(this.DATA.items, this.DATA.items.length);
+			//console.log(wbList[0].Sheets.시트1);
+			break;
+		}
+		return wbList[0];
+	}
 };
