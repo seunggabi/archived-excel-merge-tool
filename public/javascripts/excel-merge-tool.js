@@ -40,8 +40,9 @@ module.exports = {
 		CONFLICT: "CONFLICT"
 	},
 	REG: {
-		regCol: /\w+/g,
-		regRow: /\d+/g
+		COL: /\w+/g,
+		ROW: /\d+/g,
+		CELL: /\w+\d+/g
 	},
 	USING_CHECK: "$",
 	RANGE_KEY: "!ref",
@@ -61,7 +62,7 @@ module.exports = {
 		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
 		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
-		this.title.range = data.title.range || this.DEFAULT.TITLE_RANGE;
+		this.title.range = (data.title && data.title.range) || this.DEFAULT.TITLE_RANGE;
 		this.setListTitle(this.title.range);
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
@@ -169,11 +170,11 @@ module.exports = {
 
 	_extendsRange: function(r1, r2) {
 		var r;
-		var r1Col = r1.match(this.REG.regCol);
-		var r1Row = r1.match(this.REG.regRow);
+		var r1Col = r1.match(this.REG.COL);
+		var r1Row = r1.match(this.REG.ROW);
 
-		var r2Col = r2.match(this.REG.regCol);
-		var r2Row = r2.match(this.REG.regRow);
+		var r2Col = r2.match(this.REG.COL);
+		var r2Row = r2.match(this.REG.ROW);
 
 		r = this.UTIL.min(r1Col[0], r2Col[0])
 			+ this.UTIL.min(r1Row[0], r2Row[0])
@@ -229,15 +230,27 @@ module.exports = {
 	},
 
 	readCells: function(s) {
+		var item = [];
+
+		var lineNumber = row[1]+1;
+		for(var c in s) {
+			if(c.match(this.REG.CELL)) {
+
+			}
+		}
 		//key list 제외하고 셀,
 		//셀인 경우에 범위 내에서만 동작하도록함
-		//row[1] 보다 무조건 커야함
 		//col[0] ~ col[1] 사이의 것만
+		//끝 lineNumber 구해야함. range사용
+
+		//1. 타이틀 영역부터 데이터에 넣어야함
+		//2. 라인 넘버로 골라내서 접근. 키 인덱스오브
+		//3. 라인 계속 더한 후 마지막 한셀식 직접 입력
 	},
 
 	setListTitle: function(titleRnage) {
-		var cols = titleRnage.match(this.REG.Col);
-		var rows = titleRnage.match(this.REG.Row);
+		var cols = titleRnage.match(this.REG.COL);
+		var rows = titleRnage.match(this.REG.ROW);
 
 		this.title.range = titleRnage;
 		this.title.cols = cols;
