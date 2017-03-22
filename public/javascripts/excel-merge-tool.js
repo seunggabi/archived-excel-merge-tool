@@ -236,11 +236,11 @@ module.exports = {
 		var cellTable = {};
 		for(var c in s) {
 			if(c.match(this.DATA.REG.CELL)) {
-				row = c.match(this.DATA.REG.ROW);
-				col = c.match(this.DATA.REG.COL);
+				row = c.match(this.DATA.REG.ROW)[0];
+				col = c.match(this.DATA.REG.COL)[0];
 
-				if(this.DATA.field.cols.indexOf(c) < 0) {
-					this.DATA.field.cols.push(c);
+				if(this.DATA.field.cols.indexOf(col) < 0) {
+					this.DATA.field.cols.push(col);
 				}
 
 				if(!cellTable[row]) {
@@ -269,12 +269,14 @@ module.exports = {
 		for(var s in wbList[0].Sheets) {
 			var sheet = wbList[0].Sheets[s];
 
-			sheet["!ref"] = "A1:D4";
-			for(var i=0; i<this.DATA.items.length; i++) {
+			sheet["!ref"] = "A1:D8";
+			for(var i in this.DATA.items) {
 				for(var j=0; j<this.DATA.field.cols.length; j++) {
-					sheet[this.DATA.field.cols[c]+rowNumber+i].t = "s";
-					sheet[this.DATA.field.cols[c]+rowNumber+i].v = this.DATA.items[i].datas[j];
+					sheet[this.DATA.field.cols[j] + rowNumber] = {};
+					sheet[this.DATA.field.cols[j] + rowNumber].t = "s";
+					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[i].datas[j];
 				}
+				rowNumber++;
 			}
 			console.log(this.DATA.items, this.DATA.items.length);
 			//console.log(wbList[0].Sheets.시트1);

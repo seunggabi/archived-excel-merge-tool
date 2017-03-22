@@ -3,7 +3,10 @@
  */
 
 module.exports = {
-	items: [],
+	items: {
+	},
+	length: 0,
+
 	SPLITTER: "{{$s$}}",
 	REG: {
 		COL: /[A-Z]+/g,
@@ -22,6 +25,10 @@ module.exports = {
 	},
 
 	addItem: function(datas) {
+		var key = this.getIdentifier(datas);
+		if(!this.items.hasOwnProperty(key)) {
+			this.length++;
+		}
 		this.items[this.getIdentifier(datas)] = new this.Item(datas);
 	},
 
