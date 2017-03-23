@@ -141,33 +141,33 @@ module.exports =
 
   var _ErrorPage3 = _interopRequireDefault(_ErrorPage2);
 
-  var _passport = __webpack_require__(36);
+  var _passport = __webpack_require__(31);
 
   var _passport2 = _interopRequireDefault(_passport);
 
-  var _models = __webpack_require__(39);
+  var _models = __webpack_require__(34);
 
   var _models2 = _interopRequireDefault(_models);
 
-  var _schema = __webpack_require__(47);
+  var _schema = __webpack_require__(42);
 
   var _schema2 = _interopRequireDefault(_schema);
 
-  var _routes = __webpack_require__(53);
+  var _routes = __webpack_require__(48);
 
   var _routes2 = _interopRequireDefault(_routes);
 
-  var _assets = __webpack_require__(70);
+  var _assets = __webpack_require__(66);
 
   var _assets2 = _interopRequireDefault(_assets);
 
-  var _configureStore = __webpack_require__(71);
+  var _configureStore = __webpack_require__(67);
 
   var _configureStore2 = _interopRequireDefault(_configureStore);
 
-  var _actions = __webpack_require__(80);
+  var _actions = __webpack_require__(76);
 
-  var _config = __webpack_require__(42);
+  var _config = __webpack_require__(37);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -987,42 +987,7 @@ module.exports =
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-  
-      var content = __webpack_require__(30);
-      var insertCss = __webpack_require__(32);
-
-      if (typeof content === 'string') {
-        content = [[module.id, content, '']];
-      }
-
-      module.exports = content.locals || {};
-      module.exports._getContent = function() { return content; };
-      module.exports._getCss = function() { return content.toString(); };
-      module.exports._insertCss = function(options) { return insertCss(content, options) };
-      
-      // Hot Module Replacement
-      // https://webpack.github.io/docs/hot-module-replacement
-      // Only activated in browser context
-      if (false) {
-        var removeCss = function() {};
-        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./ErrorPage.css", function() {
-          content = require("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./ErrorPage.css");
-
-          if (typeof content === 'string') {
-            content = [[module.id, content, '']];
-          }
-
-          removeCss = insertCss(content, { replace: true });
-        });
-        module.hot.dispose(function() { removeCss(); });
-      }
-    
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(31)();
+  exports = module.exports = __webpack_require__(30)();
   // imports
 
 
@@ -1033,7 +998,7 @@ module.exports =
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports) {
 
   /*
@@ -1089,179 +1054,7 @@ module.exports =
 
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  var _stringify = __webpack_require__(33);
-
-  var _stringify2 = _interopRequireDefault(_stringify);
-
-  var _slicedToArray2 = __webpack_require__(34);
-
-  var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
-
-  var _getIterator2 = __webpack_require__(35);
-
-  var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  /**
-   * Isomorphic CSS style loader for Webpack
-   *
-   * Copyright © 2015-2016 Kriasoft, LLC. All rights reserved.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE.txt file in the root directory of this source tree.
-   */
-
-  var prefix = 's';
-  var inserted = {};
-
-  // Base64 encoding and decoding - The "Unicode Problem"
-  // https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem
-  function b64EncodeUnicode(str) {
-    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-      return String.fromCharCode('0x' + p1);
-    }));
-  }
-
-  /**
-   * Remove style/link elements for specified node IDs
-   * if they are no longer referenced by UI components.
-   */
-  function removeCss(ids) {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = (0, _getIterator3.default)(ids), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var id = _step.value;
-
-        if (--inserted[id] <= 0) {
-          var elem = document.getElementById(prefix + id);
-          if (elem) {
-            elem.parentNode.removeChild(elem);
-          }
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  }
-
-  /**
-   * Example:
-   *   // Insert CSS styles object generated by `css-loader` into DOM
-   *   var removeCss = insertCss([[1, 'body { color: red; }']]);
-   *
-   *   // Remove it from the DOM
-   *   removeCss();
-   */
-  function insertCss(styles) {
-    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-        _ref$replace = _ref.replace,
-        replace = _ref$replace === undefined ? false : _ref$replace,
-        _ref$prepend = _ref.prepend,
-        prepend = _ref$prepend === undefined ? false : _ref$prepend;
-
-    var ids = [];
-    for (var i = 0; i < styles.length; i++) {
-      var _styles$i = (0, _slicedToArray3.default)(styles[i], 4),
-          moduleId = _styles$i[0],
-          css = _styles$i[1],
-          media = _styles$i[2],
-          sourceMap = _styles$i[3];
-
-      var id = moduleId + '-' + i;
-
-      ids.push(id);
-
-      if (inserted[id]) {
-        if (!replace) {
-          inserted[id]++;
-          continue;
-        }
-      }
-
-      inserted[id] = 1;
-
-      var elem = document.getElementById(prefix + id);
-      var create = false;
-
-      if (!elem) {
-        create = true;
-
-        elem = document.createElement('style');
-        elem.setAttribute('type', 'text/css');
-        elem.id = prefix + id;
-
-        if (media) {
-          elem.setAttribute('media', media);
-        }
-      }
-
-      var cssText = css;
-      if (sourceMap && btoa) {
-        // skip IE9 and below, see http://caniuse.com/atob-btoa
-        cssText += '\n/*# sourceMappingURL=data:application/json;base64,' + b64EncodeUnicode((0, _stringify2.default)(sourceMap)) + '*/';
-        cssText += '\n/*# sourceURL=' + sourceMap.file + '?' + id + '*/';
-      }
-
-      if ('textContent' in elem) {
-        elem.textContent = cssText;
-      } else {
-        elem.styleSheet.cssText = cssText;
-      }
-
-      if (create) {
-        if (prepend) {
-          document.head.insertBefore(elem, document.head.childNodes[0]);
-        } else {
-          document.head.appendChild(elem);
-        }
-      }
-    }
-
-    return removeCss.bind(null, ids);
-  }
-
-  module.exports = insertCss;
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-  module.exports = require("babel-runtime/core-js/json/stringify");
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-  module.exports = require("babel-runtime/helpers/slicedToArray");
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-  module.exports = require("babel-runtime/core-js/get-iterator");
-
-/***/ },
-/* 36 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1278,15 +1071,15 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _passport = __webpack_require__(37);
+  var _passport = __webpack_require__(32);
 
   var _passport2 = _interopRequireDefault(_passport);
 
-  var _passportFacebook = __webpack_require__(38);
+  var _passportFacebook = __webpack_require__(33);
 
-  var _models = __webpack_require__(39);
+  var _models = __webpack_require__(34);
 
-  var _config = __webpack_require__(42);
+  var _config = __webpack_require__(37);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1465,19 +1258,19 @@ module.exports =
   exports.default = _passport2.default;
 
 /***/ },
-/* 37 */
+/* 32 */
 /***/ function(module, exports) {
 
   module.exports = require("passport");
 
 /***/ },
-/* 38 */
+/* 33 */
 /***/ function(module, exports) {
 
   module.exports = require("passport-facebook");
 
 /***/ },
-/* 39 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1487,23 +1280,23 @@ module.exports =
   });
   exports.UserProfile = exports.UserClaim = exports.UserLogin = exports.User = undefined;
 
-  var _sequelize = __webpack_require__(40);
+  var _sequelize = __webpack_require__(35);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _User = __webpack_require__(43);
+  var _User = __webpack_require__(38);
 
   var _User2 = _interopRequireDefault(_User);
 
-  var _UserLogin = __webpack_require__(44);
+  var _UserLogin = __webpack_require__(39);
 
   var _UserLogin2 = _interopRequireDefault(_UserLogin);
 
-  var _UserClaim = __webpack_require__(45);
+  var _UserClaim = __webpack_require__(40);
 
   var _UserClaim2 = _interopRequireDefault(_UserClaim);
 
-  var _UserProfile = __webpack_require__(46);
+  var _UserProfile = __webpack_require__(41);
 
   var _UserProfile2 = _interopRequireDefault(_UserProfile);
 
@@ -1548,7 +1341,7 @@ module.exports =
     exports.UserProfile = _UserProfile2.default;
 
 /***/ },
-/* 40 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1557,11 +1350,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(41);
+  var _sequelize = __webpack_require__(36);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _config = __webpack_require__(42);
+  var _config = __webpack_require__(37);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1583,13 +1376,13 @@ module.exports =
     exports.default = sequelize;
 
 /***/ },
-/* 41 */
+/* 36 */
 /***/ function(module, exports) {
 
   module.exports = require("sequelize");
 
 /***/ },
-/* 42 */
+/* 37 */
 /***/ function(module, exports) {
 
   'use strict';
@@ -1646,7 +1439,7 @@ module.exports =
     };
 
 /***/ },
-/* 43 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1655,11 +1448,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(41);
+  var _sequelize = __webpack_require__(36);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(40);
+  var _sequelize3 = __webpack_require__(35);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1701,7 +1494,7 @@ module.exports =
     exports.default = User;
 
 /***/ },
-/* 44 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1710,11 +1503,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(41);
+  var _sequelize = __webpack_require__(36);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(40);
+  var _sequelize3 = __webpack_require__(35);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1746,7 +1539,7 @@ module.exports =
     exports.default = UserLogin;
 
 /***/ },
-/* 45 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1755,11 +1548,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(41);
+  var _sequelize = __webpack_require__(36);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(40);
+  var _sequelize3 = __webpack_require__(35);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1789,7 +1582,7 @@ module.exports =
     exports.default = UserClaim;
 
 /***/ },
-/* 46 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1798,11 +1591,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(41);
+  var _sequelize = __webpack_require__(36);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(40);
+  var _sequelize3 = __webpack_require__(35);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1840,7 +1633,7 @@ module.exports =
     exports.default = UserProfile;
 
 /***/ },
-/* 47 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1849,9 +1642,9 @@ module.exports =
     value: true
   });
 
-  var _graphql = __webpack_require__(48);
+  var _graphql = __webpack_require__(43);
 
-  var _todo = __webpack_require__(49);
+  var _todo = __webpack_require__(44);
 
   var _todo2 = _interopRequireDefault(_todo);
 
@@ -1878,13 +1671,13 @@ module.exports =
     exports.default = schema;
 
 /***/ },
-/* 48 */
+/* 43 */
 /***/ function(module, exports) {
 
   module.exports = require("graphql");
 
 /***/ },
-/* 49 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1901,17 +1694,17 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _graphql = __webpack_require__(48);
+  var _graphql = __webpack_require__(43);
 
-  var _fs = __webpack_require__(50);
+  var _fs = __webpack_require__(45);
 
   var _fs2 = _interopRequireDefault(_fs);
 
-  var _bluebird = __webpack_require__(51);
+  var _bluebird = __webpack_require__(46);
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _TodoType = __webpack_require__(52);
+  var _TodoType = __webpack_require__(47);
 
   var _TodoType2 = _interopRequireDefault(_TodoType);
 
@@ -1960,19 +1753,19 @@ module.exports =
     exports.default = todo;
 
 /***/ },
-/* 50 */
+/* 45 */
 /***/ function(module, exports) {
 
   module.exports = require("fs");
 
 /***/ },
-/* 51 */
+/* 46 */
 /***/ function(module, exports) {
 
   module.exports = require("bluebird");
 
 /***/ },
-/* 52 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1981,7 +1774,7 @@ module.exports =
     value: true
   });
 
-  var _graphql = __webpack_require__(48);
+  var _graphql = __webpack_require__(43);
 
   var TodoType = new _graphql.GraphQLObjectType({
     name: 'Todo',
@@ -2000,7 +1793,7 @@ module.exports =
     exports.default = TodoType;
 
 /***/ },
-/* 53 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2036,7 +1829,7 @@ module.exports =
     path: '/',
 
     // Keep in mind, routes are evaluated in order
-    children: [__webpack_require__(54).default, __webpack_require__(66).default],
+    children: [__webpack_require__(49).default, __webpack_require__(63).default],
 
     action: function action(_ref) {
       var _this = this;
@@ -2072,7 +1865,7 @@ module.exports =
     };
 
 /***/ },
-/* 54 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2102,7 +1895,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _Main = __webpack_require__(55);
+  var _Main = __webpack_require__(50);
 
   var _Main2 = _interopRequireDefault(_Main);
 
@@ -2141,7 +1934,7 @@ module.exports =
     };
 
 /***/ },
-/* 55 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2150,7 +1943,7 @@ module.exports =
     value: true
   });
 
-  var _concat = __webpack_require__(56);
+  var _concat = __webpack_require__(51);
 
   var _concat2 = _interopRequireDefault(_concat);
 
@@ -2180,21 +1973,21 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _xlsxStyle = __webpack_require__(57);
-
-  var _xlsxStyle2 = _interopRequireDefault(_xlsxStyle);
-
-  var _fileSaver = __webpack_require__(58);
+  var _fileSaver = __webpack_require__(52);
 
   var _fileSaver2 = _interopRequireDefault(_fileSaver);
 
-  var _DropZone = __webpack_require__(59);
+  var _DropZone = __webpack_require__(53);
 
   var _DropZone2 = _interopRequireDefault(_DropZone);
 
-  var _excelMergeTool = __webpack_require__(62);
+  var _excelMergeTool = __webpack_require__(56);
 
   var _excelMergeTool2 = _interopRequireDefault(_excelMergeTool);
+
+  var _style = __webpack_require__(62);
+
+  var _style2 = _interopRequireDefault(_style);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2288,7 +2081,7 @@ module.exports =
             },
             __self: this
           },
-          _react2.default.createElement(_DropZone2.default, { onDrop: this.onDrop, __source: {
+          _react2.default.createElement(_DropZone2.default, { className: 'dropzone', onDrop: this.onDrop, __source: {
               fileName: _jsxFileName,
               lineNumber: 71
             },
@@ -2354,25 +2147,19 @@ module.exports =
     exports.default = Main;
 
 /***/ },
-/* 56 */
+/* 51 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/core-js/array/concat");
 
 /***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-  module.exports = require("xlsx-style");
-
-/***/ },
-/* 58 */
+/* 52 */
 /***/ function(module, exports) {
 
   module.exports = require("file-saver");
 
 /***/ },
-/* 59 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2385,7 +2172,7 @@ module.exports =
 
   var _extends3 = _interopRequireDefault(_extends2);
 
-  var _objectWithoutProperties2 = __webpack_require__(60);
+  var _objectWithoutProperties2 = __webpack_require__(54);
 
   var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -2415,7 +2202,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _attrAccept = __webpack_require__(61);
+  var _attrAccept = __webpack_require__(55);
 
   var _attrAccept2 = _interopRequireDefault(_attrAccept);
 
@@ -2874,19 +2661,19 @@ module.exports =
     exports.default = Dropzone;
 
 /***/ },
-/* 60 */
+/* 54 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/helpers/objectWithoutProperties");
 
 /***/ },
-/* 61 */
+/* 55 */
 /***/ function(module, exports) {
 
   module.exports = require("attr-accept");
 
 /***/ },
-/* 62 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -2897,9 +2684,9 @@ module.exports =
 
   module.exports = {
   	XLSX: __webpack_require__(57),
-  	UTIL: __webpack_require__(63),
-  	LOG: __webpack_require__(64),
-  	DATA: __webpack_require__(65),
+  	UTIL: __webpack_require__(58),
+  	LOG: __webpack_require__(60),
+  	DATA: __webpack_require__(61),
 
   	PATH: {
   		READ: "files/",
@@ -3189,12 +2976,18 @@ module.exports =
     };
 
 /***/ },
-/* 63 */
+/* 57 */
+/***/ function(module, exports) {
+
+  module.exports = require("xlsx-style");
+
+/***/ },
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
 
-  var _stringify = __webpack_require__(33);
+  var _stringify = __webpack_require__(59);
 
   var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -3258,7 +3051,13 @@ module.exports =
     };
 
 /***/ },
-/* 64 */
+/* 59 */
+/***/ function(module, exports) {
+
+  module.exports = require("babel-runtime/core-js/json/stringify");
+
+/***/ },
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -3284,7 +3083,7 @@ module.exports =
   };
 
   module.exports = {
-  	FS: __webpack_require__(50),
+  	FS: __webpack_require__(45),
   	PATH: "files/output/",
   	FILE_NAME: "log.txt",
   	status: true,
@@ -3357,7 +3156,7 @@ module.exports =
     };
 
 /***/ },
-/* 65 */
+/* 61 */
 /***/ function(module, exports) {
 
   "use strict";
@@ -3480,7 +3279,33 @@ module.exports =
     };
 
 /***/ },
-/* 66 */
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(30)();
+  // imports
+
+
+  // module
+  exports.push([module.id, "body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.style-dropzone-2iN6H {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.style-dropItem-2hjox {\n\tdisplay: inline-block;\n}\n.style-dropItem-2hjox .style-xlsxImg-eHtU9 {\n\twidth: 150px;\n\theight: 150px;\n}\n.style-dropItem-2hjox .style-fileName-27Uhs {\n\tcolor: blue;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ.style-isOn-2bMAG {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX {\n\tdisplay: none;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX.style-isOn-2bMAG {\n\tdisplay: inline-block;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 {\n\ttext-align: right;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}", "", {"version":3,"sources":["/Users/naver/workspace/excel-merge-tool-2/src/container/Main/style.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB;AACD;CACC,iBAAiB;CACjB,eAAe;CACf;AACD;CACC,kBAAkB;CAClB,mBAAmB;CACnB,yBAAyB;CACzB,uBAAuB;CACvB;AACD;CACC,sBAAsB;CACtB;AACD;CACC,aAAa;CACb,cAAc;CACd;AACD;CACC,YAAY;CACZ;AACD;CACC,mBAAmB;CACnB,mBAAmB;CACnB,WAAW;CACX,sBAAsB;CACtB,aAAa;CACb,uBAAuB;CACvB,YAAY;CACZ,oBAAoB;CACpB,mBAAmB;CACnB,gBAAgB;CAChB;AACD;CACC,+BAA+B;CAC/B,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,cAAc;CACd,uBAAuB;CACvB;AACD;CACC,cAAc;CACd;AACD;CACC,sBAAsB;CACtB;AACD;CACC,sBAAsB;CACtB,aAAa;CACb,eAAe;CACf,iBAAiB;CACjB,kBAAkB;CAClB;AACD;CACC,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,aAAa;CACb,iBAAiB;CACjB,kBAAkB;CAClB","file":"style.css","sourcesContent":["body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.dropzone {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.dropItem {\n\tdisplay: inline-block;\n}\n.dropItem .xlsxImg {\n\twidth: 150px;\n\theight: 150px;\n}\n.dropItem .fileName {\n\tcolor: blue;\n}\n.tabWrapper .tabHeader .optionTabTitle {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.tabWrapper .tabHeader .optionTabTitle.isOn {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.tabWrapper .tabBody {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.tabWrapper .tabBody .optionTab {\n\tdisplay: none;\n}\n.tabWrapper .tabBody .optionTab.isOn {\n\tdisplay: inline-block;\n}\n.tabWrapper .tabBody .optionTab label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.tabWrapper .tabFooter {\n\ttext-align: right;\n}\n.tabWrapper .tabFooter button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}"],"sourceRoot":""}]);
+
+  // exports
+  exports.locals = {
+  	"dropzone": "style-dropzone-2iN6H",
+  	"dropItem": "style-dropItem-2hjox",
+  	"xlsxImg": "style-xlsxImg-eHtU9",
+  	"fileName": "style-fileName-27Uhs",
+  	"tabWrapper": "style-tabWrapper-1I7Fy",
+  	"tabHeader": "style-tabHeader-2WyTl",
+  	"optionTabTitle": "style-optionTabTitle-26MuJ",
+  	"isOn": "style-isOn-2bMAG",
+  	"tabBody": "style-tabBody-1N8xq",
+  	"optionTab": "style-optionTab-H1PSX",
+  	"tabFooter": "style-tabFooter-3ZYl5"
+  };
+
+/***/ },
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3501,7 +3326,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _NotFound = __webpack_require__(67);
+  var _NotFound = __webpack_require__(64);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3538,7 +3363,7 @@ module.exports =
     };
 
 /***/ },
-/* 67 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3584,7 +3409,7 @@ module.exports =
 
   var _withStyles2 = _interopRequireDefault(_withStyles);
 
-  var _NotFound = __webpack_require__(68);
+  var _NotFound = __webpack_require__(65);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3652,50 +3477,15 @@ module.exports =
     exports.default = (0, _withStyles2.default)(_NotFound2.default)(NotFound);
 
 /***/ },
-/* 68 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-  
-      var content = __webpack_require__(69);
-      var insertCss = __webpack_require__(32);
-
-      if (typeof content === 'string') {
-        content = [[module.id, content, '']];
-      }
-
-      module.exports = content.locals || {};
-      module.exports._getContent = function() { return content; };
-      module.exports._getCss = function() { return content.toString(); };
-      module.exports._insertCss = function(options) { return insertCss(content, options) };
-      
-      // Hot Module Replacement
-      // https://webpack.github.io/docs/hot-module-replacement
-      // Only activated in browser context
-      if (false) {
-        var removeCss = function() {};
-        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./NotFound.css", function() {
-          content = require("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./NotFound.css");
-
-          if (typeof content === 'string') {
-            content = [[module.id, content, '']];
-          }
-
-          removeCss = insertCss(content, { replace: true });
-        });
-        module.hot.dispose(function() { removeCss(); });
-      }
-    
-
-/***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(31)();
+  exports = module.exports = __webpack_require__(30)();
   // imports
 
 
   // module
-  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {/*\n   * Typography\n   * ======================================================================== *//*\n   * Layout\n   * ======================================================================== *//*\n   * Media queries breakpoints\n   * ======================================================================== *//* Extra small screen / phone *//* Small screen / tablet *//* Medium screen / desktop *//* Large screen / wide desktop */\n}\n\n.NotFound-root-3whbd {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.NotFound-container-1BOHG {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n}\n", "", {"version":3,"sources":["/Users/naver/workspace/excel-merge-tool-2/src/routes/notFound/NotFound.css","/Users/naver/workspace/excel-merge-tool-2/src/components/variables.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;;;;;;GAOG;;AAEH,OACE;;gFAE8E;;gFAMA;;gFAMA,gCAErB,2BACL,6BACE,iCACI;CAC3D;;ADnBD;EACE,mBAAmB;EACnB,oBAAoB;CACrB;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAAoC;CACrC","file":"NotFound.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n@import '../../components/variables.css';\n\n.root {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: var(--max-content-width);\n}\n","/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {\n  /*\n   * Typography\n   * ======================================================================== */\n\n  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  --max-content-width: 1000px;\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */\n\n  --screen-xs-min: 480px;  /* Extra small screen / phone */\n  --screen-sm-min: 768px;  /* Small screen / tablet */\n  --screen-md-min: 992px;  /* Medium screen / desktop */\n  --screen-lg-min: 1200px; /* Large screen / wide desktop */\n}\n"],"sourceRoot":""}]);
+  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {/*\n   * Typography\n   * ======================================================================== *//*\n   * Layout\n   * ======================================================================== *//*\n   * Media queries breakpoints\n   * ======================================================================== *//* Extra small screen / phone *//* Small screen / tablet *//* Medium screen / desktop *//* Large screen / wide desktop */\n}\n\n.NotFound-root-3whbd {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.NotFound-container-1BOHG {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n}\n", "", {"version":3,"sources":["/Users/naver/workspace/excel-merge-tool-2/src/routes/notFound/NotFound.css","/Users/naver/workspace/excel-merge-tool-2/src/public/main.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;;;;;;GAOG;;AAEH,OACE;;gFAE8E;;gFAMA;;gFAMA,gCAErB,2BACL,6BACE,iCACI;CAC3D;;ADnBD;EACE,mBAAmB;EACnB,oBAAoB;CACrB;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAAoC;CACrC","file":"NotFound.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n@import '../../public/main.css';\n\n.root {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: var(--max-content-width);\n}\n","/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {\n  /*\n   * Typography\n   * ======================================================================== */\n\n  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  --max-content-width: 1000px;\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */\n\n  --screen-xs-min: 480px;  /* Extra small screen / phone */\n  --screen-sm-min: 768px;  /* Small screen / tablet */\n  --screen-md-min: 992px;  /* Medium screen / desktop */\n  --screen-lg-min: 1200px; /* Large screen / wide desktop */\n}\n"],"sourceRoot":""}]);
 
   // exports
   exports.locals = {
@@ -3704,13 +3494,13 @@ module.exports =
   };
 
 /***/ },
-/* 70 */
+/* 66 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 71 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3720,21 +3510,21 @@ module.exports =
   });
   exports.default = configureStore;
 
-  var _redux = __webpack_require__(72);
+  var _redux = __webpack_require__(68);
 
-  var _reduxThunk = __webpack_require__(73);
+  var _reduxThunk = __webpack_require__(69);
 
   var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-  var _reducers = __webpack_require__(74);
+  var _reducers = __webpack_require__(70);
 
   var _reducers2 = _interopRequireDefault(_reducers);
 
-  var _createHelpers = __webpack_require__(75);
+  var _createHelpers = __webpack_require__(71);
 
   var _createHelpers2 = _interopRequireDefault(_createHelpers);
 
-  var _logger = __webpack_require__(78);
+  var _logger = __webpack_require__(74);
 
   var _logger2 = _interopRequireDefault(_logger);
 
@@ -3779,19 +3569,19 @@ module.exports =
   }
 
 /***/ },
-/* 72 */
+/* 68 */
 /***/ function(module, exports) {
 
   module.exports = require("redux");
 
 /***/ },
-/* 73 */
+/* 69 */
 /***/ function(module, exports) {
 
   module.exports = require("redux-thunk");
 
 /***/ },
-/* 74 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3804,7 +3594,7 @@ module.exports =
 
   var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-  var _redux = __webpack_require__(72);
+  var _redux = __webpack_require__(68);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3846,7 +3636,7 @@ module.exports =
     exports.default = rootReducer;
 
 /***/ },
-/* 75 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3863,7 +3653,7 @@ module.exports =
 
   var _regenerator2 = _interopRequireDefault(_regenerator);
 
-  var _stringify = __webpack_require__(33);
+  var _stringify = __webpack_require__(59);
 
   var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -3873,7 +3663,7 @@ module.exports =
 
   exports.default = createHelpers;
 
-  var _fetch = __webpack_require__(76);
+  var _fetch = __webpack_require__(72);
 
   var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -3969,7 +3759,7 @@ module.exports =
     }
 
 /***/ },
-/* 76 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3979,15 +3769,15 @@ module.exports =
   });
   exports.Response = exports.Headers = exports.Request = exports.default = undefined;
 
-  var _bluebird = __webpack_require__(51);
+  var _bluebird = __webpack_require__(46);
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _nodeFetch = __webpack_require__(77);
+  var _nodeFetch = __webpack_require__(73);
 
   var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
-  var _config = __webpack_require__(42);
+  var _config = __webpack_require__(37);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4024,13 +3814,13 @@ module.exports =
     exports.Response = _nodeFetch.Response;
 
 /***/ },
-/* 77 */
+/* 73 */
 /***/ function(module, exports) {
 
   module.exports = require("node-fetch");
 
 /***/ },
-/* 78 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4040,7 +3830,7 @@ module.exports =
   });
   exports.default = createLogger;
 
-  var _util = __webpack_require__(79);
+  var _util = __webpack_require__(75);
 
   // Server side redux action logger
   function createLogger() {
@@ -4059,13 +3849,13 @@ module.exports =
     }
 
 /***/ },
-/* 79 */
+/* 75 */
 /***/ function(module, exports) {
 
   module.exports = require("util");
 
 /***/ },
-/* 80 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
