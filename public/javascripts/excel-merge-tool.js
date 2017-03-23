@@ -224,11 +224,11 @@ module.exports = {
 
 	_readSheets: function(wb) {
 		for(var s in wb.Sheets) {
-			this._readCells(wb.Sheets[s]);
+			this._readCells(s, wb.Sheets[s]);
 		}
 	},
 
-	_readCells: function(s) {
+	_readCells: function(name, s) {
 		var item = [];
 
 		var rowNumber = +this.DATA.field.rowsIndex[1];
@@ -255,7 +255,7 @@ module.exports = {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
-			this.DATA.addItem(item);
+			this.DATA.addItem(name, item);
 			item = [];
 		}
 	},
@@ -265,22 +265,19 @@ module.exports = {
 			this._readSheets(wbList[wb]);
 		}
 
-		var rowNumber = this.DATA.field.rowsIndex[1];
 		for(var s in wbList[0].Sheets) {
+			var rowNumber = this.DATA.field.rowsIndex[1];
 			var sheet = wbList[0].Sheets[s];
 
-			sheet["!ref"] = "A1:D8";
-			for(var i in this.DATA.items) {
+			for(var i in this.DATA.items[s]) {
 				for(var j=0; j<this.DATA.field.cols.length; j++) {
 					sheet[this.DATA.field.cols[j] + rowNumber] = {};
 					sheet[this.DATA.field.cols[j] + rowNumber].t = "s";
-					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[i].datas[j];
+					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[s][i].datas[j];
 				}
 				rowNumber++;
 			}
-			console.log(this.DATA.items, this.DATA.items.length);
-			//console.log(wbList[0].Sheets.시트1);
-			break;
+			sheet[this.RANGE_KEY] = this.DATA.getRange(s);
 		}
 		return wbList[0];
 	}

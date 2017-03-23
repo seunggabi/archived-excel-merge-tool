@@ -3,9 +3,8 @@
  */
 
 module.exports = {
-	items: {
-	},
-	length: 0,
+	items: {},
+	size: {},
 
 	SPLITTER: "{{$s$}}",
 	REG: {
@@ -24,12 +23,17 @@ module.exports = {
 		this.datas = datas || [];
 	},
 
-	addItem: function(datas) {
+	addItem: function(sheet, datas) {
 		var key = this.getIdentifier(datas);
-		if(!this.items.hasOwnProperty(key)) {
-			this.length++;
+
+		if(!this.items[sheet]) {
+			this.items[sheet] = {};
+			this.size[sheet] = 0;
 		}
-		this.items[this.getIdentifier(datas)] = new this.Item(datas);
+		if(!this.items[sheet].hasOwnProperty(key)) {
+			this.size[sheet]++;
+		}
+		this.items[sheet][this.getIdentifier(datas)] = new this.Item(datas);
 	},
 
 	getIdentifier: function(datas) {
@@ -44,4 +48,8 @@ module.exports = {
 		this.field.colsIndex = cols;
 		this.field.rowsIndex = rows;
 	},
+
+	getRange: function(sheet) {
+		return this.field.colsIndex[0]+this.field.rowsIndex[0]+":"+this.field.colsIndex[1]+this.size[sheet];
+	}
 };
