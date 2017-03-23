@@ -16,12 +16,16 @@ module.exports = {
 		RANGE: "!ref",
 		FORMULA: "f"
 	},
+
 	field: {
 		range: null,
 		colsIndex: [],
 		rowsIndex: [],
-		cols: []
+		cols: [],
+		startRow: null
 	},
+	isDuplication: false,
+
 
 	Item: function(datas) {
 		this.datas = datas || [];
@@ -34,33 +38,41 @@ module.exports = {
 			this.items[sheet] = {};
 			this.size[sheet] = 0;
 		}
+		if(this.isDuplication) {
+			key += this.size[sheet];
+		}
+
 		if(!this.items[sheet].hasOwnProperty(key)) {
 			this.size[sheet]++;
 		}
-		this.items[sheet][this.getIdentifier(datas)] = new this.Item(datas);
+		this.items[sheet][key] = new this.Item(datas);
 	},
 
 	getIdentifier: function(datas) {
 		return datas.join(this.SPLITTER);
 	},
 
-	setFields: function(fieldRange) {
+	setDataConfig: function(isDuplication, fieldRange) {
 		var cols = fieldRange.match(this.REG.COL);
 		var rows = fieldRange.match(this.REG.ROW);
 
 		this.field.range = fieldRange;
 		this.field.colsIndex = cols;
 		this.field.rowsIndex = rows;
+		this.field.startRow = +rows[1]+1;
+		this.isDuplication = isDuplication;
 	},
 
 	getRange: function(sheetName) {
-		return this.field.colsIndex[0]+this.field.rowsIndex[0]+":"+this.field.colsIndex[1]+this.size[sheetName];
+		return this.field.colsIndex[0]+this.field.rowsIndex[0]
+			+":"
+			+this.field.colsIndex[1]+this.startRow+this.size[sheetName];
 	},
 
 	readCells: function(sheetName, sheet) {
 		var item = [];
 
-		var rowNumber = +this.field.rowsIndex[1];
+		var rowNumber = this.field.startRow;
 		var row, col;
 		var cellTable = {};
 		for(var c in sheet) {
@@ -68,19 +80,21 @@ module.exports = {
 				row = c.match(this.REG.ROW)[0];
 				col = c.match(this.REG.COL)[0];
 
-				if(this.field.cols.indexOf(col) < 0) {
-					this.field.cols.push(col);
-				}
+				if(row > this.field.rowsIndex[1]) {
+					if (this.field.cols.indexOf(col) < 0) {
+						this.field.cols.push(col);
+					}
 
-				if(!cellTable[row]) {
-					cellTable[row] = {};
+					if (!cellTable[row]) {
+						cellTable[row] = {};
+					}
+					cellTable[row][col] = sheet[c].v;
 				}
-				cellTable[row][col] = sheet[c].v;
 			}
 		}
 
 		while(cellTable[rowNumber]) {
-			for(var k in cellTable[this.field.rowsIndex[1]]) {
+			for(var k in cellTable[this.field.startRow]) {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
@@ -90,7 +104,7 @@ module.exports = {
 	},
 
 	addSheet: function(sheetName, sheet) {
-		var rowNumber = this.field.rowsIndex[1];
+		var rowNumber = this.field.startRow;
 
 		for(var i in this.items[sheetName]) {
 			for(var j=0; j<this.field.cols.length; j++) {

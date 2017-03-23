@@ -28,7 +28,8 @@ module.exports = {
 		WRITE_MODE: "LIST",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 2,
-		FIELD_RANGE: "A1:D1"
+		FIELD_RANGE: "A1:D1",
+		isDuplication: true
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."
@@ -52,7 +53,9 @@ module.exports = {
 		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
 		this.field_range = data.field_range || this.DEFAULT.FIELD_RANGE;
-		this.DATA.setFields(this.field_range);
+
+		var isDuplication = data.isDuplication || this.DEFAULT.isDuplication;
+		this.DATA.setDataConfig(isDuplication, this.field_range);
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
 	},

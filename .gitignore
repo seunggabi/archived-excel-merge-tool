@@ -123,3 +123,4 @@ fabric.properties
 .idea/vcs.xml
 public/images/
 *.xlsx
+*.txt
