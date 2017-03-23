@@ -27,37 +27,26 @@ class Main extends Component {
 
   openFile = () => {
     const { files } = this.state
-    const reader = new FileReader()
 
-    reader.onloadend = () => {
-      const data = XlsxStyle.read(reader.result, { type: 'binary' })
-      const wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' }
-      const wbout = XlsxStyle.write(data, wopts);
-      console.log(data)
-      function s2ab(s) {
-        const buf = new ArrayBuffer(s.length)
-        const view = new Uint8Array(buf)
-        for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-        return buf;
+    files.forEach((file) => {
+      const reader = new FileReader()
+
+      reader.onloadend = () => {
+        const data = XlsxStyle.read(reader.result, { type: 'binary' })
+        const wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' }
+        const wbout = XlsxStyle.write(data, wopts);
+
+        function s2ab(s) {
+          const buf = new ArrayBuffer(s.length)
+          const view = new Uint8Array(buf)
+          for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+          return buf;
+        }
+
+        FileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
       }
-
-      FileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
-    }
-    files.forEach((file) => {reader.readAsBinaryString(file)})
-  }
-
-  readFile = (file) => {
-      this.reader.readAsBinaryString(file)
-  }
-
-  readFiles = (files) => {
-	  for(let file in files) {
-		  readFile(file)
-	  }
-  }
-
-  onOpenClick = () => {
-    this.refs.dropzone.open();
+      reader.readAsBinaryString(file)
+    })
   }
 
   render () {
@@ -65,7 +54,7 @@ class Main extends Component {
 
     return (
       <div>
-        <Dropzone ref='dropzone' onDrop={this.onDrop} />
+        <Dropzone onDrop={this.onDrop} />
         <button onClick={this.openFile}>File Open</button>
         <div>
           <h2>Uploaded {files.length} files</h2>
