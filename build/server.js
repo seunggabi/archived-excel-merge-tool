@@ -2251,7 +2251,6 @@ module.exports =
           return;
         }
 
-        console.log(options);
         _excelMergeTool2.default.init(options);
 
         files.forEach(function (file, index) {
@@ -2282,7 +2281,10 @@ module.exports =
         }
 
         binaryFileList.forEach(function (binaryFile) {
-          _fileSaver2.default.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName);
+          if (binaryFile.fileName !== 'log.txt') {
+            binaryFile.binary = s2ab(binaryFile.binary);
+          }
+          _fileSaver2.default.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName);
         });
       };
 
@@ -2340,7 +2342,7 @@ module.exports =
 
         writeMode: 'ALL',
         ignoreLength: 0,
-        fieldRange: 'A1:B6',
+        fieldRange: 'A1:D1',
         isDuplication: false,
         logMode: true
       };
@@ -2360,7 +2362,7 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 135
+              lineNumber: 137
             },
             __self: this
           },
@@ -2368,7 +2370,7 @@ module.exports =
             'h1',
             { className: _style2.default.title, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 137
+                lineNumber: 139
               },
               __self: this
             },
@@ -2378,14 +2380,14 @@ module.exports =
             _DropZone2.default,
             { className: _style2.default.dropzone, onDrop: this.onDrop, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 142
+                lineNumber: 144
               },
               __self: this
             },
             files.map(function (file, index) {
               return _react2.default.createElement(_DropItem2.default, { key: index, name: file.name, css: _style2.default, imgSrc: _xlsxImg2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 144
+                  lineNumber: 146
                 },
                 __self: _this2
               });
@@ -2395,7 +2397,7 @@ module.exports =
             'div',
             { className: _style2.default.tabWrapper, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 149
+                lineNumber: 151
               },
               __self: this
             },
@@ -2403,7 +2405,7 @@ module.exports =
               'div',
               { className: _style2.default.tabHeader, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 150
+                  lineNumber: 152
                 },
                 __self: this
               },
@@ -2411,7 +2413,7 @@ module.exports =
                 'div',
                 { onClick: this.onMergeTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 151
+                    lineNumber: 153
                   },
                   __self: this
                 },
@@ -2421,7 +2423,7 @@ module.exports =
                 'div',
                 { onClick: this.onListTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 154
+                    lineNumber: 156
                   },
                   __self: this
                 },
@@ -2432,7 +2434,7 @@ module.exports =
               'div',
               { className: _style2.default.tabBody, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 158
+                  lineNumber: 160
                 },
                 __self: this
               },
@@ -2440,7 +2442,7 @@ module.exports =
                 'div',
                 { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 159
+                    lineNumber: 161
                   },
                   __self: this
                 },
@@ -2449,7 +2451,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 160
+                      lineNumber: 162
                     },
                     __self: this
                   },
@@ -2458,7 +2460,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 161
+                        lineNumber: 163
                       },
                       __self: this
                     },
@@ -2466,21 +2468,21 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'ALL', checked: this.state.writeMode === 'ALL', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 162
+                      lineNumber: 164
                     },
                     __self: this
                   }),
                   ' ALL',
                   _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'NONE', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 163
+                      lineNumber: 165
                     },
                     __self: this
                   }),
                   ' NONE',
                   _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'CONFLICT', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 164
+                      lineNumber: 166
                     },
                     __self: this
                   }),
@@ -2491,7 +2493,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 166
+                      lineNumber: 168
                     },
                     __self: this
                   },
@@ -2500,7 +2502,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 167
+                        lineNumber: 169
                       },
                       __self: this
                     },
@@ -2508,7 +2510,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'text', value: this.state.ignoreLength, onChange: this.handleIgnoreLength, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 168
+                      lineNumber: 170
                     },
                     __self: this
                   })
@@ -2518,7 +2520,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 170
+                      lineNumber: 172
                     },
                     __self: this
                   },
@@ -2527,7 +2529,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 171
+                        lineNumber: 173
                       },
                       __self: this
                     },
@@ -2535,7 +2537,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 172
+                      lineNumber: 174
                     },
                     __self: this
                   })
@@ -2545,7 +2547,7 @@ module.exports =
                 'div',
                 { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 176
+                    lineNumber: 178
                   },
                   __self: this
                 },
@@ -2554,7 +2556,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 177
+                      lineNumber: 179
                     },
                     __self: this
                   },
@@ -2563,7 +2565,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 178
+                        lineNumber: 180
                       },
                       __self: this
                     },
@@ -2571,7 +2573,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.isDuplication, onChange: this.handleIsDuplication, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 179
+                      lineNumber: 181
                     },
                     __self: this
                   })
@@ -2581,7 +2583,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 181
+                      lineNumber: 183
                     },
                     __self: this
                   },
@@ -2590,7 +2592,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 182
+                        lineNumber: 184
                       },
                       __self: this
                     },
@@ -2598,7 +2600,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'text', value: this.state.fieldRange, onChange: this.handleFieldRange, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 183
+                      lineNumber: 185
                     },
                     __self: this
                   })
@@ -2608,7 +2610,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 185
+                      lineNumber: 187
                     },
                     __self: this
                   },
@@ -2617,7 +2619,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 186
+                        lineNumber: 188
                       },
                       __self: this
                     },
@@ -2625,7 +2627,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 187
+                      lineNumber: 189
                     },
                     __self: this
                   })
@@ -2635,7 +2637,7 @@ module.exports =
                 'div',
                 { className: _style2.default.tabFooter, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 191
+                    lineNumber: 193
                   },
                   __self: this
                 },
@@ -2643,7 +2645,7 @@ module.exports =
                   'button',
                   { onClick: this.openFile, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 192
+                      lineNumber: 194
                     },
                     __self: this
                   },
@@ -3945,10 +3947,11 @@ module.exports =
 
 
   // module
-  exports.push([module.id, "body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.style-dropzone-2iN6H {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.style-dropItem-2hjox {\n\tdisplay: inline-block;\n}\n.style-dropItem-2hjox .style-xlsxImg-eHtU9 {\n\twidth: 150px;\n\theight: 150px;\n}\n.style-dropItem-2hjox .style-fileName-27Uhs {\n\tcolor: blue;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ.style-isOn-2bMAG {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq input {\n\tmargin-left: 10px;\n}\n\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX {\n\tdisplay: none;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX.style-isOn-2bMAG {\n\tdisplay: inline-block;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 {\n\ttext-align: right;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}", "", {"version":3,"sources":["/Users/seunggabi/Workspace/excel-merge-tool/src/container/Main/style.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB;AACD;CACC,iBAAiB;CACjB,eAAe;CACf;AACD;CACC,kBAAkB;CAClB,mBAAmB;CACnB,yBAAyB;CACzB,uBAAuB;CACvB;AACD;CACC,sBAAsB;CACtB;AACD;CACC,aAAa;CACb,cAAc;CACd;AACD;CACC,YAAY;CACZ;AACD;CACC,mBAAmB;CACnB,mBAAmB;CACnB,WAAW;CACX,sBAAsB;CACtB,aAAa;CACb,uBAAuB;CACvB,YAAY;CACZ,oBAAoB;CACpB,mBAAmB;CACnB,gBAAgB;CAChB;AACD;CACC,+BAA+B;CAC/B,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,cAAc;CACd,uBAAuB;CACvB;AACD;CACC,kBAAkB;CAClB;;AAED;CACC,cAAc;CACd;AACD;CACC,sBAAsB;CACtB;AACD;CACC,sBAAsB;CACtB,aAAa;CACb,eAAe;CACf,iBAAiB;CACjB,kBAAkB;CAClB;AACD;CACC,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,aAAa;CACb,iBAAiB;CACjB,kBAAkB;CAClB","file":"style.css","sourcesContent":["body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.dropzone {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.dropItem {\n\tdisplay: inline-block;\n}\n.dropItem .xlsxImg {\n\twidth: 150px;\n\theight: 150px;\n}\n.dropItem .fileName {\n\tcolor: blue;\n}\n.tabWrapper .tabHeader .optionTabTitle {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.tabWrapper .tabHeader .optionTabTitle.isOn {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.tabWrapper .tabBody {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.tabWrapper .tabBody input {\n\tmargin-left: 10px;\n}\n\n.tabWrapper .tabBody .optionTab {\n\tdisplay: none;\n}\n.tabWrapper .tabBody .optionTab.isOn {\n\tdisplay: inline-block;\n}\n.tabWrapper .tabBody .optionTab label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.tabWrapper .tabFooter {\n\ttext-align: right;\n}\n.tabWrapper .tabFooter button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}"],"sourceRoot":""}]);
+  exports.push([module.id, "body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.style-title-4iEPw {\n\tmargin-top: 30px;\n}\n.style-dropzone-2iN6H {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.style-dropItem-2hjox {\n\tdisplay: inline-block;\n}\n.style-dropItem-2hjox .style-xlsxImg-eHtU9 {\n\twidth: 150px;\n\theight: 150px;\n}\n.style-dropItem-2hjox .style-fileName-27Uhs {\n\tcolor: blue;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.style-tabWrapper-1I7Fy .style-tabHeader-2WyTl .style-optionTabTitle-26MuJ.style-isOn-2bMAG {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq input {\n\tmargin-left: 10px;\n}\n\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX {\n\tdisplay: none;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX.style-isOn-2bMAG {\n\tdisplay: inline-block;\n}\n.style-tabWrapper-1I7Fy .style-tabBody-1N8xq .style-optionTab-H1PSX label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 {\n\ttext-align: right;\n}\n.style-tabWrapper-1I7Fy .style-tabFooter-3ZYl5 button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}", "", {"version":3,"sources":["/Users/seunggabi/Workspace/excel-merge-tool/src/container/Main/style.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB;AACD;CACC,iBAAiB;CACjB,eAAe;CACf;AACD;CACC,iBAAiB;CACjB;AACD;CACC,kBAAkB;CAClB,mBAAmB;CACnB,yBAAyB;CACzB,uBAAuB;CACvB;AACD;CACC,sBAAsB;CACtB;AACD;CACC,aAAa;CACb,cAAc;CACd;AACD;CACC,YAAY;CACZ;AACD;CACC,mBAAmB;CACnB,mBAAmB;CACnB,WAAW;CACX,sBAAsB;CACtB,aAAa;CACb,uBAAuB;CACvB,YAAY;CACZ,oBAAoB;CACpB,mBAAmB;CACnB,gBAAgB;CAChB;AACD;CACC,+BAA+B;CAC/B,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,cAAc;CACd,uBAAuB;CACvB;AACD;CACC,kBAAkB;CAClB;;AAED;CACC,cAAc;CACd;AACD;CACC,sBAAsB;CACtB;AACD;CACC,sBAAsB;CACtB,aAAa;CACb,eAAe;CACf,iBAAiB;CACjB,kBAAkB;CAClB;AACD;CACC,kBAAkB;CAClB;AACD;CACC,YAAY;CACZ,aAAa;CACb,iBAAiB;CACjB,kBAAkB;CAClB","file":"style.css","sourcesContent":["body {\n\tmargin: 10px 20px;\n}\nbody > div {\n\tmax-width: 800px;\n\tmargin: 0 auto;\n}\n.title {\n\tmargin-top: 30px;\n}\n.dropzone {\n\tmin-height: 100px;\n\ttext-align: center;\n\tborder: 5px dotted black;\n\tmargin: 10px auto 30px;\n}\n.dropItem {\n\tdisplay: inline-block;\n}\n.dropItem .xlsxImg {\n\twidth: 150px;\n\theight: 150px;\n}\n.dropItem .fileName {\n\tcolor: blue;\n}\n.tabWrapper .tabHeader .optionTabTitle {\n\tpadding: 10px 10px;\n\tposition: relative;\n\tz-index: 1;\n\tdisplay: inline-block;\n\twidth: 150px;\n\tborder: 1px solid gray;\n\tfloat: left;\n\tmargin-bottom: -1px;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.tabWrapper .tabHeader .optionTabTitle.isOn {\n\tborder-bottom: 1px solid white;\n\tfont-weight: bold;\n}\n.tabWrapper .tabBody {\n\tclear: both;\n\tpadding: 30px;\n\tborder: 1px solid gray;\n}\n.tabWrapper .tabBody input {\n\tmargin-left: 10px;\n}\n\n.tabWrapper .tabBody .optionTab {\n\tdisplay: none;\n}\n.tabWrapper .tabBody .optionTab.isOn {\n\tdisplay: inline-block;\n}\n.tabWrapper .tabBody .optionTab label {\n\tdisplay: inline-block;\n\twidth: 150px;\n\tmargin: 10px 0;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}\n.tabWrapper .tabFooter {\n\ttext-align: right;\n}\n.tabWrapper .tabFooter button {\n\twidth: 80px;\n\theight: 40px;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n}"],"sourceRoot":""}]);
 
   // exports
   exports.locals = {
+  	"title": "style-title-4iEPw",
   	"dropzone": "style-dropzone-2iN6H",
   	"dropItem": "style-dropItem-2hjox",
   	"xlsxImg": "style-xlsxImg-eHtU9",

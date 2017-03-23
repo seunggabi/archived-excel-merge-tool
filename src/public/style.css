@@ -5,6 +5,9 @@ body > div {
 	max-width: 800px;
 	margin: 0 auto;
 }
+h1 {
+	padding-top: 50px;
+}
 .dropzone {
 	min-height: 100px;
 	text-align: center;
