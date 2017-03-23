@@ -80,7 +80,7 @@ module.exports = {
 	readBinaryFiles: function(binaryFiles) {
 		var wbList = [];
 		binaryFiles.forEach(function(binaryFile) {
-			var wb = this.XLSX.read(binaryFile.binary, {cellStyles: true});
+			var wb = this.XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
