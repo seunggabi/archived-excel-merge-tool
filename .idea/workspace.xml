@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba85d52d-2706-433a-880a-10d71dc6d848" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/excel-merge/excel-merge-tool.js" afterPath="$PROJECT_DIR$/src/excel-merge/excel-merge-tool.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,10 +21,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="excel-merge-tool.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="excel-merge-tool.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/excel-merge/excel-merge-tool.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state relative-caret-position="330">
               <caret line="81" column="50" lean-forward="true" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
               <folding />
             </state>
@@ -34,37 +34,19 @@
       <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/container/Main/Main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+            <state relative-caret-position="435">
+              <caret line="44" column="26" lean-forward="false" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="excel-merge-tool-utils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/excel-merge/excel-merge-tool-utils.js">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <marker date="1490258716000" expanded="true" signature="0:48" ph="/** Created by seunggabi on 2017. 3. 12.. ...*/" />
-                <marker date="1490258716000" expanded="true" signature="67:964" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="96:209" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="239:342" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="268:290" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="366:562" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="458:476" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="505:523" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="529:559" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="586:782" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="678:696" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="725:743" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="749:779" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="806:891" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="837:862" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="870:888" ph="{...}" />
-                <marker date="1490258716000" expanded="true" signature="916:962" ph="{...}" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,11 +121,11 @@
         <option value="$PROJECT_DIR$/public/javascripts/excel-merge-tool-utils.js" />
         <option value="$PROJECT_DIR$/public/javascripts/excel-merge-tool-log.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/javascripts/excel-merge-tool-data.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/public/javascripts/excel-merge-tool.js" />
         <option value="$PROJECT_DIR$/src/excel-merge/excel-merge-tool.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -399,12 +381,12 @@
       <workItem from="1490017755869" duration="5799000" />
       <workItem from="1490086774710" duration="4235000" />
       <workItem from="1490106484531" duration="56000" />
-      <workItem from="1490106604937" duration="22882000" />
+      <workItem from="1490106604937" duration="23018000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123167000" />
+    <option name="totallyTimeSpent" value="123303000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -470,13 +452,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/javascripts/excel-merge-tool.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -759,14 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="124" column="6" lean-forward="true" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/excel-merge-tool-utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-234">
@@ -811,40 +778,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1490258716000" expanded="true" signature="0:48" ph="/** Created by seunggabi on 2017. 3. 12.. ...*/" />
-            <marker date="1490258716000" expanded="true" signature="67:964" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="96:209" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="239:342" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="268:290" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="366:562" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="458:476" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="505:523" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="529:559" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="586:782" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="678:696" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="725:743" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="749:779" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="806:891" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="837:862" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="870:888" ph="{...}" />
-            <marker date="1490258716000" expanded="true" signature="916:962" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/container/Main/Main.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+        <state relative-caret-position="187">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/excel-merge/excel-merge-tool.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="330">
           <caret line="81" column="50" lean-forward="true" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/container/Main/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="44" column="26" lean-forward="false" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
