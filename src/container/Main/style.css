@@ -42,6 +42,10 @@ body > div {
 	padding: 30px;
 	border: 1px solid gray;
 }
+.tabWrapper .tabBody input {
+	margin-left: 10px;
+}
+
 .tabWrapper .tabBody .optionTab {
 	display: none;
 }
