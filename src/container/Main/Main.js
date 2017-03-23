@@ -40,6 +40,12 @@ class Main extends Component {
       field_range: fieldRange,
       isDuplication,
     }
+
+    if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
+      alert('올바르지 않은 필드셀범위 입력입니다.')
+      return
+    }
+
     console.log(options)
     EMT.init(options)
 
@@ -79,7 +85,13 @@ class Main extends Component {
   }
 
   handleIgnoreLength = (event) => {
-    this.setState({ ignoreLength: event.target.value });
+    const value = event.target.value
+
+    if (!this.checkReg(/\d*/g, value)) {
+      alert('올바르지 않은 입력입니다.')
+      return
+    }
+    this.setState({ ignoreLength: value });
   }
 
   handleLogMode = (event) => {
@@ -106,6 +118,14 @@ class Main extends Component {
       writeMode: 'LIST',
       isMerge: false
     })
+  }
+
+  checkReg = (reg, text) => {
+    const data = reg.exec(text);
+    if (data) {
+      return text === data[0];
+    }
+    return false;
   }
 
   render () {
@@ -139,7 +159,7 @@ class Main extends Component {
             <div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
               <div>
                 <label>출력모드</label>
-                <input type='radio' name='mode' value='ALL' checked onChange={this.handleWriteMode} /> ALL
+                <input type='radio' name='mode' value='ALL' checked={this.state.writeMode === 'ALL'} onChange={this.handleWriteMode} /> ALL
                 <input type='radio' name='mode' value='NONE' onChange={this.handleWriteMode} /> NONE
                 <input type='radio' name='mode' value='CONFLICT' onChange={this.handleWriteMode} /> CONFLICT
               </div>
