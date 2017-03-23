@@ -11,42 +11,58 @@ class Main extends Component {
     this.state = {
       files: []
     }
-
-  }
-
-  componentDidMount () {
-    EMT.init()
   }
 
   onDrop = (files) => {
-    console.log(files[files.length - 1])
     this.setState({
       files: Array.concat(this.state.files, files)
     });
   }
 
   openFile = () => {
-    const { files } = this.state
+    const { files, writeMode = 'ALL', logMode, ignoreLength, fieldRange, isDuplication } = this.state
+    const binaryFiles = []
+    const options = {
+      write_mode: writeMode,
+      log_mode: logMode,
+      ignore_length: ignoreLength,
+      field_range: fieldRange,
+      isDuplication,
+    }
 
-    files.forEach((file) => {
+    EMT.init(options)
+
+    files.forEach((file, index) => {
       const reader = new FileReader()
 
       reader.onloadend = () => {
-        const data = XlsxStyle.read(reader.result, { type: 'binary' })
-        const wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' }
-        const wbout = XlsxStyle.write(data, wopts);
+        const binaryFile = new EMT.binaryFile(file.name, reader.result)
+        binaryFiles.push(binaryFile)
 
-        function s2ab(s) {
-          const buf = new ArrayBuffer(s.length)
-          const view = new Uint8Array(buf)
-          for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-          return buf;
+        if (index === files.length - 1) {
+          this.writeFile(binaryFiles)
         }
-
-        FileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
       }
       reader.readAsBinaryString(file)
     })
+  }
+
+  writeFile = (binaryFiles) => {
+    const wbList = EMT.readBinaryFiles(binaryFiles)
+    const binaryFileList = EMT.writeBinaryFile(wbList)
+    // const binaryLog = EMT.getLogBinaryFile()
+
+    function s2ab(s) {
+      const buf = new ArrayBuffer(s.length)
+      const view = new Uint8Array(buf)
+      for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+      return buf;
+    }
+
+    binaryFileList.forEach((binaryFile) => {
+      FileSaver.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName)
+    })
+    // if (binaryLog) FileSaver.saveAs(new Blob([s2ab(binaryLog)], { type: 'application/octet-stream' }), 'log.txt')
   }
 
   render () {

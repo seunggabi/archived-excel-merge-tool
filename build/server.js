@@ -68,14 +68,14 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/server.js'; /**
-                                                                                   * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                   *
-                                                                                   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                   *
-                                                                                   * This source code is licensed under the MIT license found in the
-                                                                                   * LICENSE.txt file in the root directory of this source tree.
-                                                                                   */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/server.js'; /**
+                                                                                 * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                 *
+                                                                                 * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                 *
+                                                                                 * This source code is licensed under the MIT license found in the
+                                                                                 * LICENSE.txt file in the root directory of this source tree.
+                                                                                 */
 
   // eslint-disable-line import/no-unresolved
 
@@ -656,14 +656,14 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/container/Html/Html.js'; /**
-                                                                                                * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                *
-                                                                                                * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                *
-                                                                                                * This source code is licensed under the MIT license found in the
-                                                                                                * LICENSE.txt file in the root directory of this source tree.
-                                                                                                */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/container/Html/Html.js'; /**
+                                                                                              * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                              *
+                                                                                              * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                              *
+                                                                                              * This source code is licensed under the MIT license found in the
+                                                                                              * LICENSE.txt file in the root directory of this source tree.
+                                                                                              */
 
   var _react = __webpack_require__(14);
 
@@ -852,14 +852,14 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/routes/error/ErrorPage.js'; /**
-                                                                                                   * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                   *
-                                                                                                   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                   *
-                                                                                                   * This source code is licensed under the MIT license found in the
-                                                                                                   * LICENSE.txt file in the root directory of this source tree.
-                                                                                                   */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/routes/error/ErrorPage.js'; /**
+                                                                                                 * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                                 *
+                                                                                                 * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                                 *
+                                                                                                 * This source code is licensed under the MIT license found in the
+                                                                                                 * LICENSE.txt file in the root directory of this source tree.
+                                                                                                 */
 
   var _react = __webpack_require__(14);
 
@@ -1027,7 +1027,7 @@ module.exports =
 
 
   // module
-  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n* {\n  line-height: 1.2;\n  margin: 0;\n}\n\nhtml {\n  color: #888;\n  display: table;\n  font-family: sans-serif;\n  height: 100%;\n  text-align: center;\n  width: 100%;\n}\n\nbody {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 2em;\n}\n\nh1 {\n  color: #555;\n  font-size: 2em;\n  font-weight: 400;\n}\n\np {\n  margin: 0 auto;\n  width: 280px;\n}\n\npre {\n  text-align: left;\n  margin-top: 32px;\n  margin-top: 2rem;\n}\n\n@media only screen and (max-width: 280px) {\n  body,\n  p {\n    width: 95%;\n  }\n\n  h1 {\n    font-size: 1.5em;\n    margin: 0 0 0.3em;\n  }\n}\n", "", {"version":3,"sources":["/Users/seunggabi/Workspace/excel-merge-tool/src/routes/error/ErrorPage.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;AAEH;EACE,iBAAiB;EACjB,UAAU;CACX;;AAED;EACE,YAAY;EACZ,eAAe;EACf,wBAAwB;EACxB,aAAa;EACb,mBAAmB;EACnB,YAAY;CACb;;AAED;EACE,oBAAoB;EACpB,uBAAuB;EACvB,aAAa;CACd;;AAED;EACE,YAAY;EACZ,eAAe;EACf,iBAAiB;CAClB;;AAED;EACE,eAAe;EACf,aAAa;CACd;;AAED;EACE,iBAAiB;EACjB,iBAAiB;EAAjB,iBAAiB;CAClB;;AAED;EACE;;IAEE,WAAW;GACZ;;EAED;IACE,iBAAiB;IACjB,kBAAkB;GACnB;CACF","file":"ErrorPage.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n* {\n  line-height: 1.2;\n  margin: 0;\n}\n\nhtml {\n  color: #888;\n  display: table;\n  font-family: sans-serif;\n  height: 100%;\n  text-align: center;\n  width: 100%;\n}\n\nbody {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 2em;\n}\n\nh1 {\n  color: #555;\n  font-size: 2em;\n  font-weight: 400;\n}\n\np {\n  margin: 0 auto;\n  width: 280px;\n}\n\npre {\n  text-align: left;\n  margin-top: 2rem;\n}\n\n@media only screen and (max-width: 280px) {\n  body,\n  p {\n    width: 95%;\n  }\n\n  h1 {\n    font-size: 1.5em;\n    margin: 0 0 0.3em;\n  }\n}\n"],"sourceRoot":""}]);
+  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n* {\n  line-height: 1.2;\n  margin: 0;\n}\n\nhtml {\n  color: #888;\n  display: table;\n  font-family: sans-serif;\n  height: 100%;\n  text-align: center;\n  width: 100%;\n}\n\nbody {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 2em;\n}\n\nh1 {\n  color: #555;\n  font-size: 2em;\n  font-weight: 400;\n}\n\np {\n  margin: 0 auto;\n  width: 280px;\n}\n\npre {\n  text-align: left;\n  margin-top: 32px;\n  margin-top: 2rem;\n}\n\n@media only screen and (max-width: 280px) {\n  body,\n  p {\n    width: 95%;\n  }\n\n  h1 {\n    font-size: 1.5em;\n    margin: 0 0 0.3em;\n  }\n}\n", "", {"version":3,"sources":["/Users/naver/workspace/excel-merge-tool-2/src/routes/error/ErrorPage.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;AAEH;EACE,iBAAiB;EACjB,UAAU;CACX;;AAED;EACE,YAAY;EACZ,eAAe;EACf,wBAAwB;EACxB,aAAa;EACb,mBAAmB;EACnB,YAAY;CACb;;AAED;EACE,oBAAoB;EACpB,uBAAuB;EACvB,aAAa;CACd;;AAED;EACE,YAAY;EACZ,eAAe;EACf,iBAAiB;CAClB;;AAED;EACE,eAAe;EACf,aAAa;CACd;;AAED;EACE,iBAAiB;EACjB,iBAAiB;EAAjB,iBAAiB;CAClB;;AAED;EACE;;IAEE,WAAW;GACZ;;EAED;IACE,iBAAiB;IACjB,kBAAkB;GACnB;CACF","file":"ErrorPage.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n* {\n  line-height: 1.2;\n  margin: 0;\n}\n\nhtml {\n  color: #888;\n  display: table;\n  font-family: sans-serif;\n  height: 100%;\n  text-align: center;\n  width: 100%;\n}\n\nbody {\n  display: table-cell;\n  vertical-align: middle;\n  padding: 2em;\n}\n\nh1 {\n  color: #555;\n  font-size: 2em;\n  font-weight: 400;\n}\n\np {\n  margin: 0 auto;\n  width: 280px;\n}\n\npre {\n  text-align: left;\n  margin-top: 2rem;\n}\n\n@media only screen and (max-width: 280px) {\n  body,\n  p {\n    width: 95%;\n  }\n\n  h1 {\n    font-size: 1.5em;\n    margin: 0 0 0.3em;\n  }\n}\n"],"sourceRoot":""}]);
 
   // exports
 
@@ -2089,14 +2089,14 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/routes/main/index.js'; /**
-                                                                                              * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                              *
-                                                                                              * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                              *
-                                                                                              * This source code is licensed under the MIT license found in the
-                                                                                              * LICENSE.txt file in the root directory of this source tree.
-                                                                                              */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/routes/main/index.js'; /**
+                                                                                            * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                            *
+                                                                                            * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                            *
+                                                                                            * This source code is licensed under the MIT license found in the
+                                                                                            * LICENSE.txt file in the root directory of this source tree.
+                                                                                            */
 
   var _react = __webpack_require__(14);
 
@@ -2174,7 +2174,7 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/container/Main/Main.js';
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/container/Main/Main.js';
 
   var _react = __webpack_require__(14);
 
@@ -2207,64 +2207,73 @@ module.exports =
       var _this = (0, _possibleConstructorReturn3.default)(this, (Main.__proto__ || (0, _getPrototypeOf2.default)(Main)).call(this));
 
       _this.onDrop = function (files) {
-        console.log(files[files.length - 1]);
         _this.setState({
           files: (0, _concat2.default)(_this.state.files, files)
         });
       };
 
       _this.openFile = function () {
-        var files = _this.state.files;
+        var _this$state = _this.state,
+            files = _this$state.files,
+            _this$state$writeMode = _this$state.writeMode,
+            writeMode = _this$state$writeMode === undefined ? 'ALL' : _this$state$writeMode,
+            logMode = _this$state.logMode,
+            ignoreLength = _this$state.ignoreLength,
+            fieldRange = _this$state.fieldRange,
+            isDuplication = _this$state.isDuplication;
 
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-          var data = _xlsxStyle2.default.read(reader.result, { type: 'binary' });
-          var wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' };
-          var wbout = _xlsxStyle2.default.write(data, wopts);
-          console.log(data);
-          function s2ab(s) {
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i = 0; i !== s.length; ++i) {
-              view[i] = s.charCodeAt(i) & 0xFF;
-            }return buf;
-          }
-
-          _fileSaver2.default.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx');
+        var binaryFiles = [];
+        var options = {
+          write_mode: writeMode,
+          log_mode: logMode,
+          ignore_length: ignoreLength,
+          field_range: fieldRange,
+          isDuplication: isDuplication
         };
-        files.forEach(function (file) {
+
+        _excelMergeTool2.default.init(options);
+
+        files.forEach(function (file, index) {
+          var reader = new FileReader();
+
+          reader.onloadend = function () {
+            var binaryFile = new _excelMergeTool2.default.binaryFile(file.name, reader.result);
+            binaryFiles.push(binaryFile);
+
+            if (index === files.length - 1) {
+              _this.writeFile(binaryFiles);
+            }
+          };
           reader.readAsBinaryString(file);
         });
       };
 
-      _this.readFile = function (file) {
-        _this.reader.readAsBinaryString(file);
-      };
+      _this.writeFile = function (binaryFiles) {
+        var wbList = _excelMergeTool2.default.readBinaryFiles(binaryFiles);
+        var binaryFileList = _excelMergeTool2.default.writeBinaryFile(wbList);
+        // const binaryLog = EMT.getLogBinaryFile()
 
-      _this.readFiles = function (files) {
-        for (var file in files) {
-          readFile(file);
+        function s2ab(s) {
+          var buf = new ArrayBuffer(s.length);
+          var view = new Uint8Array(buf);
+          for (var i = 0; i !== s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+          }return buf;
         }
-      };
 
-      _this.onOpenClick = function () {
-        _this.refs.dropzone.open();
+        binaryFileList.forEach(function (binaryFile) {
+          _fileSaver2.default.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName);
+        });
+        // if (binaryLog) FileSaver.saveAs(new Blob([s2ab(binaryLog)], { type: 'application/octet-stream' }), 'log.txt')
       };
 
       _this.state = {
         files: []
       };
-
       return _this;
     }
 
     (0, _createClass3.default)(Main, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {
-        _excelMergeTool2.default.init();
-      }
-    }, {
       key: 'render',
       value: function render() {
         var _this2 = this;
@@ -2277,13 +2286,13 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 67
+              lineNumber: 72
             },
             __self: this
           },
-          _react2.default.createElement(_DropZone2.default, { ref: 'dropzone', onDrop: this.onDrop, __source: {
+          _react2.default.createElement(_DropZone2.default, { onDrop: this.onDrop, __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 73
             },
             __self: this
           }),
@@ -2291,7 +2300,7 @@ module.exports =
             'button',
             { onClick: this.openFile, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 74
               },
               __self: this
             },
@@ -2302,7 +2311,7 @@ module.exports =
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 70
+                lineNumber: 75
               },
               __self: this
             },
@@ -2311,7 +2320,7 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 76
                 },
                 __self: this
               },
@@ -2324,14 +2333,14 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 72
+                  lineNumber: 77
                 },
                 __self: this
               },
               files.map(function (file, index) {
                 return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 73
+                    lineNumber: 78
                   },
                   __self: _this2
                 });
@@ -2402,7 +2411,7 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/components/DropZone/DropZone.js'; /* eslint prefer-template: 0 */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/components/DropZone/DropZone.js'; /* eslint prefer-template: 0 */
 
   var _react = __webpack_require__(14);
 
@@ -2970,7 +2979,7 @@ module.exports =
   			wb.fileName = binaryFile.fileName;
   			wbList.push(wb);
 
-  			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: " + fileName);
+  			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: " + binaryFile.fileName);
   		}.bind(this));
   		return wbList;
   	},
@@ -3113,8 +3122,47 @@ module.exports =
   			wb = this._mergeSheets(wbList);
   		}
 
-  		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
   		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: " + this.WRITE_NAME[this.write_mode]);
+  		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
+  	},
+
+  	writeBinaryFile: function writeBinaryFile(wbList) {
+  		var binaryFiles = [];
+  		switch (this.write_mode) {
+  			case this.WRITE_MODE.LIST:
+  			case this.WRITE_MODE.NONE:
+  			case this.WRITE_MODE.CONFLICT:
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+  				// this.LOG.writeFile();
+  				break;
+  			case this.WRITE_MODE.ALL:
+  				this.write_mode = this.WRITE_MODE.NONE;
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+  				this.write_mode = this.WRITE_MODE.CONFLICT;
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+  				this.write_mode = this.WRITE_MODE.ALL;
+  				// this.LOG.writeFile();
+  				break;
+  			default:
+  				console.log(this.MSG.UNDEFINED);
+  		}
+  		return binaryFiles;
+  	},
+
+  	_writeBinaryFile: function _writeBinaryFile(wbList) {
+  		var wb;
+
+  		if (this.write_mode === this.WRITE_MODE.LIST) {
+  			wb = this._addSheets(wbList);
+  		} else {
+  			wb = this._mergeSheets(wbList);
+  		}
+
+  		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: " + this.WRITE_NAME[this.write_mode]);
+  		return new this.binaryFile(this.WRITE_NAME[this.write_mode], this.XLSX.write(wb, { type: "binary" }));
   	},
 
   	_readSheets: function _readSheets(wb) {
@@ -3284,6 +3332,14 @@ module.exports =
   		this.items = [];
   	},
 
+  	writeBinaryFile: function writeBinaryFile() {
+  		if (!this.status) {
+  			return;
+  		}
+  		this.FS.writeFile(this.PATH + this.FILE_NAME, this._getItems());
+  		this.items = [];
+  	},
+
   	_removeEnter: function _removeEnter(text) {
   		if (!this.status) {
   			return;
@@ -3425,14 +3481,14 @@ module.exports =
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/routes/notFound/index.js'; /**
-                                                                                                  * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                  *
-                                                                                                  * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                  *
-                                                                                                  * This source code is licensed under the MIT license found in the
-                                                                                                  * LICENSE.txt file in the root directory of this source tree.
-                                                                                                  */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/routes/notFound/index.js'; /**
+                                                                                                * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                                *
+                                                                                                * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                                *
+                                                                                                * This source code is licensed under the MIT license found in the
+                                                                                                * LICENSE.txt file in the root directory of this source tree.
+                                                                                                */
 
   var _react = __webpack_require__(14);
 
@@ -3504,14 +3560,14 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/routes/notFound/NotFound.js'; /**
-                                                                                                     * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                     *
-                                                                                                     * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                     *
-                                                                                                     * This source code is licensed under the MIT license found in the
-                                                                                                     * LICENSE.txt file in the root directory of this source tree.
-                                                                                                     */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool-2/src/routes/notFound/NotFound.js'; /**
+                                                                                                   * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                                   *
+                                                                                                   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                                   *
+                                                                                                   * This source code is licensed under the MIT license found in the
+                                                                                                   * LICENSE.txt file in the root directory of this source tree.
+                                                                                                   */
 
   var _react = __webpack_require__(14);
 
@@ -3632,7 +3688,7 @@ module.exports =
 
 
   // module
-  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {/*\n   * Typography\n   * ======================================================================== *//*\n   * Layout\n   * ======================================================================== *//*\n   * Media queries breakpoints\n   * ======================================================================== *//* Extra small screen / phone *//* Small screen / tablet *//* Medium screen / desktop *//* Large screen / wide desktop */\n}\n\n.NotFound-root-3whbd {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.NotFound-container-1BOHG {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n}\n", "", {"version":3,"sources":["/Users/seunggabi/Workspace/excel-merge-tool/src/routes/notFound/NotFound.css","/Users/seunggabi/Workspace/excel-merge-tool/src/components/variables.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;;;;;;GAOG;;AAEH,OACE;;gFAE8E;;gFAMA;;gFAMA,gCAErB,2BACL,6BACE,iCACI;CAC3D;;ADnBD;EACE,mBAAmB;EACnB,oBAAoB;CACrB;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAAoC;CACrC","file":"NotFound.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n@import '../../components/variables.css';\n\n.root {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: var(--max-content-width);\n}\n","/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {\n  /*\n   * Typography\n   * ======================================================================== */\n\n  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  --max-content-width: 1000px;\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */\n\n  --screen-xs-min: 480px;  /* Extra small screen / phone */\n  --screen-sm-min: 768px;  /* Small screen / tablet */\n  --screen-md-min: 992px;  /* Medium screen / desktop */\n  --screen-lg-min: 1200px; /* Large screen / wide desktop */\n}\n"],"sourceRoot":""}]);
+  exports.push([module.id, "/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {/*\n   * Typography\n   * ======================================================================== *//*\n   * Layout\n   * ======================================================================== *//*\n   * Media queries breakpoints\n   * ======================================================================== *//* Extra small screen / phone *//* Small screen / tablet *//* Medium screen / desktop *//* Large screen / wide desktop */\n}\n\n.NotFound-root-3whbd {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.NotFound-container-1BOHG {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n}\n", "", {"version":3,"sources":["/Users/naver/workspace/excel-merge-tool-2/src/routes/notFound/NotFound.css","/Users/naver/workspace/excel-merge-tool-2/src/components/variables.css"],"names":[],"mappings":"AAAA;;;;;;;GAOG;;ACPH;;;;;;;GAOG;;AAEH,OACE;;gFAE8E;;gFAMA;;gFAMA,gCAErB,2BACL,6BACE,iCACI;CAC3D;;ADnBD;EACE,mBAAmB;EACnB,oBAAoB;CACrB;;AAED;EACE,eAAe;EACf,kBAAkB;EAClB,kBAAoC;CACrC","file":"NotFound.css","sourcesContent":["/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n@import '../../components/variables.css';\n\n.root {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: var(--max-content-width);\n}\n","/**\n * React Starter Kit (https://www.reactstarterkit.com/)\n *\n * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n:root {\n  /*\n   * Typography\n   * ======================================================================== */\n\n  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  --max-content-width: 1000px;\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */\n\n  --screen-xs-min: 480px;  /* Extra small screen / phone */\n  --screen-sm-min: 768px;  /* Small screen / tablet */\n  --screen-md-min: 992px;  /* Medium screen / desktop */\n  --screen-lg-min: 1200px; /* Large screen / wide desktop */\n}\n"],"sourceRoot":""}]);
 
   // exports
   exports.locals = {
