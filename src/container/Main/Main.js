@@ -11,6 +11,7 @@ class Main extends Component {
     this.state = {
       files: []
     }
+
   }
 
   componentDidMount () {
@@ -42,7 +43,17 @@ class Main extends Component {
 
       FileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
     }
-    reader.readAsBinaryString(files[0])
+    files.forEach((file) => {reader.readAsBinaryString(file)})
+  }
+
+  readFile = (file) => {
+      this.reader.readAsBinaryString(file)
+  }
+
+  readFiles = (files) => {
+	  for(let file in files) {
+		  readFile(file)
+	  }
   }
 
   onOpenClick = () => {
