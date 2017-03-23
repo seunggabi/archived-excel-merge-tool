@@ -28,7 +28,8 @@ module.exports = {
 		WRITE_MODE: "LIST",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 2,
-		FIELD_RANGE: "A1:D1"
+		FIELD_RANGE: "A1:D1",
+		isDuplication: true
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."
@@ -40,8 +41,6 @@ module.exports = {
 		CONFLICT: "CONFLICT"
 	},
 	USING_CHECK: "$",
-	RANGE_KEY: "!ref",
-	FORMULA_KEY: "f",
 
 	write_mode: null,
 	log_mode: null,
@@ -54,7 +53,9 @@ module.exports = {
 		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
 		this.field_range = data.field_range || this.DEFAULT.FIELD_RANGE;
-		this.DATA.setFields(this.field_range);
+
+		var isDuplication = data.isDuplication || this.DEFAULT.isDuplication;
+		this.DATA.setDataConfig(isDuplication, this.field_range);
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
 	},
@@ -66,7 +67,24 @@ module.exports = {
 			wb.fileName = fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read "+fileName);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
+		}.bind(this));
+		return wbList;
+	},
+
+	binaryFile: function(fileName, binary) {
+		this.fileName = fileName;
+		this.binary = binary;
+	},
+
+	readBinaryFiles: function(binaryFiles) {
+		var wbList = [];
+		binaryFiles.forEach(function(binaryFile) {
+			var wb = this.XLSX.read(binaryFile.binary, {cellStyles: true});
+			wb.fileName = binaryFile.fileName;
+			wbList.push(wb);
+
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -117,7 +135,7 @@ module.exports = {
 				var v1 = String(s1[c].v);
 				v1 = this.UTIL.enterOnce(v1);
 
-				if(c === this.RANGE_KEY) {
+				if(c === this.DATA.KEY.RANGE) {
 					this._extendsRange(s1[c], s2[c]);
 				}
 				else if(v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
@@ -152,7 +170,7 @@ module.exports = {
 
 	_setCellFomula: function(s) {
 		for(var c in s) {
-			if(s[c].hasOwnProperty(this.FORMULA_KEY)) {
+			if(s[c].hasOwnProperty(this.DATA.KEY.FORMULA)) {
 				s[c].t = "s";
 				s[c].v = "="+s[c].f;
 			}
@@ -219,45 +237,19 @@ module.exports = {
 		}
 
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write "+this.WRITE_NAME[this.write_mode]);
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
 	},
 
 	_readSheets: function(wb) {
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
 		for(var s in wb.Sheets) {
-			this._readCells(wb.Sheets[s]);
+			this._readCells(s, wb.Sheets[s]);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
 		}
 	},
 
-	_readCells: function(s) {
-		var item = [];
-
-		var rowNumber = +this.DATA.field.rowsIndex[1];
-		var row, col;
-		var cellTable = {};
-		for(var c in s) {
-			if(c.match(this.DATA.REG.CELL)) {
-				row = c.match(this.DATA.REG.ROW)[0];
-				col = c.match(this.DATA.REG.COL)[0];
-
-				if(this.DATA.field.cols.indexOf(col) < 0) {
-					this.DATA.field.cols.push(col);
-				}
-
-				if(!cellTable[row]) {
-					cellTable[row] = {};
-				}
-				cellTable[row][col] = s[c].v;
-			}
-		}
-
-		while(cellTable[rowNumber]) {
-			for(var k in cellTable[this.DATA.field.rowsIndex[1]]) {
-				item.push(cellTable[rowNumber][k]);
-			}
-			rowNumber++;
-			this.DATA.addItem(item);
-			item = [];
-		}
+	_readCells: function(sheetName, sheet) {
+		this.DATA.readCells(sheetName, sheet)
 	},
 
 	_addSheets: function(wbList) {
@@ -265,22 +257,9 @@ module.exports = {
 			this._readSheets(wbList[wb]);
 		}
 
-		var rowNumber = this.DATA.field.rowsIndex[1];
 		for(var s in wbList[0].Sheets) {
-			var sheet = wbList[0].Sheets[s];
-
-			sheet["!ref"] = "A1:D8";
-			for(var i in this.DATA.items) {
-				for(var j=0; j<this.DATA.field.cols.length; j++) {
-					sheet[this.DATA.field.cols[j] + rowNumber] = {};
-					sheet[this.DATA.field.cols[j] + rowNumber].t = "s";
-					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[i].datas[j];
-				}
-				rowNumber++;
-			}
-			console.log(this.DATA.items, this.DATA.items.length);
-			//console.log(wbList[0].Sheets.시트1);
-			break;
+			this.DATA.addSheet(s, wbList[0].Sheets[s]);
+			this.LOG.addItem(this.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.size[s]);
 		}
 		return wbList[0];
 	}
