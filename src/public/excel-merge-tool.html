@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <div>
+    <!-- title -->
+    <h1 class="title">
+      Excel Merge Tool
+    </h1>
+
+    <!-- dropZone -->
+    <div class="dropzone">
+      <!-- dropItem -->
+      <div class="dropItem">
+        <div><img class="xlsxImg" src="./xlsxImg.png"></div>
+        <label class="fileName">
+          test.xlsx
+        </label>
+      </div>
+
+      <!-- dropItem -->
+      <div class="dropItem">
+        <div><img class="xlsxImg" src="./xlsxImg.png"></div>
+        <label class="fileName">
+          test.xlsx
+        </label>
+      </div>
+    </div>
+
+    <!-- optionTab -->
+    <div class="tabWrapper">
+      <div class="tabHeader">
+        <div class="optionTabTitle is-on">
+          MERGE
+        </div>
+        <div class="optionTabTitle">
+          LIST
+        </div>
+      </div>
+      <div class="tabBody">
+        <div class="optionTab is-on">
+          <div>
+            <label>출력모드</label>
+            <input type="radio" name="mode">ALL</input>
+            <input type="radio" name="mode">NONE</input>
+            <input type="radio" name="mode">CONFLICT</input>
+          </div>
+          <div>
+            <label>충돌길이제한</label>
+            <input type="text">
+          </div>
+          <div>
+            <label>로그</label>
+            <input type="checkbox">
+          </div>
+        </div>
+
+        <div class="optionTab">
+          <div>
+            <label>중복허용</label>
+            <input type="checkbox">
+          </div>
+          <div>
+            <label>필드셀범위</label>
+            <input type="text">
+          </div>
+          <div>
+            <label>로그</label>
+            <input type="checkbox">
+          </div>
+        </div>
+        <div class="tabFooter">
+          <button>저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- tip gif -->
+    <div class="tipGif">
+    </div>
+
+  </div>
+</body>
+</html>

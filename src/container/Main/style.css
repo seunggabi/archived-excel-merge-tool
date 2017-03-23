@@ -1,0 +1,66 @@
+body {
+	margin: 10px 20px;
+}
+body > div {
+	max-width: 800px;
+	margin: 0 auto;
+}
+.dropzone {
+	min-height: 100px;
+	text-align: center;
+	border: 5px dotted black;
+	margin: 10px auto 30px;
+}
+.dropItem {
+	display: inline-block;
+}
+.dropItem .xlsxImg {
+	width: 150px;
+	height: 150px;
+}
+.dropItem .fileName {
+	color: blue;
+}
+.tabWrapper .tabHeader .optionTabTitle {
+	padding: 10px 10px;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	width: 150px;
+	border: 1px solid gray;
+	float: left;
+	margin-bottom: -1px;
+	text-align: center;
+	cursor: pointer;
+}
+.tabWrapper .tabHeader .optionTabTitle.isOn {
+	border-bottom: 1px solid white;
+	font-weight: bold;
+}
+.tabWrapper .tabBody {
+	clear: both;
+	padding: 30px;
+	border: 1px solid gray;
+}
+.tabWrapper .tabBody .optionTab {
+	display: none;
+}
+.tabWrapper .tabBody .optionTab.isOn {
+	display: inline-block;
+}
+.tabWrapper .tabBody .optionTab label {
+	display: inline-block;
+	width: 150px;
+	margin: 10px 0;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.tabWrapper .tabFooter {
+	text-align: right;
+}
+.tabWrapper .tabFooter button {
+	width: 80px;
+	height: 40px;
+	font-size: 1.2em;
+	font-weight: bold;
+}

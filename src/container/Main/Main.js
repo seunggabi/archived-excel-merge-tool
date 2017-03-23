@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import XlsxStyle from 'xlsx-style'
 import FileSaver from 'file-saver'
 import Dropzone from '../../components/DropZone'
 import EMT from '../../excel-merge/excel-merge-tool'
+import css from './style.css'
 
 class Main extends Component {
   constructor () {
@@ -61,7 +61,6 @@ class Main extends Component {
     binaryFileList.forEach((binaryFile) => {
       FileSaver.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName)
     })
-    // if (binaryLog) FileSaver.saveAs(new Blob([s2ab(binaryLog)], { type: 'application/octet-stream' }), 'log.txt')
   }
 
   render () {
@@ -69,7 +68,7 @@ class Main extends Component {
 
     return (
       <div>
-        <Dropzone onDrop={this.onDrop} />
+        <Dropzone className='dropzone' onDrop={this.onDrop} />
         <button onClick={this.openFile}>File Open</button>
         <div>
           <h2>Uploaded {files.length} files</h2>
