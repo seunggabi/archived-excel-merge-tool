@@ -65,6 +65,14 @@ module.exports = {
 		this.items = [];
 	},
 
+	writeBinaryFile: function() {
+		if(!this.status) {
+			return;
+		}
+		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
+		this.items = [];
+	},
+
 	_removeEnter: function(text) {
 		if(!this.status) {
 			return;
