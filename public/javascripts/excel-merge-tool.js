@@ -67,7 +67,7 @@ module.exports = {
 			wb.fileName = fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read "+fileName);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -220,12 +220,14 @@ module.exports = {
 		}
 
 		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write "+this.WRITE_NAME[this.write_mode]);
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
 	},
 
 	_readSheets: function(wb) {
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
 		for(var s in wb.Sheets) {
 			this._readCells(s, wb.Sheets[s]);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
 		}
 	},
 
@@ -240,6 +242,7 @@ module.exports = {
 
 		for(var s in wbList[0].Sheets) {
 			this.DATA.addSheet(s, wbList[0].Sheets[s]);
+			this.LOG.addItem(this.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.size[s]);
 		}
 		return wbList[0];
 	}
