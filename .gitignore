@@ -10,9 +10,6 @@ npm-debug.log
 .vscode
 *.xlsx
 *.txt
-<<<<<<< HEAD
-/files/*
-=======
 /files/*
 
 
