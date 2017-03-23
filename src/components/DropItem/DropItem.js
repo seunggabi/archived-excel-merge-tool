@@ -1,43 +1,25 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { deleteTodo } from '../../actions';
 
-class TodoItem extends React.Component {
-  delete = () => {
-    this.props.deleteTodo(this.props.index);
-  }
-
+class DropItem extends React.Component {
   render() {
+    const { css, name, imgSrc } = this.props
+
     return (
-      <tr>
-        <td>{this.props.item.text}</td>
-        <td>
-          <button
-            type="button"
-            onClick={(this.delete)}
-            className="btn btn-link pull-right"
-          >
-            <span
-              className="glyphicon glyphicon-remove"
-              aria-hidden="true"
-            />
-          </button>
-        </td>
-      </tr>
+      <div className={css.dropItem}>
+        <div><img className={css.xlsxImg} src={imgSrc} /></div>
+        <label className={css.fileName}>
+          {name}
+        </label>
+      </div>
     );
   }
 }
 
-TodoItem.propTypes = {
-  index: React.PropTypes.number,
-  item: React.PropTypes.object,
-  deleteTodo: PropTypes.func,
+DropItem.propTypes = {
+  css: PropTypes.object,
+  name: React.PropTypes.string,
+  imgSrc: PropTypes.string,
 };
 
-const mapDispatchToProps = dispatch => ({
-  deleteTodo: bindActionCreators(deleteTodo, dispatch),
-});
-
-export default connect(null, mapDispatchToProps)(TodoItem);
+export default DropItem
 

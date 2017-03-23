@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import cx from 'classnames'
 import xlsxImg from './xlsxImg.png'
 import Dropzone from '../../components/DropZone'
+import DropItem from '../../components/DropItem'
 import EMT from '../../excel-merge/excel-merge-tool'
 import css from './style.css'
 
@@ -12,7 +13,14 @@ class Main extends Component {
     super()
 
     this.state = {
-      files: []
+      files: [],
+      isMerge: true,
+
+      writeMode: 'ALL',
+      ignoreLength: 0,
+      fieldRange: 'A1:B6',
+      isDuplication: false,
+      logMode: true,
     }
   }
 
@@ -23,7 +31,7 @@ class Main extends Component {
   }
 
   openFile = () => {
-    const { files, writeMode = 'ALL', logMode, ignoreLength, fieldRange, isDuplication } = this.state
+    const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state
     const binaryFiles = []
     const options = {
       write_mode: writeMode,
@@ -32,7 +40,7 @@ class Main extends Component {
       field_range: fieldRange,
       isDuplication,
     }
-
+    console.log(options)
     EMT.init(options)
 
     files.forEach((file, index) => {
@@ -66,6 +74,38 @@ class Main extends Component {
     })
   }
 
+  handleWriteMode = (event) => {
+    this.setState({ writeMode: event.target.value });
+  }
+
+  handleIgnoreLength = (event) => {
+    this.setState({ ignoreLength: event.target.value });
+  }
+
+  handleLogMode = (event) => {
+    this.setState({ logMode: event.target.checked });
+  }
+
+  handleIsDuplication = (event) => {
+    this.setState({ isDuplication: event.target.checked });
+  }
+
+  handleFieldRange = (event) => {
+    this.setState({ fieldRange: event.target.value });
+  }
+
+  onMergeTab = () => {
+    this.setState({
+      isMerge: true
+    })
+  }
+
+  onListTab = () => {
+    this.setState({
+      isMerge: false
+    })
+  }
+
   render () {
     const { files } = this.state
 
@@ -78,58 +118,51 @@ class Main extends Component {
 
         {/* <!-- dropZone -->*/}
         <Dropzone className={css.dropzone} onDrop={this.onDrop}>
-          { files.map((file, index) => <img key={index} src={file.preview} width={200} />)}
-          {/* <!-- dropItem -->*/}
-          <div className={css.dropItem}>
-            <div><img className={css.xlsxImg} src={xlsxImg} /></div>
-            <label className={css.fileName}>
-              test.xlsx
-            </label>
-          </div>
+          { files.map((file, index) =>
+            <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
+          )}
         </Dropzone>
 
         {/* <!-- optionTab -->*/}
         <div className={css.tabWrapper}>
           <div className={css.tabHeader}>
-            <div className={cx(css.optionTabTitle, css.isOn)}>
+            <div onClick={this.onMergeTab} className={cx(css.optionTabTitle, this.state.isMerge ? css.isOn : null)}>
               MERGE
             </div>
-            <div className={css.optionTabTitle}>
+            <div onClick={this.onListTab} className={cx(css.optionTabTitle, this.state.isMerge ? null : css.isOn)}>
               LIST
             </div>
           </div>
-        
-
           <div className={css.tabBody}>
-            <div className={cx(css.optionTab, css.isOn)}>
+            <div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
               <div>
                 <label>출력모드</label>
-                <input type='radio' name='mode' /> ALL
-                <input type='radio' name='mode' /> NONE
-                <input type='radio' name='mode' /> CONFLICT
+                <input type='radio' name='mode' value='ALL' checked onChange={this.handleWriteMode} /> ALL
+                <input type='radio' name='mode' value='NONE' onChange={this.handleWriteMode} /> NONE
+                <input type='radio' name='mode' value='CONFLICT' onChange={this.handleWriteMode} /> CONFLICT
               </div>
               <div>
                 <label>충돌길이제한</label>
-                <input type='text' />
+                <input type='text' value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
               </div>
               <div>
                 <label>로그</label>
-                <input type='checkbox' />
+                <input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
               </div>
             </div>
 
-            <div className={css.optionTab}>
+            <div className={cx(css.optionTab, this.state.isMerge ? null : css.isOn)}>
               <div>
                 <label>중복허용</label>
-                <input type='checkbox' />
+                <input type='checkbox' checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
               </div>
               <div>
                 <label>필드셀범위</label>
-                <input type='text' />
+                <input type='text' value={this.state.fieldRange} onChange={this.handleFieldRange} />
               </div>
               <div>
                 <label>로그</label>
-                <input type='checkbox' />
+                <input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
               </div>
             </div>
 
