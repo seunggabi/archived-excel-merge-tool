@@ -141,33 +141,33 @@ module.exports =
 
   var _ErrorPage3 = _interopRequireDefault(_ErrorPage2);
 
-  var _passport = __webpack_require__(31);
+  var _passport = __webpack_require__(36);
 
   var _passport2 = _interopRequireDefault(_passport);
 
-  var _models = __webpack_require__(34);
+  var _models = __webpack_require__(39);
 
   var _models2 = _interopRequireDefault(_models);
 
-  var _schema = __webpack_require__(42);
+  var _schema = __webpack_require__(47);
 
   var _schema2 = _interopRequireDefault(_schema);
 
-  var _routes = __webpack_require__(48);
+  var _routes = __webpack_require__(53);
 
   var _routes2 = _interopRequireDefault(_routes);
 
-  var _assets = __webpack_require__(66);
+  var _assets = __webpack_require__(73);
 
   var _assets2 = _interopRequireDefault(_assets);
 
-  var _configureStore = __webpack_require__(67);
+  var _configureStore = __webpack_require__(74);
 
   var _configureStore2 = _interopRequireDefault(_configureStore);
 
-  var _actions = __webpack_require__(76);
+  var _actions = __webpack_require__(83);
 
-  var _config = __webpack_require__(37);
+  var _config = __webpack_require__(42);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -987,7 +987,42 @@ module.exports =
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-  exports = module.exports = __webpack_require__(30)();
+  
+      var content = __webpack_require__(30);
+      var insertCss = __webpack_require__(32);
+
+      if (typeof content === 'string') {
+        content = [[module.id, content, '']];
+      }
+
+      module.exports = content.locals || {};
+      module.exports._getContent = function() { return content; };
+      module.exports._getCss = function() { return content.toString(); };
+      module.exports._insertCss = function(options) { return insertCss(content, options) };
+      
+      // Hot Module Replacement
+      // https://webpack.github.io/docs/hot-module-replacement
+      // Only activated in browser context
+      if (false) {
+        var removeCss = function() {};
+        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./ErrorPage.css", function() {
+          content = require("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./ErrorPage.css");
+
+          if (typeof content === 'string') {
+            content = [[module.id, content, '']];
+          }
+
+          removeCss = insertCss(content, { replace: true });
+        });
+        module.hot.dispose(function() { removeCss(); });
+      }
+    
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(31)();
   // imports
 
 
@@ -998,7 +1033,7 @@ module.exports =
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
   /*
@@ -1054,7 +1089,179 @@ module.exports =
 
 
 /***/ },
-/* 31 */
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+
+  var _stringify = __webpack_require__(33);
+
+  var _stringify2 = _interopRequireDefault(_stringify);
+
+  var _slicedToArray2 = __webpack_require__(34);
+
+  var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+  var _getIterator2 = __webpack_require__(35);
+
+  var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  /**
+   * Isomorphic CSS style loader for Webpack
+   *
+   * Copyright © 2015-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
+
+  var prefix = 's';
+  var inserted = {};
+
+  // Base64 encoding and decoding - The "Unicode Problem"
+  // https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem
+  function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+      return String.fromCharCode('0x' + p1);
+    }));
+  }
+
+  /**
+   * Remove style/link elements for specified node IDs
+   * if they are no longer referenced by UI components.
+   */
+  function removeCss(ids) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = (0, _getIterator3.default)(ids), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var id = _step.value;
+
+        if (--inserted[id] <= 0) {
+          var elem = document.getElementById(prefix + id);
+          if (elem) {
+            elem.parentNode.removeChild(elem);
+          }
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  }
+
+  /**
+   * Example:
+   *   // Insert CSS styles object generated by `css-loader` into DOM
+   *   var removeCss = insertCss([[1, 'body { color: red; }']]);
+   *
+   *   // Remove it from the DOM
+   *   removeCss();
+   */
+  function insertCss(styles) {
+    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+        _ref$replace = _ref.replace,
+        replace = _ref$replace === undefined ? false : _ref$replace,
+        _ref$prepend = _ref.prepend,
+        prepend = _ref$prepend === undefined ? false : _ref$prepend;
+
+    var ids = [];
+    for (var i = 0; i < styles.length; i++) {
+      var _styles$i = (0, _slicedToArray3.default)(styles[i], 4),
+          moduleId = _styles$i[0],
+          css = _styles$i[1],
+          media = _styles$i[2],
+          sourceMap = _styles$i[3];
+
+      var id = moduleId + '-' + i;
+
+      ids.push(id);
+
+      if (inserted[id]) {
+        if (!replace) {
+          inserted[id]++;
+          continue;
+        }
+      }
+
+      inserted[id] = 1;
+
+      var elem = document.getElementById(prefix + id);
+      var create = false;
+
+      if (!elem) {
+        create = true;
+
+        elem = document.createElement('style');
+        elem.setAttribute('type', 'text/css');
+        elem.id = prefix + id;
+
+        if (media) {
+          elem.setAttribute('media', media);
+        }
+      }
+
+      var cssText = css;
+      if (sourceMap && btoa) {
+        // skip IE9 and below, see http://caniuse.com/atob-btoa
+        cssText += '\n/*# sourceMappingURL=data:application/json;base64,' + b64EncodeUnicode((0, _stringify2.default)(sourceMap)) + '*/';
+        cssText += '\n/*# sourceURL=' + sourceMap.file + '?' + id + '*/';
+      }
+
+      if ('textContent' in elem) {
+        elem.textContent = cssText;
+      } else {
+        elem.styleSheet.cssText = cssText;
+      }
+
+      if (create) {
+        if (prepend) {
+          document.head.insertBefore(elem, document.head.childNodes[0]);
+        } else {
+          document.head.appendChild(elem);
+        }
+      }
+    }
+
+    return removeCss.bind(null, ids);
+  }
+
+  module.exports = insertCss;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+  module.exports = require("babel-runtime/core-js/json/stringify");
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+  module.exports = require("babel-runtime/helpers/slicedToArray");
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+  module.exports = require("babel-runtime/core-js/get-iterator");
+
+/***/ },
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1071,15 +1278,15 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _passport = __webpack_require__(32);
+  var _passport = __webpack_require__(37);
 
   var _passport2 = _interopRequireDefault(_passport);
 
-  var _passportFacebook = __webpack_require__(33);
+  var _passportFacebook = __webpack_require__(38);
 
-  var _models = __webpack_require__(34);
+  var _models = __webpack_require__(39);
 
-  var _config = __webpack_require__(37);
+  var _config = __webpack_require__(42);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1258,19 +1465,19 @@ module.exports =
   exports.default = _passport2.default;
 
 /***/ },
-/* 32 */
+/* 37 */
 /***/ function(module, exports) {
 
   module.exports = require("passport");
 
 /***/ },
-/* 33 */
+/* 38 */
 /***/ function(module, exports) {
 
   module.exports = require("passport-facebook");
 
 /***/ },
-/* 34 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1280,23 +1487,23 @@ module.exports =
   });
   exports.UserProfile = exports.UserClaim = exports.UserLogin = exports.User = undefined;
 
-  var _sequelize = __webpack_require__(35);
+  var _sequelize = __webpack_require__(40);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _User = __webpack_require__(38);
+  var _User = __webpack_require__(43);
 
   var _User2 = _interopRequireDefault(_User);
 
-  var _UserLogin = __webpack_require__(39);
+  var _UserLogin = __webpack_require__(44);
 
   var _UserLogin2 = _interopRequireDefault(_UserLogin);
 
-  var _UserClaim = __webpack_require__(40);
+  var _UserClaim = __webpack_require__(45);
 
   var _UserClaim2 = _interopRequireDefault(_UserClaim);
 
-  var _UserProfile = __webpack_require__(41);
+  var _UserProfile = __webpack_require__(46);
 
   var _UserProfile2 = _interopRequireDefault(_UserProfile);
 
@@ -1341,7 +1548,7 @@ module.exports =
     exports.UserProfile = _UserProfile2.default;
 
 /***/ },
-/* 35 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1350,11 +1557,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(36);
+  var _sequelize = __webpack_require__(41);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _config = __webpack_require__(37);
+  var _config = __webpack_require__(42);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1376,13 +1583,13 @@ module.exports =
     exports.default = sequelize;
 
 /***/ },
-/* 36 */
+/* 41 */
 /***/ function(module, exports) {
 
   module.exports = require("sequelize");
 
 /***/ },
-/* 37 */
+/* 42 */
 /***/ function(module, exports) {
 
   'use strict';
@@ -1439,7 +1646,7 @@ module.exports =
     };
 
 /***/ },
-/* 38 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1448,11 +1655,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(36);
+  var _sequelize = __webpack_require__(41);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(35);
+  var _sequelize3 = __webpack_require__(40);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1494,7 +1701,7 @@ module.exports =
     exports.default = User;
 
 /***/ },
-/* 39 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1503,11 +1710,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(36);
+  var _sequelize = __webpack_require__(41);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(35);
+  var _sequelize3 = __webpack_require__(40);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1539,7 +1746,7 @@ module.exports =
     exports.default = UserLogin;
 
 /***/ },
-/* 40 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1548,11 +1755,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(36);
+  var _sequelize = __webpack_require__(41);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(35);
+  var _sequelize3 = __webpack_require__(40);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1582,7 +1789,7 @@ module.exports =
     exports.default = UserClaim;
 
 /***/ },
-/* 41 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1591,11 +1798,11 @@ module.exports =
     value: true
   });
 
-  var _sequelize = __webpack_require__(36);
+  var _sequelize = __webpack_require__(41);
 
   var _sequelize2 = _interopRequireDefault(_sequelize);
 
-  var _sequelize3 = __webpack_require__(35);
+  var _sequelize3 = __webpack_require__(40);
 
   var _sequelize4 = _interopRequireDefault(_sequelize3);
 
@@ -1633,7 +1840,7 @@ module.exports =
     exports.default = UserProfile;
 
 /***/ },
-/* 42 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1642,9 +1849,9 @@ module.exports =
     value: true
   });
 
-  var _graphql = __webpack_require__(43);
+  var _graphql = __webpack_require__(48);
 
-  var _todo = __webpack_require__(44);
+  var _todo = __webpack_require__(49);
 
   var _todo2 = _interopRequireDefault(_todo);
 
@@ -1671,13 +1878,13 @@ module.exports =
     exports.default = schema;
 
 /***/ },
-/* 43 */
+/* 48 */
 /***/ function(module, exports) {
 
   module.exports = require("graphql");
 
 /***/ },
-/* 44 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1694,17 +1901,17 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _graphql = __webpack_require__(43);
+  var _graphql = __webpack_require__(48);
 
-  var _fs = __webpack_require__(45);
+  var _fs = __webpack_require__(50);
 
   var _fs2 = _interopRequireDefault(_fs);
 
-  var _bluebird = __webpack_require__(46);
+  var _bluebird = __webpack_require__(51);
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _TodoType = __webpack_require__(47);
+  var _TodoType = __webpack_require__(52);
 
   var _TodoType2 = _interopRequireDefault(_TodoType);
 
@@ -1753,19 +1960,19 @@ module.exports =
     exports.default = todo;
 
 /***/ },
-/* 45 */
+/* 50 */
 /***/ function(module, exports) {
 
   module.exports = require("fs");
 
 /***/ },
-/* 46 */
+/* 51 */
 /***/ function(module, exports) {
 
   module.exports = require("bluebird");
 
 /***/ },
-/* 47 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1774,7 +1981,7 @@ module.exports =
     value: true
   });
 
-  var _graphql = __webpack_require__(43);
+  var _graphql = __webpack_require__(48);
 
   var TodoType = new _graphql.GraphQLObjectType({
     name: 'Todo',
@@ -1793,7 +2000,7 @@ module.exports =
     exports.default = TodoType;
 
 /***/ },
-/* 48 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1829,7 +2036,7 @@ module.exports =
     path: '/',
 
     // Keep in mind, routes are evaluated in order
-    children: [__webpack_require__(49).default, __webpack_require__(63).default],
+    children: [__webpack_require__(54).default, __webpack_require__(69).default],
 
     action: function action(_ref) {
       var _this = this;
@@ -1865,7 +2072,7 @@ module.exports =
     };
 
 /***/ },
-/* 49 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1895,7 +2102,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _Main = __webpack_require__(50);
+  var _Main = __webpack_require__(55);
 
   var _Main2 = _interopRequireDefault(_Main);
 
@@ -1934,7 +2141,7 @@ module.exports =
     };
 
 /***/ },
-/* 50 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1943,7 +2150,7 @@ module.exports =
     value: true
   });
 
-  var _concat = __webpack_require__(51);
+  var _concat = __webpack_require__(56);
 
   var _concat2 = _interopRequireDefault(_concat);
 
@@ -1973,19 +2180,31 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _fileSaver = __webpack_require__(52);
+  var _fileSaver = __webpack_require__(57);
 
   var _fileSaver2 = _interopRequireDefault(_fileSaver);
 
-  var _DropZone = __webpack_require__(53);
+  var _withStyles = __webpack_require__(28);
+
+  var _withStyles2 = _interopRequireDefault(_withStyles);
+
+  var _classnames = __webpack_require__(58);
+
+  var _classnames2 = _interopRequireDefault(_classnames);
+
+  var _xlsxImg = __webpack_require__(84);
+
+  var _xlsxImg2 = _interopRequireDefault(_xlsxImg);
+
+  var _DropZone = __webpack_require__(59);
 
   var _DropZone2 = _interopRequireDefault(_DropZone);
 
-  var _excelMergeTool = __webpack_require__(56);
+  var _excelMergeTool = __webpack_require__(62);
 
   var _excelMergeTool2 = _interopRequireDefault(_excelMergeTool);
 
-  var _style = __webpack_require__(62);
+  var _style = __webpack_require__(67);
 
   var _style2 = _interopRequireDefault(_style);
 
@@ -2077,65 +2296,331 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 70
+              lineNumber: 73
             },
             __self: this
           },
-          _react2.default.createElement(_DropZone2.default, { className: 'dropzone', onDrop: this.onDrop, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 71
-            },
-            __self: this
-          }),
           _react2.default.createElement(
-            'button',
-            { onClick: this.openFile, __source: {
+            'h1',
+            { className: _style2.default.title, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 72
+                lineNumber: 75
               },
               __self: this
             },
-            'File Open'
+            'Excel Merge Tool'
+          ),
+          _react2.default.createElement(
+            _DropZone2.default,
+            { className: _style2.default.dropzone, onDrop: this.onDrop, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 80
+              },
+              __self: this
+            },
+            files.map(function (file, index) {
+              return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 81
+                },
+                __self: _this2
+              });
+            }),
+            _react2.default.createElement(
+              'div',
+              { className: _style2.default.dropItem, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 83
+                },
+                __self: this
+              },
+              _react2.default.createElement(
+                'div',
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  },
+                  __self: this
+                },
+                _react2.default.createElement('img', { className: _style2.default.xlsxImg, src: _xlsxImg2.default, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  },
+                  __self: this
+                })
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: _style2.default.fileName, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 85
+                  },
+                  __self: this
+                },
+                'test.xlsx'
+              )
+            )
           ),
           _react2.default.createElement(
             'div',
-            {
-              __source: {
+            { className: _style2.default.tabWrapper, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 73
+                lineNumber: 92
               },
               __self: this
             },
             _react2.default.createElement(
-              'h2',
-              {
-                __source: {
+              'div',
+              { className: _style2.default.tabHeader, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 93
                 },
                 __self: this
               },
-              'Uploaded ',
-              files.length,
-              ' files'
+              _react2.default.createElement(
+                'div',
+                { className: (0, _classnames2.default)(_style2.default.optionTabTitle, _style2.default.isOn), __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 94
+                  },
+                  __self: this
+                },
+                'MERGE'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: _style2.default.optionTabTitle, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 97
+                  },
+                  __self: this
+                },
+                'LIST'
+              )
             ),
             _react2.default.createElement(
               'div',
-              {
-                __source: {
+              { className: _style2.default.tabBody, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 103
                 },
                 __self: this
               },
-              files.map(function (file, index) {
-                return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
+              _react2.default.createElement(
+                'div',
+                { className: (0, _classnames2.default)(_style2.default.optionTab, _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 104
                   },
-                  __self: _this2
-                });
-              })
+                  __self: this
+                },
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 105
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 106
+                      },
+                      __self: this
+                    },
+                    '\uCD9C\uB825\uBAA8\uB4DC'
+                  ),
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 107
+                    },
+                    __self: this
+                  }),
+                  ' ALL',
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 108
+                    },
+                    __self: this
+                  }),
+                  ' NONE',
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 109
+                    },
+                    __self: this
+                  }),
+                  ' CONFLICT'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 111
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 112
+                      },
+                      __self: this
+                    },
+                    '\uCDA9\uB3CC\uAE38\uC774\uC81C\uD55C'
+                  ),
+                  _react2.default.createElement('input', { type: 'text', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 113
+                    },
+                    __self: this
+                  })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 115
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 116
+                      },
+                      __self: this
+                    },
+                    '\uB85C\uADF8'
+                  ),
+                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 117
+                    },
+                    __self: this
+                  })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: _style2.default.optionTab, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 121
+                  },
+                  __self: this
+                },
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 122
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 123
+                      },
+                      __self: this
+                    },
+                    '\uC911\uBCF5\uD5C8\uC6A9'
+                  ),
+                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 124
+                    },
+                    __self: this
+                  })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 126
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 127
+                      },
+                      __self: this
+                    },
+                    '\uD544\uB4DC\uC140\uBC94\uC704'
+                  ),
+                  _react2.default.createElement('input', { type: 'text', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 128
+                    },
+                    __self: this
+                  })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 130
+                    },
+                    __self: this
+                  },
+                  _react2.default.createElement(
+                    'label',
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 131
+                      },
+                      __self: this
+                    },
+                    '\uB85C\uADF8'
+                  ),
+                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 132
+                    },
+                    __self: this
+                  })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: _style2.default.tabFooter, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 136
+                  },
+                  __self: this
+                },
+                _react2.default.createElement(
+                  'button',
+                  { onClick: this.openFile, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 137
+                    },
+                    __self: this
+                  },
+                  '\uC800\uC7A5'
+                )
+              )
             )
           )
         );
@@ -2144,22 +2629,28 @@ module.exports =
     return Main;
   }(_react.Component);
 
-    exports.default = Main;
+    exports.default = (0, _withStyles2.default)(_style2.default)(Main);
 
 /***/ },
-/* 51 */
+/* 56 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/core-js/array/concat");
 
 /***/ },
-/* 52 */
+/* 57 */
 /***/ function(module, exports) {
 
   module.exports = require("file-saver");
 
 /***/ },
-/* 53 */
+/* 58 */
+/***/ function(module, exports) {
+
+  module.exports = require("classnames");
+
+/***/ },
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2172,7 +2663,7 @@ module.exports =
 
   var _extends3 = _interopRequireDefault(_extends2);
 
-  var _objectWithoutProperties2 = __webpack_require__(54);
+  var _objectWithoutProperties2 = __webpack_require__(60);
 
   var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -2202,7 +2693,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _attrAccept = __webpack_require__(55);
+  var _attrAccept = __webpack_require__(61);
 
   var _attrAccept2 = _interopRequireDefault(_attrAccept);
 
@@ -2661,19 +3152,19 @@ module.exports =
     exports.default = Dropzone;
 
 /***/ },
-/* 54 */
+/* 60 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/helpers/objectWithoutProperties");
 
 /***/ },
-/* 55 */
+/* 61 */
 /***/ function(module, exports) {
 
   module.exports = require("attr-accept");
 
 /***/ },
-/* 56 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -2683,10 +3174,10 @@ module.exports =
    */
 
   module.exports = {
-  	XLSX: __webpack_require__(57),
-  	UTIL: __webpack_require__(58),
-  	LOG: __webpack_require__(60),
-  	DATA: __webpack_require__(61),
+  	XLSX: __webpack_require__(63),
+  	UTIL: __webpack_require__(64),
+  	LOG: __webpack_require__(65),
+  	DATA: __webpack_require__(66),
 
   	PATH: {
   		READ: "files/",
@@ -2976,18 +3467,18 @@ module.exports =
     };
 
 /***/ },
-/* 57 */
+/* 63 */
 /***/ function(module, exports) {
 
   module.exports = require("xlsx-style");
 
 /***/ },
-/* 58 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
 
-  var _stringify = __webpack_require__(59);
+  var _stringify = __webpack_require__(33);
 
   var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -3051,13 +3542,7 @@ module.exports =
     };
 
 /***/ },
-/* 59 */
-/***/ function(module, exports) {
-
-  module.exports = require("babel-runtime/core-js/json/stringify");
-
-/***/ },
-/* 60 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -3083,7 +3568,7 @@ module.exports =
   };
 
   module.exports = {
-  	FS: __webpack_require__(45),
+  	FS: __webpack_require__(50),
   	PATH: "files/output/",
   	FILE_NAME: "log.txt",
   	status: true,
@@ -3156,7 +3641,7 @@ module.exports =
     };
 
 /***/ },
-/* 61 */
+/* 66 */
 /***/ function(module, exports) {
 
   "use strict";
@@ -3279,10 +3764,45 @@ module.exports =
     };
 
 /***/ },
-/* 62 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-  exports = module.exports = __webpack_require__(30)();
+  
+      var content = __webpack_require__(68);
+      var insertCss = __webpack_require__(32);
+
+      if (typeof content === 'string') {
+        content = [[module.id, content, '']];
+      }
+
+      module.exports = content.locals || {};
+      module.exports._getContent = function() { return content; };
+      module.exports._getCss = function() { return content.toString(); };
+      module.exports._insertCss = function(options) { return insertCss(content, options) };
+      
+      // Hot Module Replacement
+      // https://webpack.github.io/docs/hot-module-replacement
+      // Only activated in browser context
+      if (false) {
+        var removeCss = function() {};
+        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./style.css", function() {
+          content = require("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./style.css");
+
+          if (typeof content === 'string') {
+            content = [[module.id, content, '']];
+          }
+
+          removeCss = insertCss(content, { replace: true });
+        });
+        module.hot.dispose(function() { removeCss(); });
+      }
+    
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(31)();
   // imports
 
 
@@ -3305,7 +3825,7 @@ module.exports =
   };
 
 /***/ },
-/* 63 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3326,7 +3846,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _NotFound = __webpack_require__(64);
+  var _NotFound = __webpack_require__(70);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3363,7 +3883,7 @@ module.exports =
     };
 
 /***/ },
-/* 64 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3409,7 +3929,7 @@ module.exports =
 
   var _withStyles2 = _interopRequireDefault(_withStyles);
 
-  var _NotFound = __webpack_require__(65);
+  var _NotFound = __webpack_require__(71);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3477,10 +3997,45 @@ module.exports =
     exports.default = (0, _withStyles2.default)(_NotFound2.default)(NotFound);
 
 /***/ },
-/* 65 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-  exports = module.exports = __webpack_require__(30)();
+  
+      var content = __webpack_require__(72);
+      var insertCss = __webpack_require__(32);
+
+      if (typeof content === 'string') {
+        content = [[module.id, content, '']];
+      }
+
+      module.exports = content.locals || {};
+      module.exports._getContent = function() { return content; };
+      module.exports._getCss = function() { return content.toString(); };
+      module.exports._insertCss = function(options) { return insertCss(content, options) };
+      
+      // Hot Module Replacement
+      // https://webpack.github.io/docs/hot-module-replacement
+      // Only activated in browser context
+      if (false) {
+        var removeCss = function() {};
+        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./NotFound.css", function() {
+          content = require("!!../../../node_modules/css-loader/index.js?{\"importLoaders\":1,\"sourceMap\":true,\"modules\":true,\"localIdentName\":\"[name]-[local]-[hash:base64:5]\",\"minimize\":false,\"discardComments\":{\"removeAll\":true}}!../../../node_modules/postcss-loader/index.js?pack=default!./NotFound.css");
+
+          if (typeof content === 'string') {
+            content = [[module.id, content, '']];
+          }
+
+          removeCss = insertCss(content, { replace: true });
+        });
+        module.hot.dispose(function() { removeCss(); });
+      }
+    
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(31)();
   // imports
 
 
@@ -3494,13 +4049,13 @@ module.exports =
   };
 
 /***/ },
-/* 66 */
+/* 73 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 67 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3510,21 +4065,21 @@ module.exports =
   });
   exports.default = configureStore;
 
-  var _redux = __webpack_require__(68);
+  var _redux = __webpack_require__(75);
 
-  var _reduxThunk = __webpack_require__(69);
+  var _reduxThunk = __webpack_require__(76);
 
   var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-  var _reducers = __webpack_require__(70);
+  var _reducers = __webpack_require__(77);
 
   var _reducers2 = _interopRequireDefault(_reducers);
 
-  var _createHelpers = __webpack_require__(71);
+  var _createHelpers = __webpack_require__(78);
 
   var _createHelpers2 = _interopRequireDefault(_createHelpers);
 
-  var _logger = __webpack_require__(74);
+  var _logger = __webpack_require__(81);
 
   var _logger2 = _interopRequireDefault(_logger);
 
@@ -3569,19 +4124,19 @@ module.exports =
   }
 
 /***/ },
-/* 68 */
+/* 75 */
 /***/ function(module, exports) {
 
   module.exports = require("redux");
 
 /***/ },
-/* 69 */
+/* 76 */
 /***/ function(module, exports) {
 
   module.exports = require("redux-thunk");
 
 /***/ },
-/* 70 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3594,7 +4149,7 @@ module.exports =
 
   var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-  var _redux = __webpack_require__(68);
+  var _redux = __webpack_require__(75);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3636,7 +4191,7 @@ module.exports =
     exports.default = rootReducer;
 
 /***/ },
-/* 71 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3653,7 +4208,7 @@ module.exports =
 
   var _regenerator2 = _interopRequireDefault(_regenerator);
 
-  var _stringify = __webpack_require__(59);
+  var _stringify = __webpack_require__(33);
 
   var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -3663,7 +4218,7 @@ module.exports =
 
   exports.default = createHelpers;
 
-  var _fetch = __webpack_require__(72);
+  var _fetch = __webpack_require__(79);
 
   var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -3759,7 +4314,7 @@ module.exports =
     }
 
 /***/ },
-/* 72 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3769,15 +4324,15 @@ module.exports =
   });
   exports.Response = exports.Headers = exports.Request = exports.default = undefined;
 
-  var _bluebird = __webpack_require__(46);
+  var _bluebird = __webpack_require__(51);
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _nodeFetch = __webpack_require__(73);
+  var _nodeFetch = __webpack_require__(80);
 
   var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
-  var _config = __webpack_require__(37);
+  var _config = __webpack_require__(42);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3814,13 +4369,13 @@ module.exports =
     exports.Response = _nodeFetch.Response;
 
 /***/ },
-/* 73 */
+/* 80 */
 /***/ function(module, exports) {
 
   module.exports = require("node-fetch");
 
 /***/ },
-/* 74 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3830,7 +4385,7 @@ module.exports =
   });
   exports.default = createLogger;
 
-  var _util = __webpack_require__(75);
+  var _util = __webpack_require__(82);
 
   // Server side redux action logger
   function createLogger() {
@@ -3849,13 +4404,13 @@ module.exports =
     }
 
 /***/ },
-/* 75 */
+/* 82 */
 /***/ function(module, exports) {
 
   module.exports = require("util");
 
 /***/ },
-/* 76 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3948,6 +4503,12 @@ module.exports =
       type: 'HIDE_EDITOR'
     };
     }
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+  module.exports = __webpack_require__.p + "container/Main/xlsxImg.png?86dcb719";
 
 /***/ }
 /******/ ]);
