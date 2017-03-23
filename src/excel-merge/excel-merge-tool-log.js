@@ -65,12 +65,12 @@ module.exports = {
 		this.items = [];
 	},
 
-	writeBinaryFile: function() {
+	getBinaryFile: function() {
 		if(!this.status) {
 			return;
 		}
-		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
 		this.items = [];
+		return s2ab(this._getItems());
 	},
 
 	_removeEnter: function(text) {
@@ -79,5 +79,12 @@ module.exports = {
 		}
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, " ");
+	},
+
+	s2ab: function(s) {
+		const buf = new ArrayBuffer(s.length);
+		const view = new Uint8Array(buf);
+		for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+		return buf;
 	}
 };

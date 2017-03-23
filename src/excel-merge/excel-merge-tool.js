@@ -248,7 +248,7 @@ module.exports = {
 			case this.WRITE_MODE.CONFLICT:
 				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
-				// this.LOG.writeFile();
+				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
 			case this.WRITE_MODE.ALL:
 				this.write_mode = this.WRITE_MODE.NONE;
@@ -258,7 +258,7 @@ module.exports = {
 				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
 				this.write_mode = this.WRITE_MODE.ALL;
-				// this.LOG.writeFile();
+				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
 			default:
 				console.log(this.MSG.UNDEFINED);
