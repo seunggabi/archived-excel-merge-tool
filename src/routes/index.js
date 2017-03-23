@@ -16,7 +16,7 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
-    require('./todo').default,
+    require('./main').default,
     require('./notFound').default,
   ],
 

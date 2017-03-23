@@ -8,18 +8,15 @@
  */
 
 import React from 'react'
-import Layout from '../../components/Layout'
-import DropZoneDemo from '../../components/DropZoneDemo'
-import DropZone from '../../components/DropZone'
+import Main from '../../container/Main'
 
 export default {
   path: '/',
 
   async action() { // eslint-disable-line react/prop-types
     return {
-      title: 'React Todo',
-      description: 'React Todo Example',
-      component: <DropZoneDemo />,
+      title: 'Excel Merge Tool',
+      component: <Main />,
     };
   },
 };

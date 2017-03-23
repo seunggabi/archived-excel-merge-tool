@@ -16,7 +16,7 @@ import UniversalRouter from 'universal-router';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
 import history from './core/history';
-import App from './components/App';
+import App from './container/App';
 import configureStore from './store/configureStore';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 

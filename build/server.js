@@ -157,15 +157,15 @@ module.exports =
 
   var _routes2 = _interopRequireDefault(_routes);
 
-  var _assets = __webpack_require__(73);
+  var _assets = __webpack_require__(70);
 
   var _assets2 = _interopRequireDefault(_assets);
 
-  var _configureStore = __webpack_require__(74);
+  var _configureStore = __webpack_require__(71);
 
   var _configureStore2 = _interopRequireDefault(_configureStore);
 
-  var _actions = __webpack_require__(58);
+  var _actions = __webpack_require__(80);
 
   var _config = __webpack_require__(42);
 
@@ -656,14 +656,14 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/Html.js'; /**
-                                                                                        * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                        *
-                                                                                        * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                        *
-                                                                                        * This source code is licensed under the MIT license found in the
-                                                                                        * LICENSE.txt file in the root directory of this source tree.
-                                                                                        */
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/container/Html/Html.js'; /**
+                                                                                            * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                            *
+                                                                                            * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                            *
+                                                                                            * This source code is licensed under the MIT license found in the
+                                                                                            * LICENSE.txt file in the root directory of this source tree.
+                                                                                            */
 
   var _react = __webpack_require__(14);
 
@@ -2036,7 +2036,7 @@ module.exports =
     path: '/',
 
     // Keep in mind, routes are evaluated in order
-    children: [__webpack_require__(54).default, __webpack_require__(69).default],
+    children: [__webpack_require__(54).default, __webpack_require__(66).default],
 
     action: function action(_ref) {
       var _this = this;
@@ -2089,7 +2089,7 @@ module.exports =
 
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/routes/todo/index.js'; /**
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/routes/main/index.js'; /**
                                                                                           * React Starter Kit (https://www.reactstarterkit.com/)
                                                                                           *
                                                                                           * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
@@ -2102,17 +2102,9 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _Layout = __webpack_require__(55);
+  var _Main = __webpack_require__(55);
 
-  var _Layout2 = _interopRequireDefault(_Layout);
-
-  var _DropZoneDemo = __webpack_require__(62);
-
-  var _DropZoneDemo2 = _interopRequireDefault(_DropZoneDemo);
-
-  var _DropZone = __webpack_require__(64);
-
-  var _DropZone2 = _interopRequireDefault(_DropZone);
+  var _Main2 = _interopRequireDefault(_Main);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2128,12 +2120,11 @@ module.exports =
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt('return', {
-                  title: 'React Todo',
-                  description: 'React Todo Example',
-                  component: _react2.default.createElement(_DropZoneDemo2.default, {
+                  title: 'Excel Merge Tool',
+                  component: _react2.default.createElement(_Main2.default, {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 22
+                      lineNumber: 19
                     },
                     __self: _this
                   })
@@ -2159,791 +2150,7 @@ module.exports =
     value: true
   });
 
-  var _getPrototypeOf = __webpack_require__(20);
-
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-  var _classCallCheck2 = __webpack_require__(21);
-
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass2 = __webpack_require__(22);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  var _possibleConstructorReturn2 = __webpack_require__(23);
-
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-  var _inherits2 = __webpack_require__(24);
-
-  var _inherits3 = _interopRequireDefault(_inherits2);
-
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/Layout/Layout.js';
-
-  var _react = __webpack_require__(14);
-
-  var _react2 = _interopRequireDefault(_react);
-
-  var _AddTodo = __webpack_require__(56);
-
-  var _AddTodo2 = _interopRequireDefault(_AddTodo);
-
-  var _TodoList = __webpack_require__(59);
-
-  var _TodoList2 = _interopRequireDefault(_TodoList);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var Layout = function (_React$Component) {
-    (0, _inherits3.default)(Layout, _React$Component);
-
-    function Layout() {
-      (0, _classCallCheck3.default)(this, Layout);
-      return (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(Layout, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {}
-    }, {
-      key: 'componentWillUnmount',
-      value: function componentWillUnmount() {}
-    }, {
-      key: 'render',
-      value: function render() {
-        return _react2.default.createElement(
-          'div',
-          { className: 'container', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 14
-            },
-            __self: this
-          },
-          _react2.default.createElement(
-            'div',
-            { className: 'row', __source: {
-                fileName: _jsxFileName,
-                lineNumber: 15
-              },
-              __self: this
-            },
-            _react2.default.createElement(
-              'div',
-              { className: 'col-xs-12 col-sm-6 col-sm-offset-3', __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 16
-                },
-                __self: this
-              },
-              _react2.default.createElement(
-                'div',
-                { className: 'panel panel-default', __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 17
-                  },
-                  __self: this
-                },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'panel-heading', __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 18
-                    },
-                    __self: this
-                  },
-                  _react2.default.createElement(
-                    'h4',
-                    { className: 'text-center', __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 19
-                      },
-                      __self: this
-                    },
-                    'React Todo Example'
-                  ),
-                  _react2.default.createElement(_AddTodo2.default, {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 20
-                    },
-                    __self: this
-                  })
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'panel-body', __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 22
-                    },
-                    __self: this
-                  },
-                  _react2.default.createElement(_TodoList2.default, {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 23
-                    },
-                    __self: this
-                  })
-                )
-              )
-            )
-          )
-        );
-      }
-    }]);
-    return Layout;
-  }(_react2.default.Component);
-
-    exports.default = Layout;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _getPrototypeOf = __webpack_require__(20);
-
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-  var _classCallCheck2 = __webpack_require__(21);
-
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass2 = __webpack_require__(22);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  var _possibleConstructorReturn2 = __webpack_require__(23);
-
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-  var _inherits2 = __webpack_require__(24);
-
-  var _inherits3 = _interopRequireDefault(_inherits2);
-
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/AddTodo/AddTodo.js';
-
-  var _react = __webpack_require__(14);
-
-  var _react2 = _interopRequireDefault(_react);
-
-  var _redux = __webpack_require__(57);
-
-  var _reactRedux = __webpack_require__(16);
-
-  var _actions = __webpack_require__(58);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var AddTodo = function (_React$Component) {
-    (0, _inherits3.default)(AddTodo, _React$Component);
-
-    function AddTodo() {
-      (0, _classCallCheck3.default)(this, AddTodo);
-      return (0, _possibleConstructorReturn3.default)(this, (AddTodo.__proto__ || (0, _getPrototypeOf2.default)(AddTodo)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(AddTodo, [{
-      key: 'render',
-      value: function render() {
-        return _react2.default.createElement(
-          'div',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 9
-            },
-            __self: this
-          },
-          _react2.default.createElement(
-            'button',
-            {
-              type: 'button',
-              onClick: this.props.showEditor,
-              className: 'btn btn-link btn-block btn-lg',
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 10
-              },
-              __self: this
-            },
-            _react2.default.createElement('span', {
-              className: 'glyphicon glyphicon-plus',
-              'aria-hidden': 'true',
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 15
-              },
-              __self: this
-            })
-          )
-        );
-      }
-    }]);
-    return AddTodo;
-  }(_react2.default.Component);
-
-  AddTodo.propTypes = {
-    showEditor: _react.PropTypes.func
-  };
-
-  var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-      showEditor: (0, _redux.bindActionCreators)(_actions.showEditor, dispatch)
-    };
-  };
-
-    exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(AddTodo);
-
-/***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-  module.exports = require("redux");
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _regenerator = __webpack_require__(1);
-
-  var _regenerator2 = _interopRequireDefault(_regenerator);
-
-  var _asyncToGenerator2 = __webpack_require__(5);
-
-  var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-  exports.addTodo = addTodo;
-  exports.deleteTodo = deleteTodo;
-  exports.getTodos = getTodos;
-  exports.showEditor = showEditor;
-  exports.hideEditor = hideEditor;
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function addTodo(text) {
-    return {
-      type: 'ADD_TODO',
-      text: text
-    };
-  }
-
-  function deleteTodo(index) {
-    return {
-      type: 'DELETE_TODO',
-      index: index
-    };
-  }
-
-  function receiveTodos(todos) {
-    return {
-      type: 'RECEIVE_TODOS',
-      todos: todos
-    };
-  }
-
-  function getTodos() {
-    var _this = this;
-
-    return function () {
-      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(dispatch, getState, _ref2) {
-        var graphqlRequest = _ref2.graphqlRequest;
-
-        var _ref3, data;
-
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return graphqlRequest('{todo{text}}');
-
-              case 2:
-                _ref3 = _context.sent;
-                data = _ref3.data;
-
-                dispatch(receiveTodos(data.todo));
-
-              case 5:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, _this);
-      }));
-
-      return function (_x, _x2, _x3) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-  }
-
-  function showEditor() {
-    return {
-      type: 'SHOW_EDITOR'
-    };
-  }
-
-  function hideEditor() {
-    return {
-      type: 'HIDE_EDITOR'
-    };
-    }
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _getPrototypeOf = __webpack_require__(20);
-
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-  var _classCallCheck2 = __webpack_require__(21);
-
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass2 = __webpack_require__(22);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  var _possibleConstructorReturn2 = __webpack_require__(23);
-
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-  var _inherits2 = __webpack_require__(24);
-
-  var _inherits3 = _interopRequireDefault(_inherits2);
-
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/TodoList/TodoList.js';
-
-  var _react = __webpack_require__(14);
-
-  var _react2 = _interopRequireDefault(_react);
-
-  var _redux = __webpack_require__(57);
-
-  var _reactRedux = __webpack_require__(16);
-
-  var _Editor = __webpack_require__(60);
-
-  var _Editor2 = _interopRequireDefault(_Editor);
-
-  var _TodoItem = __webpack_require__(61);
-
-  var _TodoItem2 = _interopRequireDefault(_TodoItem);
-
-  var _actions = __webpack_require__(58);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var TodoList = function (_React$Component) {
-    (0, _inherits3.default)(TodoList, _React$Component);
-
-    function TodoList() {
-      (0, _classCallCheck3.default)(this, TodoList);
-      return (0, _possibleConstructorReturn3.default)(this, (TodoList.__proto__ || (0, _getPrototypeOf2.default)(TodoList)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(TodoList, [{
-      key: 'render',
-      value: function render() {
-        var _this2 = this;
-
-        var rows = this.props.todos.map(function (item, index) {
-          return _react2.default.createElement(_TodoItem2.default, { key: index, index: index, item: item, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 11
-            },
-            __self: _this2
-          });
-        });
-
-        if (this.props.adding) {
-          rows.push(_react2.default.createElement(_Editor2.default, { key: -1, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 14
-            },
-            __self: this
-          }));
-        }
-
-        return _react2.default.createElement(
-          'table',
-          { className: 'table', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 18
-            },
-            __self: this
-          },
-          _react2.default.createElement(
-            'tbody',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 19
-              },
-              __self: this
-            },
-            rows
-          )
-        );
-      }
-    }]);
-    return TodoList;
-  }(_react2.default.Component);
-
-  TodoList.propTypes = {
-    todos: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object),
-    adding: _react.PropTypes.bool,
-    getTodos: _react.PropTypes.func
-  };
-
-  var mapStateToProps = function mapStateToProps(state) {
-    return {
-      todos: state.todos,
-      adding: state.adding
-    };
-  };
-
-  var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-      getTodos: (0, _redux.bindActionCreators)(_actions.getTodos, dispatch)
-    };
-  };
-
-    exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TodoList);
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _getPrototypeOf = __webpack_require__(20);
-
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-  var _classCallCheck2 = __webpack_require__(21);
-
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass2 = __webpack_require__(22);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  var _possibleConstructorReturn2 = __webpack_require__(23);
-
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-  var _inherits2 = __webpack_require__(24);
-
-  var _inherits3 = _interopRequireDefault(_inherits2);
-
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/Editor/Editor.js';
-
-  var _react = __webpack_require__(14);
-
-  var _react2 = _interopRequireDefault(_react);
-
-  var _redux = __webpack_require__(57);
-
-  var _reactRedux = __webpack_require__(16);
-
-  var _actions = __webpack_require__(58);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var Editor = function (_React$Component) {
-    (0, _inherits3.default)(Editor, _React$Component);
-
-    function Editor(props) {
-      (0, _classCallCheck3.default)(this, Editor);
-
-      var _this = (0, _possibleConstructorReturn3.default)(this, (Editor.__proto__ || (0, _getPrototypeOf2.default)(Editor)).call(this, props));
-
-      _this.updateText = function (event) {
-        _this.setState({
-          text: event.target.value
-        });
-      };
-
-      _this.catchEnter = function (event) {
-        if (event.keyCode === 13) {
-          _this.props.addTodo(_this.state.text);
-          _this.props.hideEditor();
-        }
-      };
-
-      _this.add = function () {
-        _this.props.addTodo(_this.state.text);
-        _this.props.hideEditor();
-      };
-
-      _this.state = {
-        text: ''
-      };
-      return _this;
-    }
-
-    (0, _createClass3.default)(Editor, [{
-      key: 'render',
-      value: function render() {
-        return _react2.default.createElement(
-          'tr',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 34
-            },
-            __self: this
-          },
-          _react2.default.createElement(
-            'td',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 35
-              },
-              __self: this
-            },
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.state.text,
-              onChange: this.updateText,
-              onKeyDown: this.catchEnter,
-              placeholder: 'Add new todo...',
-              className: 'form-control',
-              autoFocus: 'true',
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 36
-              },
-              __self: this
-            })
-          ),
-          _react2.default.createElement(
-            'td',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 46
-              },
-              __self: this
-            },
-            _react2.default.createElement(
-              'button',
-              {
-                type: 'button',
-                onClick: this.add,
-                className: 'btn btn-link pull-right',
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 47
-                },
-                __self: this
-              },
-              _react2.default.createElement('span', {
-                className: 'glyphicon glyphicon-plus',
-                'aria-hidden': 'true',
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 52
-                },
-                __self: this
-              })
-            )
-          )
-        );
-      }
-    }]);
-    return Editor;
-  }(_react2.default.Component);
-
-  Editor.propTypes = {
-    addTodo: _react.PropTypes.func,
-    hideEditor: _react.PropTypes.func
-  };
-
-  var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-      addTodo: (0, _redux.bindActionCreators)(_actions.addTodo, dispatch),
-      hideEditor: (0, _redux.bindActionCreators)(_actions.hideEditor, dispatch)
-    };
-  };
-
-    exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Editor);
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _getPrototypeOf = __webpack_require__(20);
-
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-  var _classCallCheck2 = __webpack_require__(21);
-
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass2 = __webpack_require__(22);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  var _possibleConstructorReturn2 = __webpack_require__(23);
-
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-  var _inherits2 = __webpack_require__(24);
-
-  var _inherits3 = _interopRequireDefault(_inherits2);
-
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/TodoItem/TodoItem.js';
-
-  var _react = __webpack_require__(14);
-
-  var _react2 = _interopRequireDefault(_react);
-
-  var _redux = __webpack_require__(57);
-
-  var _reactRedux = __webpack_require__(16);
-
-  var _actions = __webpack_require__(58);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  var TodoItem = function (_React$Component) {
-    (0, _inherits3.default)(TodoItem, _React$Component);
-
-    function TodoItem() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
-      (0, _classCallCheck3.default)(this, TodoItem);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = TodoItem.__proto__ || (0, _getPrototypeOf2.default)(TodoItem)).call.apply(_ref, [this].concat(args))), _this), _this.delete = function () {
-        _this.props.deleteTodo(_this.props.index);
-      }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-    }
-
-    (0, _createClass3.default)(TodoItem, [{
-      key: 'render',
-      value: function render() {
-        return _react2.default.createElement(
-          'tr',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 13
-            },
-            __self: this
-          },
-          _react2.default.createElement(
-            'td',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 14
-              },
-              __self: this
-            },
-            this.props.item.text
-          ),
-          _react2.default.createElement(
-            'td',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 15
-              },
-              __self: this
-            },
-            _react2.default.createElement(
-              'button',
-              {
-                type: 'button',
-                onClick: this.delete,
-                className: 'btn btn-link pull-right',
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 16
-                },
-                __self: this
-              },
-              _react2.default.createElement('span', {
-                className: 'glyphicon glyphicon-remove',
-                'aria-hidden': 'true',
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 21
-                },
-                __self: this
-              })
-            )
-          )
-        );
-      }
-    }]);
-    return TodoItem;
-  }(_react2.default.Component);
-
-  TodoItem.propTypes = {
-    index: _react2.default.PropTypes.number,
-    item: _react2.default.PropTypes.object,
-    deleteTodo: _react.PropTypes.func
-  };
-
-  var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-      deleteTodo: (0, _redux.bindActionCreators)(_actions.deleteTodo, dispatch)
-    };
-  };
-
-    exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(TodoItem);
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _concat = __webpack_require__(63);
+  var _concat = __webpack_require__(56);
 
   var _concat2 = _interopRequireDefault(_concat);
 
@@ -2967,35 +2174,37 @@ module.exports =
 
   var _inherits3 = _interopRequireDefault(_inherits2);
 
-  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/components/DropZoneDemo/DropZoneDemo.js';
+  var _jsxFileName = '/Users/naver/workspace/excel-merge-tool/src/container/Main/Main.js';
 
   var _react = __webpack_require__(14);
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _xlsxStyle = __webpack_require__(67);
+  var _xlsxStyle = __webpack_require__(57);
 
   var _xlsxStyle2 = _interopRequireDefault(_xlsxStyle);
 
-  var _fileSaver = __webpack_require__(68);
+  var _fileSaver = __webpack_require__(58);
 
   var _fileSaver2 = _interopRequireDefault(_fileSaver);
 
-  var _DropZone = __webpack_require__(64);
+  var _DropZone = __webpack_require__(59);
 
   var _DropZone2 = _interopRequireDefault(_DropZone);
 
+  var _excelMergeTool = __webpack_require__(62);
+
+  var _excelMergeTool2 = _interopRequireDefault(_excelMergeTool);
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  //import xlsx from 'xlsx'
+  var Main = function (_Component) {
+    (0, _inherits3.default)(Main, _Component);
 
-  var DropZoneDemo = function (_Component) {
-    (0, _inherits3.default)(DropZoneDemo, _Component);
+    function Main() {
+      (0, _classCallCheck3.default)(this, Main);
 
-    function DropZoneDemo() {
-      (0, _classCallCheck3.default)(this, DropZoneDemo);
-
-      var _this = (0, _possibleConstructorReturn3.default)(this, (DropZoneDemo.__proto__ || (0, _getPrototypeOf2.default)(DropZoneDemo)).call(this));
+      var _this = (0, _possibleConstructorReturn3.default)(this, (Main.__proto__ || (0, _getPrototypeOf2.default)(Main)).call(this));
 
       _this.onDrop = function (files) {
         console.log(files[files.length - 1]);
@@ -3011,9 +2220,9 @@ module.exports =
 
         reader.onloadend = function () {
           var data = _xlsxStyle2.default.read(reader.result, { type: 'binary' });
-          var wopts = { bookType: 'xlsx', cellDates: true, bookSST: true, compression: true, type: 'binary' };
+          var wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' };
           var wbout = _xlsxStyle2.default.write(data, wopts);
-
+          console.log(data);
           function s2ab(s) {
             var buf = new ArrayBuffer(s.length);
             var view = new Uint8Array(buf);
@@ -3037,7 +2246,12 @@ module.exports =
       return _this;
     }
 
-    (0, _createClass3.default)(DropZoneDemo, [{
+    (0, _createClass3.default)(Main, [{
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        _excelMergeTool2.default.init();
+      }
+    }, {
       key: 'render',
       value: function render() {
         var _this2 = this;
@@ -3050,13 +2264,13 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 52
+              lineNumber: 56
             },
             __self: this
           },
           _react2.default.createElement(_DropZone2.default, { ref: 'dropzone', onDrop: this.onDrop, __source: {
               fileName: _jsxFileName,
-              lineNumber: 53
+              lineNumber: 57
             },
             __self: this
           }),
@@ -3064,7 +2278,7 @@ module.exports =
             'button',
             { onClick: this.openFile, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 54
+                lineNumber: 58
               },
               __self: this
             },
@@ -3075,7 +2289,7 @@ module.exports =
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 55
+                lineNumber: 59
               },
               __self: this
             },
@@ -3084,7 +2298,7 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 56
+                  lineNumber: 60
                 },
                 __self: this
               },
@@ -3097,14 +2311,14 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 57
+                  lineNumber: 61
                 },
                 __self: this
               },
               files.map(function (file, index) {
                 return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 58
+                    lineNumber: 62
                   },
                   __self: _this2
                 });
@@ -3114,19 +2328,31 @@ module.exports =
         );
       }
     }]);
-    return DropZoneDemo;
+    return Main;
   }(_react.Component);
 
-    exports.default = DropZoneDemo;
+    exports.default = Main;
 
 /***/ },
-/* 63 */
+/* 56 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/core-js/array/concat");
 
 /***/ },
-/* 64 */
+/* 57 */
+/***/ function(module, exports) {
+
+  module.exports = require("xlsx-style");
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+  module.exports = require("file-saver");
+
+/***/ },
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3139,7 +2365,7 @@ module.exports =
 
   var _extends3 = _interopRequireDefault(_extends2);
 
-  var _objectWithoutProperties2 = __webpack_require__(65);
+  var _objectWithoutProperties2 = __webpack_require__(60);
 
   var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -3169,7 +2395,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _attrAccept = __webpack_require__(66);
+  var _attrAccept = __webpack_require__(61);
 
   var _attrAccept2 = _interopRequireDefault(_attrAccept);
 
@@ -3628,31 +2854,508 @@ module.exports =
     exports.default = Dropzone;
 
 /***/ },
-/* 65 */
+/* 60 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/helpers/objectWithoutProperties");
 
 /***/ },
-/* 66 */
+/* 61 */
 /***/ function(module, exports) {
 
   module.exports = require("attr-accept");
 
 /***/ },
-/* 67 */
-/***/ function(module, exports) {
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
 
-  module.exports = require("xlsx-style");
+  "use strict";
+
+  /**
+   * Created by seunggabi on 2017. 2. 26..
+   */
+
+  module.exports = {
+  	XLSX: __webpack_require__(57),
+  	UTIL: __webpack_require__(63),
+  	LOG: __webpack_require__(64),
+  	DATA: __webpack_require__(65),
+
+  	PATH: {
+  		READ: "files/",
+  		WRITE: "files/output/"
+  	},
+  	WRITE_NAME: {
+  		NONE: "merge.xlsx",
+  		CONFLICT: "merge_conflict.xlsx",
+  		LIST: "merge_list.xlsx"
+  	},
+  	EXTENSION: ".xlsx",
+  	WRITE_MODE: {
+  		NONE: "NONE",
+  		CONFLICT: "CONFLICT",
+  		ALL: "ALL",
+  		LIST: "LIST"
+  	},
+  	DEFAULT: {
+  		WRITE_MODE: "LIST",
+  		LOG_MODE: true,
+  		IGNORE_LENGTH: 2,
+  		FIELD_RANGE: "A1:D1"
+  	},
+  	MSG: {
+  		UNDEFINED: "사용되지 않는 모드입니다."
+  	},
+  	LOG_TYPE: {
+  		SYSTEM: "SYSTEM  ",
+  		MERGE: "MERGE   ",
+  		NEW: "NEW     ",
+  		CONFLICT: "CONFLICT"
+  	},
+  	USING_CHECK: "$",
+  	RANGE_KEY: "!ref",
+  	FORMULA_KEY: "f",
+
+  	write_mode: null,
+  	log_mode: null,
+  	ignore_length: null,
+  	field_range: null,
+
+  	init: function init(data) {
+  		data = data || {};
+  		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
+  		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
+  		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
+  		this.field_range = data.field_range || this.DEFAULT.FIELD_RANGE;
+  		this.DATA.setFields(this.field_range);
+
+  		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
+  	},
+
+  	readFiles: function readFiles(fileNames) {
+  		var wbList = [];
+  		fileNames.forEach(function (fileName) {
+  			var wb = this.XLSX.readFile(this.PATH.READ + fileName, { cellStyles: true });
+  			wb.fileName = fileName;
+  			wbList.push(wb);
+
+  			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read " + fileName);
+  		}.bind(this));
+  		return wbList;
+  	},
+
+  	selectXLSX: function selectXLSX(fileNames) {
+  		var filesXLSX = [];
+
+  		fileNames.forEach(function (fileName) {
+  			if (fileName.lastIndexOf(this.EXTENSION) >= 0 && fileName.lastIndexOf(this.USING_CHECK) < 0) {
+  				filesXLSX.push(fileName);
+  			}
+  		}.bind(this));
+  		return filesXLSX;
+  	},
+
+  	_mergeSheets: function _mergeSheets(sheets) {
+  		return sheets.reduce(this._mergeSheet.bind(this));
+  	},
+
+  	_mergeSheet: function _mergeSheet(wb1, wb2) {
+  		this.LOG.addItem(this.LOG_TYPE.MERGE, "TO " + wb1.fileName + ", FROM " + wb2.fileName);
+
+  		for (var s in wb2.Sheets) {
+  			if (wb1.Sheets.hasOwnProperty(s)) {
+  				this.LOG.addItem(this.LOG_TYPE.CONFLICT, s + " Sheet ==> Conflict");
+  				wb1.Sheets[s].fileName = wb1.fileName;
+  				wb2.Sheets[s].fileName = wb2.fileName;
+  				wb1.Sheets[s] = this._mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
+  			} else {
+  				this.LOG.addItem(this.LOG_TYPE.NEW, s + " Sheet ==> New");
+  				wb1.Sheets[s] = wb2.Sheets[s];
+  				wb1.SheetNames.push(s);
+  			}
+  		}
+  		return wb1;
+  	},
+
+  	_mergeCells: function _mergeCells(s1, s2) {
+  		this._setCellFomula(s1);
+  		this._setCellFomula(s2);
+
+  		for (var c in s2) {
+  			var v2 = String(s2[c].v);
+  			v2 = this.UTIL.enterOnce(v2);
+
+  			if (s1.hasOwnProperty(c)) {
+  				var v1 = String(s1[c].v);
+  				v1 = this.UTIL.enterOnce(v1);
+
+  				if (c === this.RANGE_KEY) {
+  					this._extendsRange(s1[c], s2[c]);
+  				} else if (v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
+  					v1 = v1.toUpperCase();
+  					v2 = v2.toUpperCase();
+
+  					if (v1 === v2) {
+  						s1[c].t = "s";
+  						s1[c].v = v1;
+  					} else {
+  						s1[c].v = v1 + String.fromCharCode(13) + v2;
+  					}
+  				} else if (!this.UTIL.isInclude(v1, v2)) {
+  					s1[c].t = "s";
+  					s1[c].v = this._concatFileName(s1.fileName, v1) + String.fromCharCode(13) + this._concatFileName(s2.fileName, v2);
+  					this.LOG.addItem(this.LOG_TYPE.CONFLICT, c + " Cell ==> Conflict (" + s1[c].v + ")");
+  				}
+  			} else {
+  				if (v2.length <= this.ignore_length) {
+  					s2[c].v = v2;
+  				} else {
+  					s2[c].v = this._concatFileName(s2.fileName, v2);
+  				}
+  				s1[c] = s2[c];
+  			}
+  		}
+  		return s1;
+  	},
+
+  	_setCellFomula: function _setCellFomula(s) {
+  		for (var c in s) {
+  			if (s[c].hasOwnProperty(this.FORMULA_KEY)) {
+  				s[c].t = "s";
+  				s[c].v = "=" + s[c].f;
+  			}
+  		}
+  	},
+
+  	_extendsRange: function _extendsRange(r1, r2) {
+  		var r;
+  		var r1Col = r1.match(this.DATA.REG.COL);
+  		var r1Row = r1.match(this.DATA.REG.ROW);
+
+  		var r2Col = r2.match(this.DATA.REG.COL);
+  		var r2Row = r2.match(this.DATA.REG.ROW);
+
+  		r = this.UTIL.min(r1Col[0], r2Col[0]) + this.UTIL.min(r1Row[0], r2Row[0]) + ":" + this.UTIL.max(r1Col[1], r2Col[1]) + this.UTIL.max(r1Row[1], r2Row[1]);
+
+  		return r;
+  	},
+
+  	_concatFileName: function _concatFileName(fileName, text) {
+  		var concatText = text;
+  		if (this.write_mode === this.WRITE_MODE.CONFLICT) {
+  			concatText = "[" + fileName + "]" + String.fromCharCode(13) + text;
+  		}
+
+  		return concatText;
+  	},
+
+  	writeFile: function writeFile(wbList) {
+  		switch (this.write_mode) {
+  			case this.WRITE_MODE.LIST:
+  			case this.WRITE_MODE.NONE:
+  			case this.WRITE_MODE.CONFLICT:
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				this._writeFile(this.UTIL.clone(wbList));
+  				this.LOG.writeFile();
+  				break;
+  			case this.WRITE_MODE.ALL:
+  				this.write_mode = this.WRITE_MODE.NONE;
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				this._writeFile(this.UTIL.clone(wbList));
+  				this.write_mode = this.WRITE_MODE.CONFLICT;
+  				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
+  				this._writeFile(this.UTIL.clone(wbList));
+  				this.write_mode = this.WRITE_MODE.ALL;
+  				this.LOG.writeFile();
+  				break;
+  			default:
+  				console.log(this.MSG.UNDEFINED);
+  		}
+  	},
+
+  	_writeFile: function _writeFile(wbList) {
+  		var wb;
+
+  		if (this.write_mode === this.WRITE_MODE.LIST) {
+  			wb = this._addSheets(wbList);
+  		} else {
+  			wb = this._mergeSheets(wbList);
+  		}
+
+  		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
+  		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write " + this.WRITE_NAME[this.write_mode]);
+  	},
+
+  	_readSheets: function _readSheets(wb) {
+  		for (var s in wb.Sheets) {
+  			this._readCells(wb.Sheets[s]);
+  		}
+  	},
+
+  	_readCells: function _readCells(s) {
+  		var item = [];
+
+  		var rowNumber = +this.DATA.field.rowsIndex[1];
+  		var row, col;
+  		var cellTable = {};
+  		for (var c in s) {
+  			if (c.match(this.DATA.REG.CELL)) {
+  				row = c.match(this.DATA.REG.ROW)[0];
+  				col = c.match(this.DATA.REG.COL)[0];
+
+  				if (this.DATA.field.cols.indexOf(col) < 0) {
+  					this.DATA.field.cols.push(col);
+  				}
+
+  				if (!cellTable[row]) {
+  					cellTable[row] = {};
+  				}
+  				cellTable[row][col] = s[c].v;
+  			}
+  		}
+
+  		while (cellTable[rowNumber]) {
+  			for (var k in cellTable[this.DATA.field.rowsIndex[1]]) {
+  				item.push(cellTable[rowNumber][k]);
+  			}
+  			rowNumber++;
+  			this.DATA.addItem(item);
+  			item = [];
+  		}
+  	},
+
+  	_addSheets: function _addSheets(wbList) {
+  		for (var wb in wbList) {
+  			this._readSheets(wbList[wb]);
+  		}
+
+  		var rowNumber = this.DATA.field.rowsIndex[1];
+  		for (var s in wbList[0].Sheets) {
+  			var sheet = wbList[0].Sheets[s];
+
+  			sheet["!ref"] = "A1:D8";
+  			for (var i in this.DATA.items) {
+  				for (var j = 0; j < this.DATA.field.cols.length; j++) {
+  					sheet[this.DATA.field.cols[j] + rowNumber] = {};
+  					sheet[this.DATA.field.cols[j] + rowNumber].t = "s";
+  					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[i].datas[j];
+  				}
+  				rowNumber++;
+  			}
+  			console.log(this.DATA.items, this.DATA.items.length);
+  			//console.log(wbList[0].Sheets.시트1);
+  			break;
+  		}
+  		return wbList[0];
+  	}
+    };
 
 /***/ },
-/* 68 */
-/***/ function(module, exports) {
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
 
-  module.exports = require("file-saver");
+  "use strict";
+
+  var _stringify = __webpack_require__(33);
+
+  var _stringify2 = _interopRequireDefault(_stringify);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  /**
+   * Created by seunggabi on 2017. 3. 12..
+   */
+
+  module.exports = {
+  	enterOnce: function enterOnce(text) {
+  		text = text.trim();
+  		var regEnter = /[\r\n]+/g;
+  		return text.replace(regEnter, String.fromCharCode(13));
+  	},
+
+  	isInclude: function isInclude(a, b) {
+  		if (a === "" || b === "") {
+  			return false;
+  		}
+  		return a.indexOf(b) >= 0 || b.indexOf(a) >= 0;
+  	},
+
+  	max: function max(a, b) {
+  		var aLength = this.length(a);
+  		var bLength = this.length(b);
+
+  		if (aLength > bLength) {
+  			return a;
+  		} else if (aLength < bLength) {
+  			return b;
+  		} else {
+  			return a > b ? a : b;
+  		}
+  	},
+
+  	min: function min(a, b) {
+  		var aLength = this.length(a);
+  		var bLength = this.length(b);
+
+  		if (aLength < bLength) {
+  			return a;
+  		} else if (aLength > bLength) {
+  			return b;
+  		} else {
+  			return a < b ? a : b;
+  		}
+  	},
+
+  	length: function length(a) {
+  		if (typeof a === "string") {
+  			return a.length;
+  		} else {
+  			return 0;
+  		}
+  	},
+
+  	clone: function clone(obj) {
+  		return JSON.parse((0, _stringify2.default)(obj));
+  	}
+    };
 
 /***/ },
-/* 69 */
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+  "use strict";
+
+  /**
+   * Created by seunggabi on 2017. 3. 12..
+   */
+  Date.prototype.timestamp = function () {
+  	var y = this.getFullYear();
+  	var m = this.getMonth() + 1;
+  	var d = this.getDate();
+  	var h = this.getHours();
+  	var i = this.getMinutes();
+  	var s = this.getSeconds();
+
+  	m = m > 9 ? m : "0" + m;
+  	d = d > 9 ? d : "0" + d;
+  	h = h > 9 ? h : "0" + h;
+  	i = i > 9 ? i : "0" + i;
+  	s = s > 9 ? s : "0" + s;
+
+  	return [y, m, d].join("-") + " " + [h, i, s].join(":");
+  };
+
+  module.exports = {
+  	FS: __webpack_require__(50),
+  	PATH: "files/output/",
+  	FILE_NAME: "log.txt",
+  	status: true,
+  	items: [],
+
+  	Item: function Item(type, content) {
+  		this.type = type;
+  		this.content = content;
+  		this.time = new Date().timestamp();
+  	},
+
+  	addItem: function addItem(type, content) {
+  		if (!this.status) {
+  			return;
+  		}
+  		this.items.push(new this.Item(type, content));
+  	},
+
+  	_getItem: function _getItem(item) {
+  		if (!this.status) {
+  			return;
+  		}
+  		return "[" + item.type + "][" + item.time + "] " + this._removeEnter(item.content);
+  	},
+
+  	_getItems: function _getItems() {
+  		if (!this.status) {
+  			return;
+  		}
+  		var items = "";
+
+  		this.items.forEach(function (item) {
+  			items += this._getItem(item) + "\n";
+  		}.bind(this));
+  		return items;
+  	},
+
+  	writeFile: function writeFile() {
+  		if (!this.status) {
+  			return;
+  		}
+  		this.FS.writeFile(this.PATH + this.FILE_NAME, this._getItems());
+  		this.items = [];
+  	},
+
+  	_removeEnter: function _removeEnter(text) {
+  		if (!this.status) {
+  			return;
+  		}
+  		var regEnter = /[\r\n]+/g;
+  		return text.replace(regEnter, " ");
+  	}
+    };
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+  "use strict";
+
+  /**
+   * Created by seunggabi on 2017. 3. 12..
+   */
+
+  module.exports = {
+  	items: {},
+  	length: 0,
+
+  	SPLITTER: "{{$s$}}",
+  	REG: {
+  		COL: /[A-Z]+/g,
+  		ROW: /\d+/g,
+  		CELL: /[A-Z]\d+/g
+  	},
+  	field: {
+  		range: null,
+  		colsIndex: [],
+  		rowsIndex: [],
+  		cols: []
+  	},
+
+  	Item: function Item(datas) {
+  		this.datas = datas || [];
+  	},
+
+  	addItem: function addItem(datas) {
+  		var key = this.getIdentifier(datas);
+  		if (!this.items.hasOwnProperty(key)) {
+  			this.length++;
+  		}
+  		this.items[this.getIdentifier(datas)] = new this.Item(datas);
+  	},
+
+  	getIdentifier: function getIdentifier(datas) {
+  		return datas.join(this.SPLITTER);
+  	},
+
+  	setFields: function setFields(fieldRange) {
+  		var cols = fieldRange.match(this.REG.COL);
+  		var rows = fieldRange.match(this.REG.ROW);
+
+  		this.field.range = fieldRange;
+  		this.field.colsIndex = cols;
+  		this.field.rowsIndex = rows;
+  	}
+    };
+
+/***/ },
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3673,7 +3376,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _NotFound = __webpack_require__(70);
+  var _NotFound = __webpack_require__(67);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3710,7 +3413,7 @@ module.exports =
     };
 
 /***/ },
-/* 70 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3756,7 +3459,7 @@ module.exports =
 
   var _withStyles2 = _interopRequireDefault(_withStyles);
 
-  var _NotFound = __webpack_require__(71);
+  var _NotFound = __webpack_require__(68);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3824,11 +3527,11 @@ module.exports =
     exports.default = (0, _withStyles2.default)(_NotFound2.default)(NotFound);
 
 /***/ },
-/* 71 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(72);
+      var content = __webpack_require__(69);
       var insertCss = __webpack_require__(32);
 
       if (typeof content === 'string') {
@@ -3859,7 +3562,7 @@ module.exports =
     
 
 /***/ },
-/* 72 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(31)();
@@ -3876,13 +3579,13 @@ module.exports =
   };
 
 /***/ },
-/* 73 */
+/* 70 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 74 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3892,21 +3595,21 @@ module.exports =
   });
   exports.default = configureStore;
 
-  var _redux = __webpack_require__(57);
+  var _redux = __webpack_require__(72);
 
-  var _reduxThunk = __webpack_require__(75);
+  var _reduxThunk = __webpack_require__(73);
 
   var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-  var _reducers = __webpack_require__(76);
+  var _reducers = __webpack_require__(74);
 
   var _reducers2 = _interopRequireDefault(_reducers);
 
-  var _createHelpers = __webpack_require__(77);
+  var _createHelpers = __webpack_require__(75);
 
   var _createHelpers2 = _interopRequireDefault(_createHelpers);
 
-  var _logger = __webpack_require__(80);
+  var _logger = __webpack_require__(78);
 
   var _logger2 = _interopRequireDefault(_logger);
 
@@ -3951,13 +3654,19 @@ module.exports =
   }
 
 /***/ },
-/* 75 */
+/* 72 */
+/***/ function(module, exports) {
+
+  module.exports = require("redux");
+
+/***/ },
+/* 73 */
 /***/ function(module, exports) {
 
   module.exports = require("redux-thunk");
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3970,7 +3679,7 @@ module.exports =
 
   var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-  var _redux = __webpack_require__(57);
+  var _redux = __webpack_require__(72);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4012,7 +3721,7 @@ module.exports =
     exports.default = rootReducer;
 
 /***/ },
-/* 77 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4039,7 +3748,7 @@ module.exports =
 
   exports.default = createHelpers;
 
-  var _fetch = __webpack_require__(78);
+  var _fetch = __webpack_require__(76);
 
   var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -4135,7 +3844,7 @@ module.exports =
     }
 
 /***/ },
-/* 78 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4149,7 +3858,7 @@ module.exports =
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _nodeFetch = __webpack_require__(79);
+  var _nodeFetch = __webpack_require__(77);
 
   var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
@@ -4190,13 +3899,13 @@ module.exports =
     exports.Response = _nodeFetch.Response;
 
 /***/ },
-/* 79 */
+/* 77 */
 /***/ function(module, exports) {
 
   module.exports = require("node-fetch");
 
 /***/ },
-/* 80 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4206,7 +3915,7 @@ module.exports =
   });
   exports.default = createLogger;
 
-  var _util = __webpack_require__(81);
+  var _util = __webpack_require__(79);
 
   // Server side redux action logger
   function createLogger() {
@@ -4225,10 +3934,105 @@ module.exports =
     }
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports) {
 
   module.exports = require("util");
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _regenerator = __webpack_require__(1);
+
+  var _regenerator2 = _interopRequireDefault(_regenerator);
+
+  var _asyncToGenerator2 = __webpack_require__(5);
+
+  var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+  exports.addTodo = addTodo;
+  exports.deleteTodo = deleteTodo;
+  exports.getTodos = getTodos;
+  exports.showEditor = showEditor;
+  exports.hideEditor = hideEditor;
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function addTodo(text) {
+    return {
+      type: 'ADD_TODO',
+      text: text
+    };
+  }
+
+  function deleteTodo(index) {
+    return {
+      type: 'DELETE_TODO',
+      index: index
+    };
+  }
+
+  function receiveTodos(todos) {
+    return {
+      type: 'RECEIVE_TODOS',
+      todos: todos
+    };
+  }
+
+  function getTodos() {
+    var _this = this;
+
+    return function () {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(dispatch, getState, _ref2) {
+        var graphqlRequest = _ref2.graphqlRequest;
+
+        var _ref3, data;
+
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return graphqlRequest('{todo{text}}');
+
+              case 2:
+                _ref3 = _context.sent;
+                data = _ref3.data;
+
+                dispatch(receiveTodos(data.todo));
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }));
+
+      return function (_x, _x2, _x3) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+  }
+
+  function showEditor() {
+    return {
+      type: 'SHOW_EDITOR'
+    };
+  }
+
+  function hideEditor() {
+    return {
+      type: 'HIDE_EDITOR'
+    };
+    }
 
 /***/ }
 /******/ ]);

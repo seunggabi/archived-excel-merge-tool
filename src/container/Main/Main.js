@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import xlsxStyle from 'xlsx-style'
-import fileSaver from 'file-saver'
-import Dropzone from '../DropZone'
-//import xlsx from 'xlsx'
+import XlsxStyle from 'xlsx-style'
+import FileSaver from 'file-saver'
+import Dropzone from '../../components/DropZone'
+import EMT from '../../excel-merge/excel-merge-tool'
 
-class DropZoneDemo extends Component {
+class Main extends Component {
   constructor () {
     super()
 
     this.state = {
       files: []
     }
+  }
+
+  componentDidMount () {
+    EMT.init()
   }
 
   onDrop = (files) => {
@@ -25,10 +29,10 @@ class DropZoneDemo extends Component {
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      const data = xlsxStyle.read(reader.result, { type: 'binary' })
-      const wopts = { bookType: 'xlsx', cellDates: true, bookSST: true, compression: true, type: 'binary' }
-      const wbout = xlsxStyle.write(data, wopts);
-
+      const data = XlsxStyle.read(reader.result, { type: 'binary' })
+      const wopts = { bookType: 'xlsx', cellDates: false, bookSST: false, compression: false, type: 'binary' }
+      const wbout = XlsxStyle.write(data, wopts);
+      console.log(data)
       function s2ab(s) {
         const buf = new ArrayBuffer(s.length)
         const view = new Uint8Array(buf)
@@ -36,7 +40,7 @@ class DropZoneDemo extends Component {
         return buf;
       }
 
-      fileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
+      FileSaver.saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'test.xlsx')
     }
     reader.readAsBinaryString(files[0])
   }
@@ -63,4 +67,4 @@ class DropZoneDemo extends Component {
   }
 }
 
-export default DropZoneDemo
+export default Main
