@@ -276,7 +276,7 @@ module.exports = {
 		}
 
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
-		return new binaryFile(this.WRITE_NAME[this.write_mode], this.XLSX.write(wb));
+		return new this.binaryFile(this.WRITE_NAME[this.write_mode], this.XLSX.write(wb));
 	},
 
 	_readSheets: function(wb) {
