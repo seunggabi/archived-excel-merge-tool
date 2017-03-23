@@ -2245,6 +2245,12 @@ module.exports =
           field_range: fieldRange,
           isDuplication: isDuplication
         };
+
+        if (writeMode === 'LIST' && !_this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
+          alert('올바르지 않은 필드셀범위 입력입니다.');
+          return;
+        }
+
         console.log(options);
         _excelMergeTool2.default.init(options);
 
@@ -2285,7 +2291,13 @@ module.exports =
       };
 
       _this.handleIgnoreLength = function (event) {
-        _this.setState({ ignoreLength: event.target.value });
+        var value = event.target.value;
+
+        if (!_this.checkReg(/\d*/g, value)) {
+          alert('올바르지 않은 입력입니다.');
+          return;
+        }
+        _this.setState({ ignoreLength: value });
       };
 
       _this.handleLogMode = function (event) {
@@ -2314,6 +2326,14 @@ module.exports =
         });
       };
 
+      _this.checkReg = function (reg, text) {
+        var data = reg.exec(text);
+        if (data) {
+          return text === data[0];
+        }
+        return false;
+      };
+
       _this.state = {
         files: [],
         isMerge: true,
@@ -2340,7 +2360,7 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 115
+              lineNumber: 135
             },
             __self: this
           },
@@ -2348,7 +2368,7 @@ module.exports =
             'h1',
             { className: _style2.default.title, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 117
+                lineNumber: 137
               },
               __self: this
             },
@@ -2358,14 +2378,14 @@ module.exports =
             _DropZone2.default,
             { className: _style2.default.dropzone, onDrop: this.onDrop, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 122
+                lineNumber: 142
               },
               __self: this
             },
             files.map(function (file, index) {
               return _react2.default.createElement(_DropItem2.default, { key: index, name: file.name, css: _style2.default, imgSrc: _xlsxImg2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 124
+                  lineNumber: 144
                 },
                 __self: _this2
               });
@@ -2375,7 +2395,7 @@ module.exports =
             'div',
             { className: _style2.default.tabWrapper, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 129
+                lineNumber: 149
               },
               __self: this
             },
@@ -2383,7 +2403,7 @@ module.exports =
               'div',
               { className: _style2.default.tabHeader, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 130
+                  lineNumber: 150
                 },
                 __self: this
               },
@@ -2391,7 +2411,7 @@ module.exports =
                 'div',
                 { onClick: this.onMergeTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 131
+                    lineNumber: 151
                   },
                   __self: this
                 },
@@ -2401,7 +2421,7 @@ module.exports =
                 'div',
                 { onClick: this.onListTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 134
+                    lineNumber: 154
                   },
                   __self: this
                 },
@@ -2412,7 +2432,7 @@ module.exports =
               'div',
               { className: _style2.default.tabBody, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 138
+                  lineNumber: 158
                 },
                 __self: this
               },
@@ -2420,7 +2440,7 @@ module.exports =
                 'div',
                 { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 139
+                    lineNumber: 159
                   },
                   __self: this
                 },
@@ -2429,7 +2449,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 140
+                      lineNumber: 160
                     },
                     __self: this
                   },
@@ -2438,29 +2458,29 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 141
+                        lineNumber: 161
                       },
                       __self: this
                     },
                     '\uCD9C\uB825\uBAA8\uB4DC'
                   ),
-                  _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'ALL', checked: true, onChange: this.handleWriteMode, __source: {
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'ALL', checked: this.state.writeMode === 'ALL', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 142
+                      lineNumber: 162
                     },
                     __self: this
                   }),
                   ' ALL',
                   _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'NONE', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 143
+                      lineNumber: 163
                     },
                     __self: this
                   }),
                   ' NONE',
                   _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'CONFLICT', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 144
+                      lineNumber: 164
                     },
                     __self: this
                   }),
@@ -2471,7 +2491,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 146
+                      lineNumber: 166
                     },
                     __self: this
                   },
@@ -2480,7 +2500,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 147
+                        lineNumber: 167
                       },
                       __self: this
                     },
@@ -2488,7 +2508,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'text', value: this.state.ignoreLength, onChange: this.handleIgnoreLength, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 148
+                      lineNumber: 168
                     },
                     __self: this
                   })
@@ -2498,7 +2518,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 150
+                      lineNumber: 170
                     },
                     __self: this
                   },
@@ -2507,7 +2527,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 151
+                        lineNumber: 171
                       },
                       __self: this
                     },
@@ -2515,7 +2535,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 152
+                      lineNumber: 172
                     },
                     __self: this
                   })
@@ -2525,7 +2545,7 @@ module.exports =
                 'div',
                 { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 156
+                    lineNumber: 176
                   },
                   __self: this
                 },
@@ -2534,7 +2554,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 157
+                      lineNumber: 177
                     },
                     __self: this
                   },
@@ -2543,7 +2563,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 158
+                        lineNumber: 178
                       },
                       __self: this
                     },
@@ -2551,7 +2571,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.isDuplication, onChange: this.handleIsDuplication, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 159
+                      lineNumber: 179
                     },
                     __self: this
                   })
@@ -2561,7 +2581,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 161
+                      lineNumber: 181
                     },
                     __self: this
                   },
@@ -2570,7 +2590,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 162
+                        lineNumber: 182
                       },
                       __self: this
                     },
@@ -2578,7 +2598,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'text', value: this.state.fieldRange, onChange: this.handleFieldRange, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 163
+                      lineNumber: 183
                     },
                     __self: this
                   })
@@ -2588,7 +2608,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 165
+                      lineNumber: 185
                     },
                     __self: this
                   },
@@ -2597,7 +2617,7 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 166
+                        lineNumber: 186
                       },
                       __self: this
                     },
@@ -2605,7 +2625,7 @@ module.exports =
                   ),
                   _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 167
+                      lineNumber: 187
                     },
                     __self: this
                   })
@@ -2615,7 +2635,7 @@ module.exports =
                 'div',
                 { className: _style2.default.tabFooter, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 171
+                    lineNumber: 191
                   },
                   __self: this
                 },
@@ -2623,7 +2643,7 @@ module.exports =
                   'button',
                   { onClick: this.openFile, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 172
+                      lineNumber: 192
                     },
                     __self: this
                   },
@@ -3747,14 +3767,6 @@ module.exports =
   		}
   		var regEnter = /[\r\n]+/g;
   		return text.replace(regEnter, " ");
-  	},
-
-  	s2ab: function s2ab(s) {
-  		var buf = new ArrayBuffer(s.length);
-  		var view = new Uint8Array(buf);
-  		for (var i = 0; i !== s.length; ++i) {
-  			view[i] = s.charCodeAt(i) & 0xFF;
-  		}return buf;
   	}
     };
 

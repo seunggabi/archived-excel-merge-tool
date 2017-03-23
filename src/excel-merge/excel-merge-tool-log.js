@@ -69,7 +69,7 @@ module.exports = {
 		if(!this.status) {
 			return;
 		}
-    var binaryFile = this._getItems();
+        var binaryFile = this._getItems();
 		this.items = [];
 		return binaryFile;
 	},
@@ -80,12 +80,5 @@ module.exports = {
 		}
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, " ");
-	},
-
-	s2ab: function(s) {
-		const buf = new ArrayBuffer(s.length);
-		const view = new Uint8Array(buf);
-		for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-		return buf;
 	}
 };
