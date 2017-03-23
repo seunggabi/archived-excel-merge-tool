@@ -157,15 +157,15 @@ module.exports =
 
   var _routes2 = _interopRequireDefault(_routes);
 
-  var _assets = __webpack_require__(74);
+  var _assets = __webpack_require__(75);
 
   var _assets2 = _interopRequireDefault(_assets);
 
-  var _configureStore = __webpack_require__(75);
+  var _configureStore = __webpack_require__(76);
 
   var _configureStore2 = _interopRequireDefault(_configureStore);
 
-  var _actions = __webpack_require__(84);
+  var _actions = __webpack_require__(85);
 
   var _config = __webpack_require__(42);
 
@@ -2036,7 +2036,7 @@ module.exports =
     path: '/',
 
     // Keep in mind, routes are evaluated in order
-    children: [__webpack_require__(54).default, __webpack_require__(70).default],
+    children: [__webpack_require__(54).default, __webpack_require__(71).default],
 
     action: function action(_ref) {
       var _this = this;
@@ -2200,11 +2200,15 @@ module.exports =
 
   var _DropZone2 = _interopRequireDefault(_DropZone);
 
-  var _excelMergeTool = __webpack_require__(63);
+  var _DropItem = __webpack_require__(63);
+
+  var _DropItem2 = _interopRequireDefault(_DropItem);
+
+  var _excelMergeTool = __webpack_require__(64);
 
   var _excelMergeTool2 = _interopRequireDefault(_excelMergeTool);
 
-  var _style = __webpack_require__(68);
+  var _style = __webpack_require__(69);
 
   var _style2 = _interopRequireDefault(_style);
 
@@ -2227,8 +2231,7 @@ module.exports =
       _this.openFile = function () {
         var _this$state = _this.state,
             files = _this$state.files,
-            _this$state$writeMode = _this$state.writeMode,
-            writeMode = _this$state$writeMode === undefined ? 'ALL' : _this$state$writeMode,
+            writeMode = _this$state.writeMode,
             logMode = _this$state.logMode,
             ignoreLength = _this$state.ignoreLength,
             fieldRange = _this$state.fieldRange,
@@ -2242,7 +2245,7 @@ module.exports =
           field_range: fieldRange,
           isDuplication: isDuplication
         };
-
+        console.log(options);
         _excelMergeTool2.default.init(options);
 
         files.forEach(function (file, index) {
@@ -2277,8 +2280,49 @@ module.exports =
         });
       };
 
+      _this.handleWriteMode = function (event) {
+        _this.setState({ writeMode: event.target.value });
+      };
+
+      _this.handleIgnoreLength = function (event) {
+        _this.setState({ ignoreLength: event.target.value });
+      };
+
+      _this.handleLogMode = function (event) {
+        _this.setState({ logMode: event.target.checked });
+      };
+
+      _this.handleIsDuplication = function (event) {
+        _this.setState({ isDuplication: event.target.checked });
+      };
+
+      _this.handleFieldRange = function (event) {
+        _this.setState({ fieldRange: event.target.value });
+      };
+
+      _this.onMergeTab = function () {
+        _this.setState({
+          writeMode: 'ALL',
+          isMerge: true
+        });
+      };
+
+      _this.onListTab = function () {
+        _this.setState({
+          writeMode: 'LIST',
+          isMerge: false
+        });
+      };
+
       _this.state = {
-        files: []
+        files: [],
+        isMerge: true,
+
+        writeMode: 'ALL',
+        ignoreLength: 0,
+        fieldRange: 'A1:B6',
+        isDuplication: false,
+        logMode: true
       };
       return _this;
     }
@@ -2296,7 +2340,7 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 73
+              lineNumber: 115
             },
             __self: this
           },
@@ -2304,7 +2348,7 @@ module.exports =
             'h1',
             { className: _style2.default.title, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 75
+                lineNumber: 117
               },
               __self: this
             },
@@ -2314,59 +2358,24 @@ module.exports =
             _DropZone2.default,
             { className: _style2.default.dropzone, onDrop: this.onDrop, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 80
+                lineNumber: 122
               },
               __self: this
             },
             files.map(function (file, index) {
-              return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
+              return _react2.default.createElement(_DropItem2.default, { key: index, name: file.name, css: _style2.default, imgSrc: _xlsxImg2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 124
                 },
                 __self: _this2
               });
-            }),
-            _react2.default.createElement(
-              'div',
-              { className: _style2.default.dropItem, __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 83
-                },
-                __self: this
-              },
-              _react2.default.createElement(
-                'div',
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 84
-                  },
-                  __self: this
-                },
-                _react2.default.createElement('img', { className: _style2.default.xlsxImg, src: _xlsxImg2.default, __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 84
-                  },
-                  __self: this
-                })
-              ),
-              _react2.default.createElement(
-                'label',
-                { className: _style2.default.fileName, __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 85
-                  },
-                  __self: this
-                },
-                'test.xlsx'
-              )
-            )
+            })
           ),
           _react2.default.createElement(
             'div',
             { className: _style2.default.tabWrapper, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 92
+                lineNumber: 129
               },
               __self: this
             },
@@ -2374,15 +2383,15 @@ module.exports =
               'div',
               { className: _style2.default.tabHeader, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 93
+                  lineNumber: 130
                 },
                 __self: this
               },
               _react2.default.createElement(
                 'div',
-                { className: (0, _classnames2.default)(_style2.default.optionTabTitle, _style2.default.isOn), __source: {
+                { onClick: this.onMergeTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 94
+                    lineNumber: 131
                   },
                   __self: this
                 },
@@ -2390,9 +2399,9 @@ module.exports =
               ),
               _react2.default.createElement(
                 'div',
-                { className: _style2.default.optionTabTitle, __source: {
+                { onClick: this.onListTab, className: (0, _classnames2.default)(_style2.default.optionTabTitle, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 134
                   },
                   __self: this
                 },
@@ -2403,15 +2412,15 @@ module.exports =
               'div',
               { className: _style2.default.tabBody, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 103
+                  lineNumber: 138
                 },
                 __self: this
               },
               _react2.default.createElement(
                 'div',
-                { className: (0, _classnames2.default)(_style2.default.optionTab, _style2.default.isOn), __source: {
+                { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? _style2.default.isOn : null), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 104
+                    lineNumber: 139
                   },
                   __self: this
                 },
@@ -2420,7 +2429,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 105
+                      lineNumber: 140
                     },
                     __self: this
                   },
@@ -2429,29 +2438,29 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 106
+                        lineNumber: 141
                       },
                       __self: this
                     },
                     '\uCD9C\uB825\uBAA8\uB4DC'
                   ),
-                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'ALL', checked: true, onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 107
+                      lineNumber: 142
                     },
                     __self: this
                   }),
                   ' ALL',
-                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'NONE', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 108
+                      lineNumber: 143
                     },
                     __self: this
                   }),
                   ' NONE',
-                  _react2.default.createElement('input', { type: 'radio', name: 'mode', __source: {
+                  _react2.default.createElement('input', { type: 'radio', name: 'mode', value: 'CONFLICT', onChange: this.handleWriteMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 109
+                      lineNumber: 144
                     },
                     __self: this
                   }),
@@ -2462,7 +2471,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 111
+                      lineNumber: 146
                     },
                     __self: this
                   },
@@ -2471,15 +2480,15 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 112
+                        lineNumber: 147
                       },
                       __self: this
                     },
                     '\uCDA9\uB3CC\uAE38\uC774\uC81C\uD55C'
                   ),
-                  _react2.default.createElement('input', { type: 'text', __source: {
+                  _react2.default.createElement('input', { type: 'text', value: this.state.ignoreLength, onChange: this.handleIgnoreLength, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 113
+                      lineNumber: 148
                     },
                     __self: this
                   })
@@ -2489,7 +2498,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 115
+                      lineNumber: 150
                     },
                     __self: this
                   },
@@ -2498,15 +2507,15 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 116
+                        lineNumber: 151
                       },
                       __self: this
                     },
                     '\uB85C\uADF8'
                   ),
-                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                  _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 117
+                      lineNumber: 152
                     },
                     __self: this
                   })
@@ -2514,9 +2523,9 @@ module.exports =
               ),
               _react2.default.createElement(
                 'div',
-                { className: _style2.default.optionTab, __source: {
+                { className: (0, _classnames2.default)(_style2.default.optionTab, this.state.isMerge ? null : _style2.default.isOn), __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 121
+                    lineNumber: 156
                   },
                   __self: this
                 },
@@ -2525,7 +2534,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 122
+                      lineNumber: 157
                     },
                     __self: this
                   },
@@ -2534,15 +2543,15 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 123
+                        lineNumber: 158
                       },
                       __self: this
                     },
                     '\uC911\uBCF5\uD5C8\uC6A9'
                   ),
-                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                  _react2.default.createElement('input', { type: 'checkbox', checked: this.state.isDuplication, onChange: this.handleIsDuplication, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 124
+                      lineNumber: 159
                     },
                     __self: this
                   })
@@ -2552,7 +2561,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 126
+                      lineNumber: 161
                     },
                     __self: this
                   },
@@ -2561,15 +2570,15 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 127
+                        lineNumber: 162
                       },
                       __self: this
                     },
                     '\uD544\uB4DC\uC140\uBC94\uC704'
                   ),
-                  _react2.default.createElement('input', { type: 'text', __source: {
+                  _react2.default.createElement('input', { type: 'text', value: this.state.fieldRange, onChange: this.handleFieldRange, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 128
+                      lineNumber: 163
                     },
                     __self: this
                   })
@@ -2579,7 +2588,7 @@ module.exports =
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 130
+                      lineNumber: 165
                     },
                     __self: this
                   },
@@ -2588,15 +2597,15 @@ module.exports =
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 131
+                        lineNumber: 166
                       },
                       __self: this
                     },
                     '\uB85C\uADF8'
                   ),
-                  _react2.default.createElement('input', { type: 'checkbox', __source: {
+                  _react2.default.createElement('input', { type: 'checkbox', checked: this.state.logMode, onChange: this.handleLogMode, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 132
+                      lineNumber: 167
                     },
                     __self: this
                   })
@@ -2606,7 +2615,7 @@ module.exports =
                 'div',
                 { className: _style2.default.tabFooter, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 136
+                    lineNumber: 171
                   },
                   __self: this
                 },
@@ -2614,7 +2623,7 @@ module.exports =
                   'button',
                   { onClick: this.openFile, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 137
+                      lineNumber: 172
                     },
                     __self: this
                   },
@@ -3173,6 +3182,109 @@ module.exports =
 /* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _getPrototypeOf = __webpack_require__(20);
+
+  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+  var _classCallCheck2 = __webpack_require__(21);
+
+  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+  var _createClass2 = __webpack_require__(22);
+
+  var _createClass3 = _interopRequireDefault(_createClass2);
+
+  var _possibleConstructorReturn2 = __webpack_require__(23);
+
+  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+  var _inherits2 = __webpack_require__(24);
+
+  var _inherits3 = _interopRequireDefault(_inherits2);
+
+  var _jsxFileName = '/Users/seunggabi/Workspace/excel-merge-tool/src/components/DropItem/DropItem.js';
+
+  var _react = __webpack_require__(14);
+
+  var _react2 = _interopRequireDefault(_react);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var DropItem = function (_React$Component) {
+    (0, _inherits3.default)(DropItem, _React$Component);
+
+    function DropItem() {
+      (0, _classCallCheck3.default)(this, DropItem);
+      return (0, _possibleConstructorReturn3.default)(this, (DropItem.__proto__ || (0, _getPrototypeOf2.default)(DropItem)).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(DropItem, [{
+      key: 'render',
+      value: function render() {
+        var _props = this.props,
+            css = _props.css,
+            name = _props.name,
+            imgSrc = _props.imgSrc;
+
+
+        return _react2.default.createElement(
+          'div',
+          { className: css.dropItem, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 8
+            },
+            __self: this
+          },
+          _react2.default.createElement(
+            'div',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 9
+              },
+              __self: this
+            },
+            _react2.default.createElement('img', { className: css.xlsxImg, src: imgSrc, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 9
+              },
+              __self: this
+            })
+          ),
+          _react2.default.createElement(
+            'label',
+            { className: css.fileName, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 10
+              },
+              __self: this
+            },
+            name
+          )
+        );
+      }
+    }]);
+    return DropItem;
+  }(_react2.default.Component);
+
+  DropItem.propTypes = {
+    css: _react.PropTypes.object,
+    name: _react2.default.PropTypes.string,
+    imgSrc: _react.PropTypes.string
+  };
+
+    exports.default = DropItem;
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
   "use strict";
 
   /**
@@ -3180,10 +3292,10 @@ module.exports =
    */
 
   module.exports = {
-  	XLSX: __webpack_require__(64),
-  	UTIL: __webpack_require__(65),
-  	LOG: __webpack_require__(66),
-  	DATA: __webpack_require__(67),
+  	XLSX: __webpack_require__(65),
+  	UTIL: __webpack_require__(66),
+  	LOG: __webpack_require__(67),
+  	DATA: __webpack_require__(68),
 
   	PATH: {
   		READ: "files/",
@@ -3473,13 +3585,13 @@ module.exports =
     };
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
   module.exports = require("xlsx-style");
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -3548,7 +3660,7 @@ module.exports =
     };
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
   "use strict";
@@ -3647,7 +3759,7 @@ module.exports =
     };
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports) {
 
   "use strict";
@@ -3685,6 +3797,10 @@ module.exports =
   	},
 
   	addItem: function addItem(sheet, datas) {
+  		if (this.isNull(datas)) {
+  			return;
+  		}
+
   		var key = this.getIdentifier(datas);
 
   		if (!this.items[sheet]) {
@@ -3699,6 +3815,10 @@ module.exports =
   			this.size[sheet]++;
   		}
   		this.items[sheet][key] = new this.Item(datas);
+  	},
+
+  	isNull: function isNull(datas) {
+  		return datas.join("") === "";
   	},
 
   	getIdentifier: function getIdentifier(datas) {
@@ -3717,7 +3837,7 @@ module.exports =
   	},
 
   	getRange: function getRange(sheetName) {
-  		return this.field.colsIndex[0] + this.field.rowsIndex[0] + ":" + this.field.colsIndex[1] + this.startRow + this.size[sheetName];
+  		return this.field.colsIndex[0] + this.field.rowsIndex[0] + ":" + this.field.colsIndex[1] + this.field.startRow + this.size[sheetName];
   	},
 
   	readCells: function readCells(sheetName, sheet) {
@@ -3745,7 +3865,7 @@ module.exports =
   		}
 
   		while (cellTable[rowNumber]) {
-  			for (var k in cellTable[this.field.startRow]) {
+  			for (var k in cellTable[+this.field.startRow]) {
   				item.push(cellTable[rowNumber][k]);
   			}
   			rowNumber++;
@@ -3770,11 +3890,11 @@ module.exports =
     };
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(69);
+      var content = __webpack_require__(70);
       var insertCss = __webpack_require__(32);
 
       if (typeof content === 'string') {
@@ -3805,7 +3925,7 @@ module.exports =
     
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(31)();
@@ -3831,7 +3951,7 @@ module.exports =
   };
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3852,7 +3972,7 @@ module.exports =
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _NotFound = __webpack_require__(71);
+  var _NotFound = __webpack_require__(72);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -3889,7 +4009,7 @@ module.exports =
     };
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3935,7 +4055,7 @@ module.exports =
 
   var _withStyles2 = _interopRequireDefault(_withStyles);
 
-  var _NotFound = __webpack_require__(72);
+  var _NotFound = __webpack_require__(73);
 
   var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -4003,11 +4123,11 @@ module.exports =
     exports.default = (0, _withStyles2.default)(_NotFound2.default)(NotFound);
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(73);
+      var content = __webpack_require__(74);
       var insertCss = __webpack_require__(32);
 
       if (typeof content === 'string') {
@@ -4038,7 +4158,7 @@ module.exports =
     
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(31)();
@@ -4055,13 +4175,13 @@ module.exports =
   };
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4071,21 +4191,21 @@ module.exports =
   });
   exports.default = configureStore;
 
-  var _redux = __webpack_require__(76);
+  var _redux = __webpack_require__(77);
 
-  var _reduxThunk = __webpack_require__(77);
+  var _reduxThunk = __webpack_require__(78);
 
   var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-  var _reducers = __webpack_require__(78);
+  var _reducers = __webpack_require__(79);
 
   var _reducers2 = _interopRequireDefault(_reducers);
 
-  var _createHelpers = __webpack_require__(79);
+  var _createHelpers = __webpack_require__(80);
 
   var _createHelpers2 = _interopRequireDefault(_createHelpers);
 
-  var _logger = __webpack_require__(82);
+  var _logger = __webpack_require__(83);
 
   var _logger2 = _interopRequireDefault(_logger);
 
@@ -4130,19 +4250,19 @@ module.exports =
   }
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports) {
 
   module.exports = require("redux");
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports) {
 
   module.exports = require("redux-thunk");
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4155,7 +4275,7 @@ module.exports =
 
   var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-  var _redux = __webpack_require__(76);
+  var _redux = __webpack_require__(77);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4197,7 +4317,7 @@ module.exports =
     exports.default = rootReducer;
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4224,7 +4344,7 @@ module.exports =
 
   exports.default = createHelpers;
 
-  var _fetch = __webpack_require__(80);
+  var _fetch = __webpack_require__(81);
 
   var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -4320,7 +4440,7 @@ module.exports =
     }
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4334,7 +4454,7 @@ module.exports =
 
   var _bluebird2 = _interopRequireDefault(_bluebird);
 
-  var _nodeFetch = __webpack_require__(81);
+  var _nodeFetch = __webpack_require__(82);
 
   var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
@@ -4375,13 +4495,13 @@ module.exports =
     exports.Response = _nodeFetch.Response;
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports) {
 
   module.exports = require("node-fetch");
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4391,7 +4511,7 @@ module.exports =
   });
   exports.default = createLogger;
 
-  var _util = __webpack_require__(83);
+  var _util = __webpack_require__(84);
 
   // Server side redux action logger
   function createLogger() {
@@ -4410,13 +4530,13 @@ module.exports =
     }
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports) {
 
   module.exports = require("util");
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';

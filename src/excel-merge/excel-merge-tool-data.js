@@ -32,6 +32,10 @@ module.exports = {
 	},
 
 	addItem: function(sheet, datas) {
+		if(this.isNull(datas)) {
+			return;
+		}
+
 		var key = this.getIdentifier(datas);
 
 		if(!this.items[sheet]) {
@@ -46,6 +50,10 @@ module.exports = {
 			this.size[sheet]++;
 		}
 		this.items[sheet][key] = new this.Item(datas);
+	},
+
+	isNull: function(datas) {
+		return datas.join("") === "";
 	},
 
 	getIdentifier: function(datas) {
@@ -66,7 +74,7 @@ module.exports = {
 	getRange: function(sheetName) {
 		return this.field.colsIndex[0]+this.field.rowsIndex[0]
 			+":"
-			+this.field.colsIndex[1]+this.startRow+this.size[sheetName];
+			+this.field.colsIndex[1]+this.field.startRow+this.size[sheetName];
 	},
 
 	readCells: function(sheetName, sheet) {
@@ -94,7 +102,7 @@ module.exports = {
 		}
 
 		while(cellTable[rowNumber]) {
-			for(var k in cellTable[this.field.startRow]) {
+			for(var k in cellTable[+this.field.startRow]) {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
