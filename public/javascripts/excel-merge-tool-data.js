@@ -12,6 +12,10 @@ module.exports = {
 		ROW: /\d+/g,
 		CELL: /[A-Z]\d+/g
 	},
+	KEY: {
+		RANGE: "!ref",
+		FORMULA: "f"
+	},
 	field: {
 		range: null,
 		colsIndex: [],
@@ -49,7 +53,53 @@ module.exports = {
 		this.field.rowsIndex = rows;
 	},
 
-	getRange: function(sheet) {
-		return this.field.colsIndex[0]+this.field.rowsIndex[0]+":"+this.field.colsIndex[1]+this.size[sheet];
+	getRange: function(sheetName) {
+		return this.field.colsIndex[0]+this.field.rowsIndex[0]+":"+this.field.colsIndex[1]+this.size[sheetName];
+	},
+
+	readCells: function(sheetName, sheet) {
+		var item = [];
+
+		var rowNumber = +this.field.rowsIndex[1];
+		var row, col;
+		var cellTable = {};
+		for(var c in sheet) {
+			if(c.match(this.REG.CELL)) {
+				row = c.match(this.REG.ROW)[0];
+				col = c.match(this.REG.COL)[0];
+
+				if(this.field.cols.indexOf(col) < 0) {
+					this.field.cols.push(col);
+				}
+
+				if(!cellTable[row]) {
+					cellTable[row] = {};
+				}
+				cellTable[row][col] = sheet[c].v;
+			}
+		}
+
+		while(cellTable[rowNumber]) {
+			for(var k in cellTable[this.field.rowsIndex[1]]) {
+				item.push(cellTable[rowNumber][k]);
+			}
+			rowNumber++;
+			this.addItem(sheetName, item);
+			item = [];
+		}
+	},
+
+	addSheet: function(sheetName, sheet) {
+		var rowNumber = this.field.rowsIndex[1];
+
+		for(var i in this.items[sheetName]) {
+			for(var j=0; j<this.field.cols.length; j++) {
+				sheet[this.field.cols[j] + rowNumber] = {};
+				sheet[this.field.cols[j] + rowNumber].t = "s";
+				sheet[this.field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
+			}
+			rowNumber++;
+		}
+		sheet[this.KEY.RANGE] = this.getRange(sheetName);
 	}
 };

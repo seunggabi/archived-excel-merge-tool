@@ -40,8 +40,6 @@ module.exports = {
 		CONFLICT: "CONFLICT"
 	},
 	USING_CHECK: "$",
-	RANGE_KEY: "!ref",
-	FORMULA_KEY: "f",
 
 	write_mode: null,
 	log_mode: null,
@@ -117,7 +115,7 @@ module.exports = {
 				var v1 = String(s1[c].v);
 				v1 = this.UTIL.enterOnce(v1);
 
-				if(c === this.RANGE_KEY) {
+				if(c === this.DATA.KEY.RANGE) {
 					this._extendsRange(s1[c], s2[c]);
 				}
 				else if(v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
@@ -152,7 +150,7 @@ module.exports = {
 
 	_setCellFomula: function(s) {
 		for(var c in s) {
-			if(s[c].hasOwnProperty(this.FORMULA_KEY)) {
+			if(s[c].hasOwnProperty(this.DATA.KEY.FORMULA)) {
 				s[c].t = "s";
 				s[c].v = "="+s[c].f;
 			}
@@ -228,36 +226,8 @@ module.exports = {
 		}
 	},
 
-	_readCells: function(name, s) {
-		var item = [];
-
-		var rowNumber = +this.DATA.field.rowsIndex[1];
-		var row, col;
-		var cellTable = {};
-		for(var c in s) {
-			if(c.match(this.DATA.REG.CELL)) {
-				row = c.match(this.DATA.REG.ROW)[0];
-				col = c.match(this.DATA.REG.COL)[0];
-
-				if(this.DATA.field.cols.indexOf(col) < 0) {
-					this.DATA.field.cols.push(col);
-				}
-
-				if(!cellTable[row]) {
-					cellTable[row] = {};
-				}
-				cellTable[row][col] = s[c].v;
-			}
-		}
-
-		while(cellTable[rowNumber]) {
-			for(var k in cellTable[this.DATA.field.rowsIndex[1]]) {
-				item.push(cellTable[rowNumber][k]);
-			}
-			rowNumber++;
-			this.DATA.addItem(name, item);
-			item = [];
-		}
+	_readCells: function(sheetName, sheet) {
+		this.DATA.readCells(sheetName, sheet)
 	},
 
 	_addSheets: function(wbList) {
@@ -266,18 +236,7 @@ module.exports = {
 		}
 
 		for(var s in wbList[0].Sheets) {
-			var rowNumber = this.DATA.field.rowsIndex[1];
-			var sheet = wbList[0].Sheets[s];
-
-			for(var i in this.DATA.items[s]) {
-				for(var j=0; j<this.DATA.field.cols.length; j++) {
-					sheet[this.DATA.field.cols[j] + rowNumber] = {};
-					sheet[this.DATA.field.cols[j] + rowNumber].t = "s";
-					sheet[this.DATA.field.cols[j] + rowNumber].v = this.DATA.items[s][i].datas[j];
-				}
-				rowNumber++;
-			}
-			sheet[this.RANGE_KEY] = this.DATA.getRange(s);
+			this.DATA.addSheet(s, wbList[0].Sheets[s]);
 		}
 		return wbList[0];
 	}

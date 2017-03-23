@@ -1,5 +1,5 @@
-[SYSTEM  ][2017-03-23 11:35:59] EMT init
-[SYSTEM  ][2017-03-23 11:36:05] Read 1.xlsx
-[SYSTEM  ][2017-03-23 11:36:05] Read 2.xlsx
-[SYSTEM  ][2017-03-23 11:36:05] Mode is LIST
-[SYSTEM  ][2017-03-23 11:36:05] Write merge_list.xlsx
+[SYSTEM  ][2017-03-23 14:56:46] EMT init
+[SYSTEM  ][2017-03-23 14:56:47] Read 1.xlsx
+[SYSTEM  ][2017-03-23 14:56:47] Read 2.xlsx
+[SYSTEM  ][2017-03-23 14:56:47] Mode is LIST
+[SYSTEM  ][2017-03-23 14:56:47] Write merge_list.xlsx
