@@ -84,7 +84,7 @@ module.exports = {
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+binaryFile.fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -236,8 +236,47 @@ module.exports = {
 			wb = this._mergeSheets(wbList);
 		}
 
-		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
+		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
+	},
+
+	writeBinaryFile: function(wbList) {
+		var binaryFiles = [];
+		switch(this.write_mode) {
+			case this.WRITE_MODE.LIST:
+			case this.WRITE_MODE.NONE:
+			case this.WRITE_MODE.CONFLICT:
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+				// this.LOG.writeFile();
+				break;
+			case this.WRITE_MODE.ALL:
+				this.write_mode = this.WRITE_MODE.NONE;
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+				this.write_mode = this.WRITE_MODE.CONFLICT;
+				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+				this.write_mode = this.WRITE_MODE.ALL;
+				// this.LOG.writeFile();
+				break;
+			default:
+				console.log(this.MSG.UNDEFINED);
+		}
+		return binaryFiles;
+	},
+
+	_writeBinaryFile: function(wbList) {
+		var wb;
+
+		if(this.write_mode === this.WRITE_MODE.LIST) {
+			wb = this._addSheets(wbList);
+		} else {
+			wb = this._mergeSheets(wbList);
+		}
+
+		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
+		return new this.binaryFile(this.WRITE_NAME[this.write_mode], this.XLSX.write(wb, {type: "binary"}));
 	},
 
 	_readSheets: function(wb) {
