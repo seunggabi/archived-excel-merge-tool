@@ -1,20 +1,34 @@
-if(typeof require !== "undefined") {
-	express = require("express");
-	EMT = require("../public/javascripts/excel-merge-tool.js");
-	fs = require("fs");
-	EMT.init();
-}
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
 
-var router = express.Router();
+/* eslint-disable global-require */
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-	var fileNames = fs.readdirSync("./files/");
-	fileNames = EMT.selectXLSX(fileNames);
-	var wbList = EMT.readFiles(fileNames);
-	EMT.writeFile(wbList);
+// The top-level (parent) route
+export default {
 
-	res.render("index", { title: "Excel Merge Tool" });
-});
+  path: '/',
 
-module.exports = router;
+  // Keep in mind, routes are evaluated in order
+  children: [
+    require('./todo').default,
+    require('./notFound').default,
+  ],
+
+  async action({ next }) {
+    // Execute each child route until one of them return the result
+    const route = await next();
+
+    // Provide default values for title, description etc.
+    route.title = `${route.title || 'Untitled Page'}`;
+    route.description = route.description || '';
+
+    return route;
+  },
+
+};
