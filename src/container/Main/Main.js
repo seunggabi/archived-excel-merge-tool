@@ -50,7 +50,6 @@ class Main extends Component {
   writeFile = (binaryFiles) => {
     const wbList = EMT.readBinaryFiles(binaryFiles)
     const binaryFileList = EMT.writeBinaryFile(wbList)
-    // const binaryLog = EMT.getLogBinaryFile()
 
     function s2ab(s) {
       const buf = new ArrayBuffer(s.length)

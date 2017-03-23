@@ -69,8 +69,9 @@ module.exports = {
 		if(!this.status) {
 			return;
 		}
+    var binaryFile = this._getItems();
 		this.items = [];
-		return s2ab(this._getItems());
+		return binaryFile;
 	},
 
 	_removeEnter: function(text) {

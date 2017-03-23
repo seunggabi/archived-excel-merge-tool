@@ -2251,7 +2251,6 @@ module.exports =
       _this.writeFile = function (binaryFiles) {
         var wbList = _excelMergeTool2.default.readBinaryFiles(binaryFiles);
         var binaryFileList = _excelMergeTool2.default.writeBinaryFile(wbList);
-        // const binaryLog = EMT.getLogBinaryFile()
 
         function s2ab(s) {
           var buf = new ArrayBuffer(s.length);
@@ -2286,13 +2285,13 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 72
+              lineNumber: 71
             },
             __self: this
           },
           _react2.default.createElement(_DropZone2.default, { onDrop: this.onDrop, __source: {
               fileName: _jsxFileName,
-              lineNumber: 73
+              lineNumber: 72
             },
             __self: this
           }),
@@ -2300,7 +2299,7 @@ module.exports =
             'button',
             { onClick: this.openFile, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 74
+                lineNumber: 73
               },
               __self: this
             },
@@ -2311,7 +2310,7 @@ module.exports =
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 75
+                lineNumber: 74
               },
               __self: this
             },
@@ -2320,7 +2319,7 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 75
                 },
                 __self: this
               },
@@ -2333,14 +2332,14 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 77
+                  lineNumber: 76
                 },
                 __self: this
               },
               files.map(function (file, index) {
                 return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 77
                   },
                   __self: _this2
                 });
@@ -3134,7 +3133,7 @@ module.exports =
   			case this.WRITE_MODE.CONFLICT:
   				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
   				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
-  				// this.LOG.writeFile();
+  				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
   				break;
   			case this.WRITE_MODE.ALL:
   				this.write_mode = this.WRITE_MODE.NONE;
@@ -3144,7 +3143,7 @@ module.exports =
   				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is " + this.write_mode);
   				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
   				this.write_mode = this.WRITE_MODE.ALL;
-  				// this.LOG.writeFile();
+  				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
   				break;
   			default:
   				console.log(this.MSG.UNDEFINED);
@@ -3332,12 +3331,13 @@ module.exports =
   		this.items = [];
   	},
 
-  	writeBinaryFile: function writeBinaryFile() {
+  	getBinaryFile: function getBinaryFile() {
   		if (!this.status) {
   			return;
   		}
-  		this.FS.writeFile(this.PATH + this.FILE_NAME, this._getItems());
+  		var binaryFile = this._getItems();
   		this.items = [];
+  		return binaryFile;
   	},
 
   	_removeEnter: function _removeEnter(text) {
@@ -3346,6 +3346,14 @@ module.exports =
   		}
   		var regEnter = /[\r\n]+/g;
   		return text.replace(regEnter, " ");
+  	},
+
+  	s2ab: function s2ab(s) {
+  		var buf = new ArrayBuffer(s.length);
+  		var view = new Uint8Array(buf);
+  		for (var i = 0; i !== s.length; ++i) {
+  			view[i] = s.charCodeAt(i) & 0xFF;
+  		}return buf;
   	}
     };
 
