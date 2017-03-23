@@ -84,7 +84,7 @@ module.exports = {
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+binaryFile.fileName);
 		}.bind(this));
 		return wbList;
 	},
