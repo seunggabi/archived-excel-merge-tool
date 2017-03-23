@@ -96,12 +96,14 @@ class Main extends Component {
 
   onMergeTab = () => {
     this.setState({
+      writeMode: 'ALL',
       isMerge: true
     })
   }
 
   onListTab = () => {
     this.setState({
+      writeMode: 'LIST',
       isMerge: false
     })
   }
