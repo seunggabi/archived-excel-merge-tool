@@ -9,10 +9,6 @@ npm-debug.log
 .DS_Store
 .vscode
 *.xlsx
-*.txt
-<<<<<<< HEAD
-/files/*
-=======
 /files/*
 
 

@@ -2263,7 +2263,6 @@ module.exports =
         binaryFileList.forEach(function (binaryFile) {
           _fileSaver2.default.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName);
         });
-        // if (binaryLog) FileSaver.saveAs(new Blob([s2ab(binaryLog)], { type: 'application/octet-stream' }), 'log.txt')
       };
 
       _this.state = {
@@ -2285,13 +2284,13 @@ module.exports =
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 71
+              lineNumber: 70
             },
             __self: this
           },
           _react2.default.createElement(_DropZone2.default, { onDrop: this.onDrop, __source: {
               fileName: _jsxFileName,
-              lineNumber: 72
+              lineNumber: 71
             },
             __self: this
           }),
@@ -2299,7 +2298,7 @@ module.exports =
             'button',
             { onClick: this.openFile, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 73
+                lineNumber: 72
               },
               __self: this
             },
@@ -2310,7 +2309,7 @@ module.exports =
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 74
+                lineNumber: 73
               },
               __self: this
             },
@@ -2319,7 +2318,7 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 74
                 },
                 __self: this
               },
@@ -2332,14 +2331,14 @@ module.exports =
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 75
                 },
                 __self: this
               },
               files.map(function (file, index) {
                 return _react2.default.createElement('img', { key: index, src: file.preview, width: 200, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 76
                   },
                   __self: _this2
                 });

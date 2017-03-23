@@ -61,7 +61,6 @@ class Main extends Component {
     binaryFileList.forEach((binaryFile) => {
       FileSaver.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName)
     })
-    // if (binaryLog) FileSaver.saveAs(new Blob([s2ab(binaryLog)], { type: 'application/octet-stream' }), 'log.txt')
   }
 
   render () {
