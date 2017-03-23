@@ -72,6 +72,23 @@ module.exports = {
 		return wbList;
 	},
 
+	binaryFile: function(fileName, binary) {
+		this.fileName = fileName;
+		this.binary = binary;
+	},
+
+	readBinaryFiles: function(binaryFiles) {
+		var wbList = [];
+		binaryFiles.forEach(function(binaryFile) {
+			var wb = this.XLSX.read(binaryFile.binary, {cellStyles: true});
+			wb.fileName = binaryFile.fileName;
+			wbList.push(wb);
+
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
+		}.bind(this));
+		return wbList;
+	},
+
 	selectXLSX: function(fileNames) {
 		var filesXLSX = [];
 
