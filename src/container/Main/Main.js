@@ -18,7 +18,7 @@ class Main extends Component {
 
       writeMode: 'ALL',
       ignoreLength: 0,
-      fieldRange: 'A1:B6',
+      fieldRange: 'A1:D1',
       isDuplication: false,
       logMode: true,
     }
@@ -46,7 +46,6 @@ class Main extends Component {
       return
     }
 
-    console.log(options)
     EMT.init(options)
 
     files.forEach((file, index) => {
@@ -76,7 +75,10 @@ class Main extends Component {
     }
 
     binaryFileList.forEach((binaryFile) => {
-      FileSaver.saveAs(new Blob([s2ab(binaryFile.binary)], { type: 'application/octet-stream' }), binaryFile.fileName)
+      if (binaryFile.fileName !== 'log.txt') {
+        binaryFile.binary = s2ab(binaryFile.binary)
+      }
+      FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
     })
   }
 
