@@ -3338,7 +3338,7 @@ module.exports =
   	DEFAULT: {
   		WRITE_MODE: "LIST",
   		LOG_MODE: true,
-  		IGNORE_LENGTH: 2,
+  		IGNORE_LENGTH: 0,
   		FIELD_RANGE: "A1:D1",
   		isDuplication: true
   	},
@@ -3447,7 +3447,7 @@ module.exports =
 
   				if (c === this.DATA.KEY.RANGE) {
   					this._extendsRange(s1[c], s2[c]);
-  				} else if (v1.length <= this.ignore_length && v2.length <= this.ignore_length) {
+  				} else if (v1.length < this.ignore_length && v2.length < this.ignore_length) {
   					v1 = v1.toUpperCase();
   					v2 = v2.toUpperCase();
 
@@ -3455,15 +3455,19 @@ module.exports =
   						s1[c].t = "s";
   						s1[c].v = v1;
   					} else {
-  						s1[c].v = v1 + String.fromCharCode(13) + v2;
+  						s1[c].v = this.UTIL.trim(v1 + String.fromCharCode(13) + v2);
   					}
   				} else if (!this.UTIL.isInclude(v1, v2)) {
   					s1[c].t = "s";
-  					s1[c].v = this._concatFileName(s1.fileName, v1) + String.fromCharCode(13) + this._concatFileName(s2.fileName, v2);
+  					// s1[c].v = this._concatFileName(s1.fileName, v1)
+  					// 	+ String.fromCharCode(13)
+  					// 	+ this._concatFileName(s2.fileName, v2);
+  					s1[c].v += String.fromCharCode(13) + this._concatFileName(s2.fileName, v2);
+  					s1[c].v = this.UTIL.trim(s1[c].v);
   					this.LOG.addItem(this.LOG_TYPE.CONFLICT, c + " Cell ==> Conflict (" + s1[c].v + ")");
   				}
   			} else {
-  				if (v2.length <= this.ignore_length) {
+  				if (v2.length < this.ignore_length) {
   					s2[c].v = v2;
   				} else {
   					s2[c].v = this._concatFileName(s2.fileName, v2);
@@ -3497,9 +3501,18 @@ module.exports =
   	},
 
   	_concatFileName: function _concatFileName(fileName, text) {
+  		if (text === "") {
+  			return text;
+  		}
+
+  		var fileNameLabel = "[" + fileName + "]";
+  		if (text.indexOf(fileNameLabel) >= 0) {
+  			fileNameLabel = "";
+  		}
+
   		var concatText = text;
   		if (this.write_mode === this.WRITE_MODE.CONFLICT) {
-  			concatText = "[" + fileName + "]" + String.fromCharCode(13) + text;
+  			concatText = fileNameLabel + String.fromCharCode(13) + text;
   		}
 
   		return concatText;
@@ -3630,7 +3643,7 @@ module.exports =
 
   module.exports = {
   	enterOnce: function enterOnce(text) {
-  		text = text.trim();
+  		text = this.trim(text);
   		var regEnter = /[\r\n]+/g;
   		return text.replace(regEnter, String.fromCharCode(13));
   	},
@@ -3678,6 +3691,10 @@ module.exports =
 
   	clone: function clone(obj) {
   		return JSON.parse((0, _stringify2.default)(obj));
+  	},
+
+  	trim: function trim(text) {
+  		return text.replace(/[\r|\n]$/g, "").replace(/^[\r|\n]/g, "");
   	}
     };
 

@@ -4,7 +4,7 @@
 
 module.exports = {
 	enterOnce: function(text) {
-		text = text.trim();
+		text = this.trim(text);
 		var regEnter = /[\r\n]+/g;
 		return text.replace(regEnter, String.fromCharCode(13));
 	},
@@ -53,5 +53,9 @@ module.exports = {
 
 	clone: function(obj) {
 		return JSON.parse(JSON.stringify(obj));
+	},
+
+	trim: function(text) {
+		return text.replace(/[\r|\n]$/g, "").replace(/^[\r|\n]/g, "");
 	}
 };
