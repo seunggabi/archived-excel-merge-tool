@@ -46,6 +46,7 @@ module.exports = {
 	log_mode: null,
 	ignore_length: null,
 	field_range: null,
+	isFirst: true,
 
 	init: function(data) {
 		data = data || {};
@@ -119,6 +120,7 @@ module.exports = {
 				wb1.Sheets[s] = wb2.Sheets[s];
 				wb1.SheetNames.push(s);
 			}
+			wb1.Sheets[s].isMerge = true;
 		}
 		return wb1;
 	},
@@ -151,12 +153,15 @@ module.exports = {
 				}
 				else if(!this.UTIL.isInclude(v1, v2)) {
 					s1[c].t = "s";
-					// s1[c].v = this._concatFileName(s1.fileName, v1)
-					// 	+ String.fromCharCode(13)
-					// 	+ this._concatFileName(s2.fileName, v2);
-					s1[c].v += String.fromCharCode(13)
-						+ this._concatFileName(s2.fileName, v2);
-					s1[c].v = this.UTIL.trim(s1[c].v);
+					if(!s1.isMerge) {
+						s1[c].v = this._concatFileName(s1.fileName, v1)
+							+ String.fromCharCode(13)
+							+ this._concatFileName(s2.fileName, v2);
+					} else {
+						s1[c].v += String.fromCharCode(13)
+							+ this._concatFileName(s2.fileName, v2);
+						s1[c].v = this.UTIL.trim(s1[c].v);
+					}
 					this.LOG.addItem(this.LOG_TYPE.CONFLICT, c+" Cell ==> Conflict ("+s1[c].v+")");
 				}
 			} else {
@@ -173,7 +178,7 @@ module.exports = {
 
 	_setCellFomula: function(s) {
 		for(var c in s) {
-			if(s[c].hasOwnProperty(this.DATA.KEY.FORMULA)) {
+			if(s[c].hasOwnProperty && s[c].hasOwnProperty(this.DATA.KEY.FORMULA)) {
 				s[c].t = "s";
 				s[c].v = "="+s[c].f;
 			}
