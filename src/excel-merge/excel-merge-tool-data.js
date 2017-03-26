@@ -4,7 +4,7 @@
 
 module.exports = {
 	items: {},
-	size: {},
+	sizes: {},
 
 	SPLITTER: "{{$s$}}",
 	REG: {
@@ -32,32 +32,24 @@ module.exports = {
 	},
 
 	addItem: function(sheet, datas) {
-		if(this.isNull(datas)) {
+		if(this._isNull(datas)) {
 			return;
 		}
 
-		var key = this.getIdentifier(datas);
+		var key = this._getIdentifier(datas);
 
 		if(!this.items[sheet]) {
 			this.items[sheet] = {};
-			this.size[sheet] = 0;
+			this.sizes[sheet] = 0;
 		}
 		if(this.isDuplication) {
-			key += this.size[sheet];
+			key += this.sizes[sheet];
 		}
 
 		if(!this.items[sheet].hasOwnProperty(key)) {
-			this.size[sheet]++;
+			this.sizes[sheet]++;
 		}
 		this.items[sheet][key] = new this.Item(datas);
-	},
-
-	isNull: function(datas) {
-		return datas.join("") === "";
-	},
-
-	getIdentifier: function(datas) {
-		return datas.join(this.SPLITTER);
 	},
 
 	setDataConfig: function(isDuplication, fieldRange) {
@@ -69,12 +61,6 @@ module.exports = {
 		this.field.rowsIndex = rows;
 		this.field.startRow = +rows[1]+1;
 		this.isDuplication = isDuplication;
-	},
-
-	getRange: function(sheetName) {
-		return this.field.colsIndex[0]+this.field.rowsIndex[0]
-			+":"
-			+this.field.colsIndex[1]+this.field.startRow+this.size[sheetName];
 	},
 
 	readCells: function(sheetName, sheet) {
@@ -122,6 +108,20 @@ module.exports = {
 			}
 			rowNumber++;
 		}
-		sheet[this.KEY.RANGE] = this.getRange(sheetName);
+		sheet[this.KEY.RANGE] = this._getRange(sheetName);
+	},
+
+	_isNull: function(datas) {
+		return datas.join("") === "";
+	},
+
+	_getIdentifier: function(datas) {
+		return datas.join(this.SPLITTER);
+	},
+
+	_getRange: function(sheetName) {
+		return this.field.colsIndex[0]+this.field.rowsIndex[0]
+			+":"
+			+this.field.colsIndex[1]+this.field.startRow+this.sizes[sheetName];
 	}
 };

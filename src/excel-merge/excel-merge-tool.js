@@ -315,7 +315,7 @@ module.exports = {
 
 		for(var s in wbList[0].Sheets) {
 			this.DATA.addSheet(s, wbList[0].Sheets[s]);
-			this.LOG.addItem(this.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.size[s]);
+			this.LOG.addItem(this.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.sizes[s]);
 		}
 		return wbList[0];
 	}

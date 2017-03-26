@@ -38,6 +38,23 @@ module.exports = {
 		this.items.push(new this.Item(type, content));
 	},
 
+	writeFile: function() {
+		if(!this.status) {
+			return;
+		}
+		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
+		this.items = [];
+	},
+
+	getBinaryFile: function() {
+		if(!this.status) {
+			return;
+		}
+        var binaryFile = this._getItems();
+		this.items = [];
+		return binaryFile;
+	},
+
 	_getItem: function(item) {
 		if(!this.status) {
 			return;
@@ -55,23 +72,6 @@ module.exports = {
 			items += this._getItem(item)+"\n";
 		}.bind(this));
 		return items;
-	},
-
-	writeFile: function() {
-		if(!this.status) {
-			return;
-		}
-		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
-		this.items = [];
-	},
-
-	getBinaryFile: function() {
-		if(!this.status) {
-			return;
-		}
-        var binaryFile = this._getItems();
-		this.items = [];
-		return binaryFile;
 	},
 
 	_removeEnter: function(text) {
