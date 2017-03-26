@@ -26,16 +26,16 @@ module.exports = {
 	},
 	isDuplication: false,
 
+	init: function() {
+		this.items = {};
+		this.sizes = {};
+	},
 
 	Item: function(datas) {
 		this.datas = datas || [];
 	},
 
 	addItem: function(sheet, datas) {
-		if(this._isNull(datas)) {
-			return;
-		}
-
 		var key = this._getIdentifier(datas);
 
 		if(!this.items[sheet]) {
@@ -64,6 +64,7 @@ module.exports = {
 	},
 
 	readCells: function(sheetName, sheet) {
+		var items = [];
 		var item = [];
 
 		var rowNumber = this.field.startRow;
@@ -92,9 +93,14 @@ module.exports = {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
-			this.addItem(sheetName, item);
-			item = [];
+
+			if(!this._isNull(item)) {
+				this.addItem(sheetName, item);
+				items.push(item.join(","));
+				item = [];
+			}
 		}
+		return items;
 	},
 
 	addSheet: function(sheetName, sheet) {

@@ -85,7 +85,7 @@ module.exports = {
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+binaryFile.fileName);
+			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -299,16 +299,21 @@ module.exports = {
 	_readSheets: function(wb) {
 		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
 		for(var s in wb.Sheets) {
-			this._readCells(s, wb.Sheets[s]);
 			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
+			var items = this._readCells(s, wb.Sheets[s]);
+			items.forEach(function(item, index) {
+				this.LOG.addItem(this.LOG_TYPE.NEW, "New Item("+Number(1+index)+"): "+item);
+			}.bind(this));
 		}
 	},
 
 	_readCells: function(sheetName, sheet) {
-		this.DATA.readCells(sheetName, sheet)
+		return this.DATA.readCells(sheetName, sheet);
 	},
 
 	_addSheets: function(wbList) {
+		this.DATA.init();
+
 		for(var wb in wbList) {
 			this._readSheets(wbList[wb]);
 		}
