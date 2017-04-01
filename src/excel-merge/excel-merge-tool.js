@@ -3,44 +3,12 @@
  */
 
 module.exports = {
+	CONFIG: require("./excel-merge-tool-config.js"),
+
 	XLSX: require("xlsx-style"),
 	UTIL: require("./excel-merge-tool-utils.js"),
 	LOG: require("./excel-merge-tool-log.js"),
 	DATA: require("./excel-merge-tool-data.js"),
-
-	PATH: {
-		READ: "files/",
-		WRITE: "files/output/"
-	},
-	WRITE_NAME: {
-		NONE: "merge.xlsx",
-		CONFLICT: "merge_conflict.xlsx",
-		LIST: "merge_list.xlsx"
-	},
-	EXTENSION: ".xlsx",
-	WRITE_MODE: {
-		NONE: "NONE",
-		CONFLICT: "CONFLICT",
-		ALL: "ALL",
-		LIST: "LIST"
-	},
-	DEFAULT: {
-		WRITE_MODE: "LIST",
-		LOG_MODE: true,
-		IGNORE_LENGTH: 0,
-		FIELD_RANGE: "A1:D1",
-		isDuplication: true
-	},
-	MSG: {
-		UNDEFINED: "사용되지 않는 모드입니다."
-	},
-	LOG_TYPE: {
-		SYSTEM: "SYSTEM  ",
-		MERGE: "MERGE   ",
-		NEW: "NEW     ",
-		CONFLICT: "CONFLICT"
-	},
-	USING_CHECK: "$",
 
 	write_mode: null,
 	log_mode: null,
@@ -50,25 +18,25 @@ module.exports = {
 
 	init: function(data) {
 		data = data || {};
-		this.write_mode = data.write_mode || this.DEFAULT.WRITE_MODE;
-		this.LOG.status = data.log_mode || this.DEFAULT.LOG_MODE;
-		this.ignore_length = data.ignore_length || this.DEFAULT.IGNORE_LENGTH;
-		this.field_range = data.field_range || this.DEFAULT.FIELD_RANGE;
+		this.write_mode = data.write_mode || this.CONFIG.DEFAULT.WRITE_MODE;
+		this.LOG.status = data.log_mode || this.CONFIG.DEFAULT.LOG_MODE;
+		this.ignore_length = data.ignore_length || this.CONFIG.DEFAULT.IGNORE_LENGTH;
+		this.field_range = data.field_range || this.CONFIG.DEFAULT.FIELD_RANGE;
 
-		var isDuplication = data.isDuplication || this.DEFAULT.isDuplication;
+		var isDuplication = data.isDuplication || this.CONFIG.DEFAULT.isDuplication;
 		this.DATA.setDataConfig(isDuplication, this.field_range);
 
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "EMT init");
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT init");
 	},
 
 	readFiles: function(fileNames) {
 		var wbList = [];
 		fileNames.forEach(function(fileName) {
-			var wb = this.XLSX.readFile(this.PATH.READ + fileName, {cellStyles: true});
+			var wb = this.XLSX.readFile(this.CONFIG.PATH.READ + fileName, {cellStyles: true});
 			wb.fileName = fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+fileName);
+			this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Read File: "+fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -85,7 +53,7 @@ module.exports = {
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
+			this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
 		}.bind(this));
 		return wbList;
 	},
@@ -94,8 +62,8 @@ module.exports = {
 		var filesXLSX = [];
 
 		fileNames.forEach(function(fileName) {
-			if(fileName.lastIndexOf(this.EXTENSION) >= 0
-				&& fileName.lastIndexOf(this.USING_CHECK) < 0) {
+			if(fileName.lastIndexOf(this.CONFIG.EXTENSION) >= 0
+				&& fileName.lastIndexOf(this.CONFIG.USING_CHECK) < 0) {
 				filesXLSX.push(fileName);
 			}
 		}.bind(this));
@@ -107,11 +75,11 @@ module.exports = {
 	},
 
 	_mergeSheet: function(wb1, wb2) {
-		this.LOG.addItem(this.LOG_TYPE.MERGE, "TO "+wb1.fileName+", FROM "+wb2.fileName);
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.MERGE, "TO "+wb1.fileName+", FROM "+wb2.fileName);
 
 		for(var s in wb2.Sheets) {
 			if(wb1.Sheets.hasOwnProperty(s)) {
-				this.LOG.addItem(this.LOG_TYPE.CONFLICT, s+" Sheet ==> Conflict");
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.CONFLICT, s+" Sheet ==> Conflict");
 				wb1.Sheets[s].fileName = wb1.fileName;
 				wb2.Sheets[s].fileName = wb2.fileName;
 				wb1.Sheets[s] = this._mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
@@ -162,7 +130,7 @@ module.exports = {
 							+ this._concatFileName(s2.fileName, v2);
 						s1[c].v = this.UTIL.trim(s1[c].v);
 					}
-					this.LOG.addItem(this.LOG_TYPE.CONFLICT, c+" Cell ==> Conflict ("+s1[c].v+")");
+					this.LOG.addItem(this.CONFIG.LOG_TYPE.CONFLICT, c+" Cell ==> Conflict ("+s1[c].v+")");
 				}
 			} else {
 				if(v2.length < this.ignore_length) {
@@ -213,7 +181,7 @@ module.exports = {
 		}
 
 		var concatText = text;
-		if(this.write_mode === this.WRITE_MODE.CONFLICT) {
+		if(this.write_mode === this.CONFIG.WRITE_MODE.CONFLICT) {
 			concatText = fileNameLabel + String.fromCharCode(13) + text;
 		}
 
@@ -222,63 +190,63 @@ module.exports = {
 
 	writeFile: function(wbList) {
 		switch(this.write_mode) {
-			case this.WRITE_MODE.LIST:
-			case this.WRITE_MODE.NONE:
-			case this.WRITE_MODE.CONFLICT:
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+			case this.CONFIG.WRITE_MODE.LIST:
+			case this.CONFIG.WRITE_MODE.NONE:
+			case this.CONFIG.WRITE_MODE.CONFLICT:
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
 				this.LOG.writeFile();
 				break;
-			case this.WRITE_MODE.ALL:
-				this.write_mode = this.WRITE_MODE.NONE;
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+			case this.CONFIG.WRITE_MODE.ALL:
+				this.write_mode = this.CONFIG.WRITE_MODE.NONE;
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
-				this.write_mode = this.WRITE_MODE.CONFLICT;
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				this.write_mode = this.CONFIG.WRITE_MODE.CONFLICT;
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				this._writeFile(this.UTIL.clone(wbList));
-				this.write_mode = this.WRITE_MODE.ALL;
+				this.write_mode = this.CONFIG.WRITE_MODE.ALL;
 				this.LOG.writeFile();
 				break;
 			default:
-				console.log(this.MSG.UNDEFINED);
+				console.log(this.CONFIG.MSG.UNDEFINED);
 		}
 	},
 
 	_writeFile: function(wbList) {
 		var wb;
 
-		if(this.write_mode === this.WRITE_MODE.LIST) {
+		if(this.write_mode === this.CONFIG.WRITE_MODE.LIST) {
 			wb = this._addSheets(wbList);
 		} else {
 			wb = this._mergeSheets(wbList);
 		}
 
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
-		this.XLSX.writeFile(wb, this.PATH.WRITE + this.WRITE_NAME[this.write_mode]);
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Write File: "+this.CONFIG.WRITE_NAME[this.write_mode]);
+		this.XLSX.writeFile(wb, this.CONFIG.PATH.WRITE + this.CONFIG.WRITE_NAME[this.write_mode]);
 	},
 
 	writeBinaryFile: function(wbList) {
 		var binaryFiles = [];
 		switch(this.write_mode) {
-			case this.WRITE_MODE.LIST:
-			case this.WRITE_MODE.NONE:
-			case this.WRITE_MODE.CONFLICT:
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+			case this.CONFIG.WRITE_MODE.LIST:
+			case this.CONFIG.WRITE_MODE.NONE:
+			case this.CONFIG.WRITE_MODE.CONFLICT:
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
 				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
-			case this.WRITE_MODE.ALL:
-				this.write_mode = this.WRITE_MODE.NONE;
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+			case this.CONFIG.WRITE_MODE.ALL:
+				this.write_mode = this.CONFIG.WRITE_MODE.NONE;
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
-				this.write_mode = this.WRITE_MODE.CONFLICT;
-				this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				this.write_mode = this.CONFIG.WRITE_MODE.CONFLICT;
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
-				this.write_mode = this.WRITE_MODE.ALL;
+				this.write_mode = this.CONFIG.WRITE_MODE.ALL;
 				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
 			default:
-				console.log(this.MSG.UNDEFINED);
+				console.log(this.CONFIG.MSG.UNDEFINED);
 		}
 		return binaryFiles;
 	},
@@ -286,23 +254,23 @@ module.exports = {
 	_writeBinaryFile: function(wbList) {
 		var wb;
 
-		if(this.write_mode === this.WRITE_MODE.LIST) {
+		if(this.write_mode === this.CONFIG.WRITE_MODE.LIST) {
 			wb = this._addSheets(wbList);
 		} else {
 			wb = this._mergeSheets(wbList);
 		}
 
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Write File: "+this.WRITE_NAME[this.write_mode]);
-		return new this.binaryFile(this.WRITE_NAME[this.write_mode], this.XLSX.write(wb, {type: "binary"}));
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Write File: "+this.CONFIG.WRITE_NAME[this.write_mode]);
+		return new this.binaryFile(this.CONFIG.WRITE_NAME[this.write_mode], this.XLSX.write(wb, {type: "binary"}));
 	},
 
 	_readSheets: function(wb) {
-		this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
 		for(var s in wb.Sheets) {
-			this.LOG.addItem(this.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
+			this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
 			var items = this._readCells(s, wb.Sheets[s]);
 			items.forEach(function(item, index) {
-				this.LOG.addItem(this.LOG_TYPE.NEW, "New Item("+Number(1+index)+"): "+item);
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.NEW, "New Item("+Number(1+index)+"): "+item);
 			}.bind(this));
 		}
 	},
@@ -320,7 +288,7 @@ module.exports = {
 
 		for(var s in wbList[0].Sheets) {
 			this.DATA.addSheet(s, wbList[0].Sheets[s]);
-			this.LOG.addItem(this.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.sizes[s]);
+			this.LOG.addItem(this.CONFIG.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.sizes[s]);
 		}
 		return wbList[0];
 	}

@@ -3,19 +3,10 @@
  */
 
 module.exports = {
+	CONFIG: require("./excel-merge-tool-config.js"),
+
 	items: {},
 	sizes: {},
-
-	SPLITTER: "{{$s$}}",
-	REG: {
-		COL: /[A-Z]+/g,
-		ROW: /\d+/g,
-		CELL: /[A-Z]\d+/g
-	},
-	KEY: {
-		RANGE: "!ref",
-		FORMULA: "f"
-	},
 
 	field: {
 		range: null,
@@ -53,8 +44,8 @@ module.exports = {
 	},
 
 	setDataConfig: function(isDuplication, fieldRange) {
-		var cols = fieldRange.match(this.REG.COL);
-		var rows = fieldRange.match(this.REG.ROW);
+		var cols = fieldRange.match(this.CONFIG.REG.COL);
+		var rows = fieldRange.match(this.CONFIG.REG.ROW);
 
 		this.field.range = fieldRange;
 		this.field.colsIndex = cols;
@@ -71,9 +62,9 @@ module.exports = {
 		var row, col;
 		var cellTable = {};
 		for(var c in sheet) {
-			if(c.match(this.REG.CELL)) {
-				row = c.match(this.REG.ROW)[0];
-				col = c.match(this.REG.COL)[0];
+			if(c.match(this.CONFIG.REG.CELL)) {
+				row = c.match(this.CONFIG.REG.ROW)[0];
+				col = c.match(this.CONFIG.REG.COL)[0];
 
 				if(row > this.field.rowsIndex[1]) {
 					if (this.field.cols.indexOf(col) < 0) {
@@ -114,7 +105,7 @@ module.exports = {
 			}
 			rowNumber++;
 		}
-		sheet[this.KEY.RANGE] = this._getRange(sheetName);
+		sheet[this.CONFIG.KEY.RANGE] = this._getRange(sheetName);
 	},
 
 	_isNull: function(datas) {
@@ -122,7 +113,7 @@ module.exports = {
 	},
 
 	_getIdentifier: function(datas) {
-		return datas.join(this.SPLITTER);
+		return datas.join(this.CONFIG.SPLITTER);
 	},
 
 	_getRange: function(sheetName) {
