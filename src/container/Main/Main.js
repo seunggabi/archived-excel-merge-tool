@@ -18,7 +18,7 @@ class Main extends Component {
 
       writeMode: 'ALL',
       ignoreLength: 0,
-      fieldRange: 'A1:D1',
+      fieldRange: 'B2:E2',
       isDuplication: false,
       logMode: true,
     }
@@ -28,6 +28,12 @@ class Main extends Component {
     this.setState({
       files: Array.concat(this.state.files, files)
     });
+  }
+
+  deleteFile = () => {
+    this.setState({
+      files: []
+    })
   }
 
   openFile = () => {
@@ -141,11 +147,16 @@ class Main extends Component {
         </h1>
 
         {/* <!-- dropZone -->*/}
-        <Dropzone className={css.dropzone} onDrop={this.onDrop}>
-          { files.map((file, index) =>
-            <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
-          )}
-        </Dropzone>
+        <div className={css.dropzoneWrapper}>
+          <Dropzone className={css.dropzone} onDrop={this.onDrop}>
+            { files.map((file, index) =>
+              <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
+            )}
+          </Dropzone>
+          <div className={css.right}>
+            <button onClick={this.deleteFile}>초기화</button>
+          </div>
+        </div>
 
         {/* <!-- optionTab -->*/}
         <div className={css.tabWrapper}>
