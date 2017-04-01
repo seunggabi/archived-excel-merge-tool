@@ -11,7 +11,7 @@ module.exports = {
 
 	isInclude: function(a, b) {
 		if(a === "" || b === "") {
-			return false;
+			return true;
 		}
 		return a.indexOf(b) >= 0 || b.indexOf(a) >= 0;
 	},
