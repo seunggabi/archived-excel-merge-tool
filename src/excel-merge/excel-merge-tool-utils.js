@@ -57,5 +57,12 @@ module.exports = {
 
 	trim: function(text) {
 		return text.replace(/[\r|\n]$/g, "").replace(/^[\r|\n]/g, "");
+	},
+
+	mix: function(target, mixin) {
+		for(var p in mixin) {
+			target[p] = mixin[p];
+		}
+		return target;
 	}
 };

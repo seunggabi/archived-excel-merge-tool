@@ -102,8 +102,10 @@ module.exports = {
 			v2 = this.UTIL.enterOnce(v2);
 
 			if(s1.hasOwnProperty(c)) {
-				var v1 = String(s1[c].v);
-				v1 = this.UTIL.enterOnce(v1);
+				var v1 = this.UTIL.enterOnce(String(s1[c].v));
+				if(c.match(this.CONFIG.REG.CELL)) {
+					s1[c].s = this.UTIL.mix(this.UTIL.clone(s1[c].s), this.CONFIG.DEFAULT_STYLE);
+				}
 
 				if(c === this.CONFIG.KEY.RANGE) {
 					this._extendsRange(s1[c], s2[c]);
