@@ -45,5 +45,20 @@ module.exports = {
 	KEY: {
 		RANGE: "!ref",
 		FORMULA: "f"
+	},
+	CONFLICT_STYLE: {
+		fill: {
+			bgColor: {
+				rgb: "FFFFFF"
+			},
+			fgColor: {
+				rgb: "FFFF00"
+			}
+		},
+		font: {
+			color: {
+				rgb: "FF0000"
+			}
+		}
 	}
 };

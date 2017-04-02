@@ -10,8 +10,8 @@ module.exports = {
 	},
 
 	isInclude: function(a, b) {
-		if(a === "" || b === "") {
-			return true;
+		if(a === "") {
+			return false;
 		}
 		return a.indexOf(b) >= 0 || b.indexOf(a) >= 0;
 	},
