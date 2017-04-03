@@ -289,14 +289,16 @@ module.exports = {
 	_addSheets: function(wbList) {
 		this.DATA.init();
 
-		for(var wb in wbList) {
+		for (var wb in wbList) {
 			this._readSheets(wbList[wb]);
 		}
 
-		for(var s in wbList[0].Sheets) {
-			this.DATA.addSheet(s, wbList[0].Sheets[s]);
-			this.LOG.addItem(this.CONFIG.LOG_TYPE.NEW, s+" New Data Count: "+this.DATA.sizes[s]);
+		if (wblist[0].hasOwnProperty("Sheets")) {
+			for (var s in wbList[0].Sheets) {
+				this.DATA.addSheet(s, wbList[0].Sheets[s]);
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.NEW, s + " New Data Count: " + this.DATA.sizes[s]);
+			}
+			return wbList[0];
 		}
-		return wbList[0];
 	}
 };
