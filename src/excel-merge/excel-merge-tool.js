@@ -137,7 +137,9 @@ module.exports = {
 					}
 
 					s1[c].v = this.UTIL.trim(s1[c].v);
-					this.LOG.addItem(this.CONFIG.LOG_TYPE.CONFLICT, c+" Cell ==> Conflict ("+s1[c].v+")");
+					if(s1[c].v) {
+						this.LOG.addItem(this.CONFIG.LOG_TYPE.CONFLICT, c + " Cell ==> Conflict (" + s1[c].v + ")");
+					}
 				}
 			} else {
 				if(v2.length < this.ignore_length) {
