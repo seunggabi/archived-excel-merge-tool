@@ -295,7 +295,7 @@ module.exports = {
 			this._readSheets(wbList[wb]);
 		}
 
-		if (wblist[0].hasOwnProperty("Sheets")) {
+		if (wbList[0].hasOwnProperty("Sheets")) {
 			for (var s in wbList[0].Sheets) {
 				this.DATA.addSheet(s, wbList[0].Sheets[s]);
 				this.LOG.addItem(this.CONFIG.LOG_TYPE.NEW, s + " New Data Count: " + this.DATA.sizes[s]);

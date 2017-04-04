@@ -44,20 +44,33 @@ module.exports = {
 	},
 
 	setDataConfig: function(isDuplication, fieldRange) {
-		var cols = fieldRange.match(this.CONFIG.REG.COL);
-		var rows = fieldRange.match(this.CONFIG.REG.ROW);
+		var range = this.getRange(fieldRange);
 
 		this.field.range = fieldRange;
-		this.field.colsIndex = cols;
-		this.field.rowsIndex = rows;
-		this.field.startRow = +rows[1]+1;
+		this.field.colsIndex = range.cols;
+		this.field.rowsIndex = range.rows;
+		this.field.startRow = range.rows && +range.rows[1]+1;
 		this.isDuplication = isDuplication;
+	},
+
+	getRange: function(fieldRange) {
+		var range = {};
+
+		range.rows = fieldRange.match(this.CONFIG.REG.ROW);
+		range.cols = fieldRange.match(this.CONFIG.REG.COL);
+
+		return range;
 	},
 
 	readCells: function(sheetName, sheet) {
 		var items = [];
 		var item = [];
 
+		if(!this.field.range) {
+			var range = this.getRange(sheet[this.CONFIG.KEY.RANGE]);
+			var fieldset = range.cols[0]+range.rows[0]+range.cols[1]+range.rows[0];
+			this.setDataConfig(this.isDuplication, fieldset);
+		}
 		var rowNumber = this.field.startRow;
 		var row, col;
 		var cellTable = {};

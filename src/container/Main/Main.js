@@ -48,8 +48,11 @@ class Main extends Component {
     }
 
     if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
-      alert('올바르지 않은 필드셀범위 입력입니다.')
-      return
+      if(confirm('필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)')) {
+
+      } else {
+        return;
+      }
     }
 
     EMT.init(options)

@@ -23,7 +23,7 @@ module.exports = {
 		WRITE_MODE: "LIST",
 		LOG_MODE: true,
 		IGNORE_LENGTH: 0,
-		FIELD_RANGE: "A1:D1",
+		FIELD_RANGE: "",
 		isDuplication: true
 	},
 	MSG: {
