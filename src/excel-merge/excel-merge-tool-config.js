@@ -24,7 +24,7 @@ module.exports = {
 		LOG_MODE: true,
 		IGNORE_LENGTH: 0,
 		FIELD_RANGE: "",
-		isDuplication: true
+		isDuplication: false
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다."

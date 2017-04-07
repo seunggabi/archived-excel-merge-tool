@@ -4,17 +4,14 @@
 
 module.exports = {
 	CONFIG: require("./excel-merge-tool-config.js"),
+	UTIL: require("./excel-merge-tool-utils.js"),
 
 	items: {},
 	sizes: {},
 
-	field: {
-		range: null,
-		colsIndex: [],
-		rowsIndex: [],
-		cols: [],
-		startRow: null
-	},
+	field: null,
+	fields: {},
+
 	isDuplication: false,
 
 	init: function() {
@@ -26,34 +23,54 @@ module.exports = {
 		this.datas = datas || [];
 	},
 
-	addItem: function(sheet, datas) {
+	addItem: function(sheetName, datas) {
 		var key = this._getIdentifier(datas);
 
-		if(!this.items[sheet]) {
-			this.items[sheet] = {};
-			this.sizes[sheet] = 0;
+		if(!this.items[sheetName]) {
+			this.items[sheetName] = {};
+			this.sizes[sheetName] = 0;
 		}
 		if(this.isDuplication) {
-			key += this.sizes[sheet];
+			key += this.sizes[sheetName];
 		}
 
-		if(!this.items[sheet].hasOwnProperty(key)) {
-			this.sizes[sheet]++;
+		if(!this.items[sheetName].hasOwnProperty(key)) {
+			this.sizes[sheetName]++;
 		}
-		this.items[sheet][key] = new this.Item(datas);
+		this.items[sheetName][key] = new this.Item(datas);
 	},
 
 	setDataConfig: function(isDuplication, fieldRange) {
-		var range = this.getRange(fieldRange);
+		this._setDuplication(isDuplication);
+		this.field = this._createField(fieldRange);
+	},
 
-		this.field.range = fieldRange;
-		this.field.colsIndex = range.cols;
-		this.field.rowsIndex = range.rows;
-		this.field.startRow = range.rows && +range.rows[1]+1;
+	_setDuplication: function(isDuplication) {
 		this.isDuplication = isDuplication;
 	},
 
-	getRange: function(fieldRange) {
+	_createField: function(fieldRange) {
+		if(!fieldRange) {
+			return null;
+		}
+
+		var range = this._getRange(fieldRange);
+		var field = {};
+
+		field.range = fieldRange;
+		field.colsIndex = range.cols;
+		field.rowsIndex = range.rows;
+		field.startRow = range.rows && +range.rows[1]+1;
+		field.cols = [];
+
+		return field;
+	},
+
+	_getField: function(sheetName) {
+		return this.field || this.fields[sheetName];
+	},
+
+	_getRange: function(fieldRange) {
 		var range = {};
 
 		range.rows = fieldRange.match(this.CONFIG.REG.ROW);
@@ -66,12 +83,14 @@ module.exports = {
 		var items = [];
 		var item = [];
 
-		if(!this.field.range) {
-			var range = this.getRange(sheet[this.CONFIG.KEY.RANGE]);
-			var fieldset = range.cols[0]+range.rows[0]+range.cols[1]+range.rows[0];
-			this.setDataConfig(this.isDuplication, fieldset);
+		if(!this.field && !this.fields[sheetName]) {
+			var range = this._getRange(sheet[this.CONFIG.KEY.RANGE]);
+			var fieldRnage = range.cols[0]+range.rows[0]+":"+range.cols[1]+range.rows[0];
+			this.fields[sheetName] = this._createField(fieldRnage);
 		}
-		var rowNumber = this.field.startRow;
+		var field = this._getField(sheetName);
+		var rowNumber = field.startRow;
+
 		var row, col;
 		var cellTable = {};
 		for(var c in sheet) {
@@ -79,21 +98,24 @@ module.exports = {
 				row = c.match(this.CONFIG.REG.ROW)[0];
 				col = c.match(this.CONFIG.REG.COL)[0];
 
-				if(row > this.field.rowsIndex[1]) {
-					if (this.field.cols.indexOf(col) < 0) {
-						this.field.cols.push(col);
+				if(row > field.rowsIndex[1]) {
+					debugger;
+					if (this._isFieldRange(field, col) && field.cols.indexOf(col) < 0) {
+						field.cols.push(col);
 					}
 
 					if (!cellTable[row]) {
 						cellTable[row] = {};
 					}
-					cellTable[row][col] = sheet[c].v;
+					if(this._isFieldRange(field, col)) {
+						cellTable[row][col] = sheet[c].v;
+					}
 				}
 			}
 		}
 
 		while(cellTable[rowNumber]) {
-			for(var k in cellTable[+this.field.startRow]) {
+			for(var k in cellTable[+field.startRow]) {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
@@ -107,18 +129,23 @@ module.exports = {
 		return items;
 	},
 
+	_isFieldRange: function(field, col) {
+		return this.UTIL.min(col, field.colsIndex[0]) === field.colsIndex[0];
+	},
+
 	addSheet: function(sheetName, sheet) {
-		var rowNumber = this.field.startRow;
+		var field = this._getField(sheetName);
+		var rowNumber = field.startRow;
 
 		for(var i in this.items[sheetName]) {
-			for(var j=0; j<this.field.cols.length; j++) {
-				sheet[this.field.cols[j] + rowNumber] = {};
-				sheet[this.field.cols[j] + rowNumber].t = "s";
-				sheet[this.field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
+			for(var j=0; j<field.cols.length; j++) {
+				sheet[field.cols[j] + rowNumber] = {};
+				sheet[field.cols[j] + rowNumber].t = "s";
+				sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
 			}
 			rowNumber++;
 		}
-		sheet[this.CONFIG.KEY.RANGE] = this._getRange(sheetName);
+		sheet[this.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
 	},
 
 	_isNull: function(datas) {
@@ -129,9 +156,11 @@ module.exports = {
 		return datas.join(this.CONFIG.SPLITTER);
 	},
 
-	_getRange: function(sheetName) {
-		return this.field.colsIndex[0]+this.field.rowsIndex[0]
+	_getExtendRange: function(sheetName) {
+		var field = this._getField(sheetName);
+
+		return field.colsIndex[0]+field.rowsIndex[0]
 			+":"
-			+this.field.colsIndex[1]+this.field.startRow+this.sizes[sheetName];
+			+field.colsIndex[1]+field.startRow+this.sizes[sheetName];
 	}
 };

@@ -26,7 +26,7 @@ module.exports = {
 		var isDuplication = data.isDuplication || this.CONFIG.DEFAULT.isDuplication;
 		this.DATA.setDataConfig(isDuplication, this.field_range);
 
-		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT init");
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
 	readFiles: function(fileNames) {
@@ -257,6 +257,7 @@ module.exports = {
 			default:
 				console.log(this.CONFIG.MSG.UNDEFINED);
 		}
+		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
 		return binaryFiles;
 	},
 

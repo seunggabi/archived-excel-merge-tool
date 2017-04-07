@@ -44,7 +44,7 @@ class Main extends Component {
       log_mode: logMode,
       ignore_length: ignoreLength,
       field_range: fieldRange,
-      isDuplication,
+      isDuplication: isDuplication
     }
 
     if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
