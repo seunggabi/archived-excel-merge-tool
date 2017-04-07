@@ -18,7 +18,7 @@ class Main extends Component {
 
       writeMode: 'ALL',
       ignoreLength: 0,
-      fieldRange: 'B2:E2',
+      fieldRange: '',
       isDuplication: false,
       logMode: true,
     }
