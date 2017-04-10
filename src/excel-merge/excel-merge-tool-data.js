@@ -99,7 +99,6 @@ module.exports = {
 				col = c.match(this.CONFIG.REG.COL)[0];
 
 				if(row > field.rowsIndex[1]) {
-					debugger;
 					if (this._isFieldRange(field, col) && field.cols.indexOf(col) < 0) {
 						field.cols.push(col);
 					}
