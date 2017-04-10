@@ -6,7 +6,7 @@ import progressImg from './progress.gif'
 import xlsxImg from './xlsxImg.png'
 import Dropzone from '../../components/DropZone'
 import DropItem from '../../components/DropItem'
-import EMT from '../../excel-merge/excel-merge-tool'
+import EMT from '../../excel-merge-tool/excel-merge-tool'
 import css from './style.css'
 
 var $ = require('jquery');
