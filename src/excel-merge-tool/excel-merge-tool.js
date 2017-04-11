@@ -9,6 +9,7 @@ module.exports = {
 	UTIL: require("./excel-merge-tool-utils.js"),
 	LOG: require("./excel-merge-tool-log.js"),
 	DATA: require("./excel-merge-tool-data.js"),
+	STATISTICS: require("./excel-merge-tool-statistics.js"),
 
 	write_mode: null,
 	log_mode: null,
@@ -54,7 +55,9 @@ module.exports = {
 			wbList.push(wb);
 
 			this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
+			this.STATISTICS.analyze(wb);
 		}.bind(this));
+		console.log(this.STATISTICS.calc());
 		return wbList;
 	},
 
@@ -242,6 +245,7 @@ module.exports = {
 			case this.CONFIG.WRITE_MODE.CONFLICT:
 				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
 				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
 			case this.CONFIG.WRITE_MODE.ALL:
@@ -252,12 +256,12 @@ module.exports = {
 				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(this.UTIL.clone(wbList)));
 				this.write_mode = this.CONFIG.WRITE_MODE.ALL;
+				this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
 				binaryFiles.push(new this.binaryFile(this.LOG.FILE_NAME, this.LOG.getBinaryFile()));
 				break;
 			default:
 				console.log(this.CONFIG.MSG.UNDEFINED);
 		}
-		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
 		return binaryFiles;
 	},
 
