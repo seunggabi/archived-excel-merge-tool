@@ -93,9 +93,14 @@ button {
 	display: none;
 }
 .progress {
+	font-weight: bold;
 	width: 100%;
 	max-width: 800px;
 	position: fixed;
 	top: 30%;
 	text-align: center;
+}
+
+.progress > img {
+	margin-bottom: 5px;
 }

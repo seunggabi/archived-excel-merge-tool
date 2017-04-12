@@ -5,14 +5,11 @@
 module.exports = {
 	CONFIG: require("./excel-merge-tool-config.js"),
 	UTIL: require("./excel-merge-tool-util.js"),
-	UTIL: require("./excel-merge-tool-util.js"),
 
 	counts: {},
 	constCount: 3,
 	times: 1,
-	cps: 80000,
-
-	MSG: "완료 예상 시간은 {{TIME}}초 입니다.",
+	cps: 160000,
 
 	SheetCount: function() {
 		this.cellCount = 0;
@@ -36,7 +33,7 @@ module.exports = {
 	calc: function() {
 		this.total = Object.keys(this.counts).length;
 		for(var c in this.counts) {
-			this.total += this.counts[c].cellCount * this.counts[c].count;
+			this.total += this.counts[c].cellCount * this.counts[c].count * this.counts[c].count / 2;
 		}
 		this.total *= this.times;
 
@@ -44,7 +41,7 @@ module.exports = {
 		return this.total;
 	},
 
-	alert: function() {
-		alert(this.MSG.replace("{{TIME}}", this.total/this.cps));
+	getTime: function() {
+		return this.total / this.cps;
 	}
 };

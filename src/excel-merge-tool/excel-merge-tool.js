@@ -10,6 +10,7 @@ module.exports = {
 	LOG: require("./excel-merge-tool-log.js"),
 	DATA: require("./excel-merge-tool-data.js"),
 	STATISTICS: require("./excel-merge-tool-statistics.js"),
+	MSG: require("./excel-merge-tool-message.js"),
 
 	write_mode: null,
 	log_mode: null,
@@ -28,6 +29,8 @@ module.exports = {
 		this.DATA.setDataConfig(isDuplication, this.field_range);
 
 		this.STATISTICS.times = this.write_mode === this.CONFIG.WRITE_MODE.ALL ? 2 : 1;
+		this.MSG.init();
+
 		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
@@ -49,6 +52,7 @@ module.exports = {
 	},
 
 	readBinaryFiles: function(binaryFiles) {
+		this.MSG.setProgress(this.CONFIG.MSG.READ_START);
 		var wbList = [];
 		binaryFiles.forEach(function(binaryFile) {
 			var wb = this.XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
@@ -59,7 +63,8 @@ module.exports = {
 			this.STATISTICS.analyze(wb);
 		}.bind(this));
 		this.STATISTICS.calc();
-		this.STATISTICS.alert();
+
+		this.MSG.setProgress(this.CONFIG.MSG.READ_END.replace("{{TIME}}", this.STATISTICS.getTime()));
 		return wbList;
 	},
 

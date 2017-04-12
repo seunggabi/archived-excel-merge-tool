@@ -61,9 +61,9 @@ class Main extends Component {
     EMT.init(options)
 
 	var $app = $("#app")
-	var $progressWrapper = $("#progressWrapper")
-	$progressWrapper.width($app.width())
-	$progressWrapper.height($app.height())
+	$("#progressWrapper")
+		.width($app.width())
+		.height($app.height())
 
     files.forEach((file, index) => {
       $("."+css.progressWrapper).css("display", "block")
@@ -229,6 +229,7 @@ class Main extends Component {
 	      <div id="progressWrapper" className={css.progressWrapper}>
 	        <div className={css.progress}>
 		        <img src={progressImg} />
+		        <div id="progressMessage"></div>
 	        </div>
 		  </div>
         </div>

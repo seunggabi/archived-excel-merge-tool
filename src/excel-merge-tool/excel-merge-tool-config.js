@@ -28,7 +28,7 @@ module.exports = {
 	},
 	MSG: {
 		UNDEFINED: "사용되지 않는 모드입니다.",
-		READ_START: "업로드된 파일을 분석 중 입니다.",
+		READ_START: "업로드된 파일을 분석을 시작합니다.",
 		READ_END: "분석이 완료되었습니다.\n(작업예상 시간: {{TIME}}초)",
 		PROGRESSING: "작업 중입니다.",
 	},
