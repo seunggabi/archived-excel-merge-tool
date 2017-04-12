@@ -1,13 +1,17 @@
+html, body {
+	height: 100%;
+}
 body {
 	margin: 10px 20px;
 }
 body > div {
+	min-width: 400px;
 	max-width: 800px;
 	margin: 0 auto;
 }
 .title {
-	margin-top: 100px;
-  margin-bottom: 20px;
+	padding-top: 100px;
+	margin-bottom: 20px;
 }
 .dropzoneWrapper {
 	margin: 10px auto 60px;
@@ -79,8 +83,9 @@ button {
 	text-align: right;
 }
 .progressWrapper {
-	position: absolute;
-	width: 800px;
+	position: fixed;
+	min-width: 400px;
+	max-width: 800px;
 	height: 100%;
 	background: rgba(255, 255, 255, 0.8);
 	top: 0;
@@ -88,8 +93,9 @@ button {
 	display: none;
 }
 .progress {
-	width: 800px;
-	position: absolute;
+	width: 100%;
+	max-width: 800px;
+	position: fixed;
 	top: 30%;
 	text-align: center;
 }

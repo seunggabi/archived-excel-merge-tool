@@ -60,6 +60,11 @@ class Main extends Component {
 
     EMT.init(options)
 
+	var $app = $("#app")
+	var $progressWrapper = $("#progressWrapper")
+	$progressWrapper.width($app.width())
+	$progressWrapper.height($app.height())
+
     files.forEach((file, index) => {
       $("."+css.progressWrapper).css("display", "block")
       const reader = new FileReader()
@@ -159,9 +164,13 @@ class Main extends Component {
 	        {/* <!-- dropZone -->*/}
 	        <div className={css.dropzoneWrapper}>
 	          <Dropzone className={css.dropzone} onDrop={this.onDrop}>
-	            { files.map((file, index) =>
-	              <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
-	            )}
+	            {
+	            	files.map(
+	            		(file, index) =>
+	                        <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
+		            )
+
+	            }
 	          </Dropzone>
 	          <div className={css.right}>
 	            <button onClick={this.deleteFile}>초기화</button>
@@ -217,7 +226,7 @@ class Main extends Component {
 	          </div>
 	        </div>
 	      </div>
-	      <div className={css.progressWrapper}>
+	      <div id="progressWrapper" className={css.progressWrapper}>
 	        <div className={css.progress}>
 		        <img src={progressImg} />
 	        </div>
