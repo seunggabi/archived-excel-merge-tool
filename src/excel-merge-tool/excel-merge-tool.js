@@ -6,7 +6,7 @@ module.exports = {
 	CONFIG: require("./excel-merge-tool-config.js"),
 
 	XLSX: require("xlsx-style"),
-	UTIL: require("./excel-merge-tool-utils.js"),
+	UTIL: require("./excel-merge-tool-util.js"),
 	LOG: require("./excel-merge-tool-log.js"),
 	DATA: require("./excel-merge-tool-data.js"),
 	STATISTICS: require("./excel-merge-tool-statistics.js"),
@@ -27,6 +27,7 @@ module.exports = {
 		var isDuplication = data.isDuplication || this.CONFIG.DEFAULT.isDuplication;
 		this.DATA.setDataConfig(isDuplication, this.field_range);
 
+		this.STATISTICS.times = this.write_mode === this.CONFIG.WRITE_MODE.ALL ? 2 : 1;
 		this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
@@ -57,7 +58,8 @@ module.exports = {
 			this.LOG.addItem(this.CONFIG.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
 			this.STATISTICS.analyze(wb);
 		}.bind(this));
-		console.log(this.STATISTICS.calc());
+		this.STATISTICS.calc();
+		this.STATISTICS.alert();
 		return wbList;
 	},
 

@@ -4,7 +4,7 @@
 
 module.exports = {
 	CONFIG: require("./excel-merge-tool-config.js"),
-	UTIL: require("./excel-merge-tool-utils.js"),
+	UTIL: require("./excel-merge-tool-util.js"),
 
 	items: {},
 	sizes: {},
