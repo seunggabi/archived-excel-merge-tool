@@ -141,6 +141,7 @@ module.exports = {
 				sheet[field.cols[j] + rowNumber] = {};
 				sheet[field.cols[j] + rowNumber].t = "s";
 				sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
+				sheet[field.cols[j] + rowNumber].s = this.CONFIG.DEFAULT_STYLE;
 			}
 			rowNumber++;
 		}
