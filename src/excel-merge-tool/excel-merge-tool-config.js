@@ -98,6 +98,14 @@ module.exports = {
 		alignment: {
 			vertical: "top",
 			wrapText: true
+		},
+		fill: {
+			bgColor: {
+				rgb: "FFFFFF"
+			},
+			fgColor: {
+				rgb: "FFFFFF"
+			}
 		}
 	}
 };

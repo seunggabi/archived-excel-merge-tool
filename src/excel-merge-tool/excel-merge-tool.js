@@ -80,8 +80,11 @@ module.exports = {
 		return filesXLSX;
 	},
 
-	_mergeSheets: function(sheets) {
-		return sheets.reduce(this._mergeSheet.bind(this));
+	_mergeSheets: function(wbList) {
+		for(var s in wbList[0].Sheets) {
+			this._setDefaultStyle(wbList[0].Sheets[s]);
+		}
+		return wbList.reduce(this._mergeSheet.bind(this));
 	},
 
 	_mergeSheet: function(wb1, wb2) {
@@ -106,6 +109,7 @@ module.exports = {
 	_mergeCells: function(s1, s2) {
 		this._setCellFomula(s1);
 		this._setCellFomula(s2);
+		this._setDefaultStyle(s2);
 
 		for(var c in s2) {
 			var v2 = String(s2[c].v);
@@ -113,9 +117,6 @@ module.exports = {
 
 			if(s1.hasOwnProperty(c)) {
 				var v1 = this.UTIL.enterOnce(String(s1[c].v));
-				if(c.match(this.CONFIG.REG.CELL)) {
-					s1[c].s = this.UTIL.mix(this.UTIL.clone(s1[c].s), this.CONFIG.DEFAULT_STYLE);
-				}
 
 				if(c === this.CONFIG.KEY.RANGE) {
 					this._extendsRange(s1[c], s2[c]);
@@ -161,6 +162,15 @@ module.exports = {
 			}
 		}
 		return s1;
+	},
+
+	_setDefaultStyle: function(s) {
+		for(var c in s) {
+			if(c.match(this.CONFIG.REG.CELL)) {
+				s[c].s = s[c].s || {};
+				s[c].s = this.UTIL.mix(this.UTIL.clone(s[c].s), this.CONFIG.DEFAULT_STYLE);
+			}
+		}
 	},
 
 	_setCellFomula: function(s) {

@@ -60,8 +60,17 @@ module.exports = {
 	},
 
 	mix: function(target, mixin) {
-		for(var p in mixin) {
-			target[p] = mixin[p];
+		for (var i in mixin) {
+			if (mixin.hasOwnProperty(i)) {
+				if (this.isObject(mixin[i])) {
+					target[i] = target[i] || {}
+					target[i] = this.mix(target[i], mixin[i]);
+				} else {
+					if(!target.hasOwnProperty(i)) {
+						target[i] = mixin[i];
+					}
+				}
+			}
 		}
 		return target;
 	},
@@ -71,5 +80,12 @@ module.exports = {
 			return 1;
 		}
 		return n * this.factorial(n-1);
+	},
+
+	isObject: function(v) {
+		if(!v || typeof(v) !== "object") {
+			return false;
+		}
+		return true;
 	}
 };
