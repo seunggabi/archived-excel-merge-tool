@@ -9,7 +9,9 @@ import DropItem from '../../components/DropItem'
 import EMT from '../../excel-merge-tool/excel-merge-tool'
 import css from './style.css'
 
+
 var $ = require('jquery');
+var Worker = require('workerjs');
 
 class Main extends Component {
   constructor () {
@@ -39,7 +41,7 @@ class Main extends Component {
     })
   }
 
-  openFile = () => {
+  readFile = () => {
     const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state
     const binaryFiles = []
     const options = {
@@ -74,32 +76,18 @@ class Main extends Component {
         binaryFiles.push(binaryFile)
 
         if (index === files.length - 1) {
-          this.writeFile(binaryFiles)
+        	var w = new Worker('/excel-merge-tool-webworker.js')
+	        w.postMessage({
+	        	EMT: EMT,
+		        binaryFiles: binaryFiles
+	        })
+			w.onmessage = function() {
+				$("."+css.progressWrapper).css("display", "none")
+			}
         }
       }
       reader.readAsBinaryString(file)
     })
-  }
-
-  writeFile = (binaryFiles) => {
-    const wbList = EMT.readBinaryFiles(binaryFiles)
-    const binaryFileList = EMT.writeBinaryFile(wbList)
-
-    function s2ab(s) {
-      const buf = new ArrayBuffer(s.length)
-      const view = new Uint8Array(buf)
-      for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-      return buf;
-    }
-
-
-    binaryFileList.forEach((binaryFile) => {
-      if (binaryFile.fileName !== 'log.txt') {
-        binaryFile.binary = s2ab(binaryFile.binary)
-      }
-      FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
-    })
-    $("."+css.progressWrapper).css("display", "none")
   }
 
   handleWriteMode = (event) => {
@@ -221,7 +209,7 @@ class Main extends Component {
 	            </div>
 
 	            <div className={css.tabFooter}>
-	              <button onClick={this.openFile}>저장</button>
+	              <button onClick={this.readFile}>저장</button>
 	            </div>
 	          </div>
 	        </div>
