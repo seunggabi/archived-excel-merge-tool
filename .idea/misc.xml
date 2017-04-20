@@ -3,4 +3,14 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-config.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-data.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-log.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-message.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-require.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-statistics.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool-util.js" />
+    <file url="file://$PROJECT_DIR$/build/public/excel-merge-tool.js" />
+  </component>
 </project>
