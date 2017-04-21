@@ -2,10 +2,10 @@
  * Created by seunggabi on 2017. 3. 12..
  */
 
-module.exports = {
-	CONFIG: require("./excel-merge-tool-config.js"),
-	UTIL: require("./excel-merge-tool-util.js"),
+if(global && !global.EMT) global.EMT = {};
+var EMT = global.EMT;
 
+global.EMT.DATA = module.exports = {
 	items: {},
 	sizes: {},
 
@@ -73,8 +73,8 @@ module.exports = {
 	_getRange: function(fieldRange) {
 		var range = {};
 
-		range.rows = fieldRange.match(this.CONFIG.REG.ROW);
-		range.cols = fieldRange.match(this.CONFIG.REG.COL);
+		range.rows = fieldRange.match(EMT.CONFIG.REG.ROW);
+		range.cols = fieldRange.match(EMT.CONFIG.REG.COL);
 
 		return range;
 	},
@@ -84,7 +84,7 @@ module.exports = {
 		var item = [];
 
 		if(!this.field && !this.fields[sheetName]) {
-			var range = this._getRange(sheet[this.CONFIG.KEY.RANGE]);
+			var range = this._getRange(sheet[EMT.CONFIG.KEY.RANGE]);
 			var fieldRnage = range.cols[0]+range.rows[0]+":"+range.cols[1]+range.rows[0];
 			this.fields[sheetName] = this._createField(fieldRnage);
 		}
@@ -94,9 +94,9 @@ module.exports = {
 		var row, col;
 		var cellTable = {};
 		for(var c in sheet) {
-			if(c.match(this.CONFIG.REG.CELL)) {
-				row = c.match(this.CONFIG.REG.ROW)[0];
-				col = c.match(this.CONFIG.REG.COL)[0];
+			if(c.match(EMT.CONFIG.REG.CELL)) {
+				row = c.match(EMT.CONFIG.REG.ROW)[0];
+				col = c.match(EMT.CONFIG.REG.COL)[0];
 
 				if(row > field.rowsIndex[1]) {
 					if (this._isFieldRange(field, col) && field.cols.indexOf(col) < 0) {
@@ -129,7 +129,7 @@ module.exports = {
 	},
 
 	_isFieldRange: function(field, col) {
-		return this.UTIL.min(col, field.colsIndex[0]) === field.colsIndex[0];
+		return EMT.UTIL.min(col, field.colsIndex[0]) === field.colsIndex[0];
 	},
 
 	addSheet: function(sheetName, sheet) {
@@ -141,11 +141,11 @@ module.exports = {
 				sheet[field.cols[j] + rowNumber] = {};
 				sheet[field.cols[j] + rowNumber].t = "s";
 				sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
-				sheet[field.cols[j] + rowNumber].s = this.CONFIG.DEFAULT_STYLE;
+				sheet[field.cols[j] + rowNumber].s = EMT.CONFIG.DEFAULT_STYLE;
 			}
 			rowNumber++;
 		}
-		sheet[this.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
+		sheet[EMT.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
 	},
 
 	_isNull: function(datas) {
@@ -153,7 +153,7 @@ module.exports = {
 	},
 
 	_getIdentifier: function(datas) {
-		return datas.join(this.CONFIG.SPLITTER);
+		return datas.join(EMT.CONFIG.SPLITTER);
 	},
 
 	_getExtendRange: function(sheetName) {

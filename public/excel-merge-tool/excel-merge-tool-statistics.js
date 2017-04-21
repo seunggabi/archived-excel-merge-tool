@@ -2,10 +2,11 @@
 /**
  * Created by seunggabi on 2017. 4. 10..
  */
-module.exports = {
-	CONFIG: require("./excel-merge-tool-config.js"),
-	UTIL: require("./excel-merge-tool-util.js"),
 
+if(global && !global.EMT) global.EMT = {};
+var EMT = global.EMT;
+
+global.EMT.STATISTICS = module.exports = {
 	counts: {},
 	constCount: 3,
 	times: 1,
@@ -26,7 +27,7 @@ module.exports = {
 				this.counts[name].count++;
 			}
 			var sheetCount = this.counts[name];
-			sheetCount.cellCount = this.UTIL.max(sheetCount.cellCount, Object.keys(wb.Sheets[name]).length-this.constCount);
+			sheetCount.cellCount = EMT.UTIL.max(sheetCount.cellCount, Object.keys(wb.Sheets[name]).length-this.constCount);
 		}
 	},
 

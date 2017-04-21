@@ -18,8 +18,9 @@ Date.prototype.timestamp = function() {
 	return [y, m, d].join("-")+" "+[h, i, s].join(":");
 };
 
-module.exports = {
-	FS: require("fs"),
+if(global && !global.EMT) global.EMT = {};
+
+global.EMT.LOG = module.exports = {
 	PATH: "files/output/",
 	FILE_NAME: "log.txt",
 	status: true,
@@ -36,14 +37,6 @@ module.exports = {
 			return;
 		}
 		this.items.push(new this.Item(type, content));
-	},
-
-	writeFile: function() {
-		if(!this.status) {
-			return;
-		}
-		this.FS.writeFile(this.PATH+this.FILE_NAME, this._getItems());
-		this.items = [];
 	},
 
 	getBinaryFile: function() {

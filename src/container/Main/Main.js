@@ -6,11 +6,19 @@ import progressImg from './progress.gif'
 import xlsxImg from './xlsxImg.png'
 import Dropzone from '../../components/DropZone'
 import DropItem from '../../components/DropItem'
-import EMT from '../../excel-merge-tool/excel-merge-tool'
 import css from './style.css'
 
+global.EMT = {};
 
-var $ = require('jquery');
+EMT.CONFIG = require("../../../public/excel-merge-tool/excel-merge-tool-config.js");
+EMT.UTIL = require("../../../public/excel-merge-tool/excel-merge-tool-util.js");
+EMT.DATA = require("../../../public/excel-merge-tool/excel-merge-tool-data.js");
+EMT.LOG = require("../../../public/excel-merge-tool/excel-merge-tool-log.js");
+EMT.MSG = require("../../../public/excel-merge-tool/excel-merge-tool-message.js");
+EMT.STATISTICS = require("../../../public/excel-merge-tool/excel-merge-tool-statistics.js");
+EMT.TOOL = require("../../../public/excel-merge-tool/excel-merge-tool.js");
+
+global.$ = require('jquery');
 var Worker = require('workerjs');
 
 class Main extends Component {
@@ -60,7 +68,8 @@ class Main extends Component {
       }
     }
 
-    EMT.init(options)
+    EMT.TOOL.init(options)
+    EMT.MSG.start();
 
 	var $app = $("#app")
 	$("#progressWrapper")
@@ -72,16 +81,29 @@ class Main extends Component {
       const reader = new FileReader()
 
       reader.onloadend = () => {
-        const binaryFile = new EMT.binaryFile(file.name, reader.result)
+        const binaryFile = new EMT.TOOL.binaryFile(file.name, reader.result)
         binaryFiles.push(binaryFile)
 
         if (index === files.length - 1) {
         	var w = new Worker('/excel-merge-tool-webworker.js')
 	        w.postMessage({
-	        	EMT: EMT,
-		        binaryFiles: binaryFiles
+		        options: options,
+		        binaryFiles: binaryFiles,
 	        })
-			w.onmessage = function() {
+			w.onmessage = function(event) {
+				function s2ab(s) {
+					const buf = new ArrayBuffer(s.length);
+					const view = new Uint8Array(buf);
+					for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+					return buf;
+				}
+
+				event.data.binaryFileList.forEach((binaryFile) => {
+					if (binaryFile.fileName !== 'log.txt') {
+						binaryFile.binary = s2ab(binaryFile.binary)
+					}
+					FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
+				})
 				$("."+css.progressWrapper).css("display", "none")
 			}
         }
