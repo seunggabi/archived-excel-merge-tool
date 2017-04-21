@@ -20,6 +20,7 @@ EMT.TOOL = {
 		EMT.DATA.setDataConfig(isDuplication, this.field_range);
 
 		EMT.STATISTICS.times = this.write_mode === EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
+		EMT.MSG.init();
 		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 

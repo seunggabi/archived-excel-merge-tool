@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import FileSaver from 'file-saver'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import cx from 'classnames'
-import progressImg from './progress.gif'
-import xlsxImg from './xlsxImg.png'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Dropzone from '../../components/DropZone'
 import DropItem from '../../components/DropItem'
+import progressImg from './progress.gif'
+import xlsxImg from './xlsxImg.png'
 import css from './style.css'
 
-global.$ = require('jquery');
+var $ = require('jquery');
 var Worker = require('workerjs');
 
 class Main extends Component {

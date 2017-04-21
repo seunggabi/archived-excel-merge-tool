@@ -7,11 +7,10 @@ EMT.MSG = {
 	$progress: null,
 
 	init: function() {
-		this.$progress = global.$("#progressMessage");
+		this.$progress = $("#progressMessage");
 	},
 
 	setProgress: function(msg) {
-		//alert(msg);
-		//his.$progress.text(msg);
+		this.$progress.text(msg);
 	}
 };

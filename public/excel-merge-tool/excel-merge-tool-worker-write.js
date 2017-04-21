@@ -2,9 +2,12 @@
  * Created by seunggabi on 2017. 4. 15..
  */
 
-importScripts("/dist/cpexcel.js");
-importScripts("/dist/jszip.js");
-importScripts("/dist/xlsx.js");
+importScripts("/lib/cpexcel.js");
+importScripts("/lib/jszip.js");
+importScripts("/lib/xlsx.js");
+importScripts("/lib/workerFakeDOM.js");
+importScripts("/lib/jquery.min.js");
+
 importScripts("/excel-merge-tool/excel-merge-tool-config.js");
 importScripts("/excel-merge-tool/excel-merge-tool-data.js");
 importScripts("/excel-merge-tool/excel-merge-tool-log.js");
@@ -16,7 +19,7 @@ importScripts("/excel-merge-tool/excel-merge-tool.js");
 function callback(event) {
 	var options = event.data.options;
 	var binaryFiles = event.data.binaryFiles;
-	var binaryFileList;
+	var binaryFileList = [];
 
 	EMT.TOOL.init(options);
 	writeFile = (binaryFiles) => {
