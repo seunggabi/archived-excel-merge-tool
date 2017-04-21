@@ -2,10 +2,7 @@
  * Created by seunggabi on 2017. 3. 12..
  */
 
-if(global && !global.EMT) global.EMT = {};
-var EMT = global.EMT;
-
-global.EMT.DATA = module.exports = {
+EMT.DATA = {
 	items: {},
 	sizes: {},
 

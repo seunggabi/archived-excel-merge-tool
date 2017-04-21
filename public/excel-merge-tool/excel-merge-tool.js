@@ -2,10 +2,7 @@
  * Created by seunggabi on 2017. 2. 26..
  */
 
-if(global && !global.EMT) global.EMT = {};
-var EMT = global.EMT;
-
-global.EMT.TOOL = module.exports = {
+EMT.TOOL = {
 	write_mode: null,
 	log_mode: null,
 	ignore_length: null,
@@ -14,22 +11,22 @@ global.EMT.TOOL = module.exports = {
 
 	init: function(data) {
 		data = data || {};
-		this.write_mode = data.write_mode || global.EMT.CONFIG.DEFAULT.WRITE_MODE;
-		global.EMT.LOG.status = data.log_mode || global.EMT.CONFIG.DEFAULT.LOG_MODE;
-		this.ignore_length = data.ignore_length || global.EMT.CONFIG.DEFAULT.IGNORE_LENGTH;
-		this.field_range = data.field_range || global.EMT.CONFIG.DEFAULT.FIELD_RANGE;
+		this.write_mode = data.write_mode || EMT.CONFIG.DEFAULT.WRITE_MODE;
+		EMT.LOG.status = data.log_mode || EMT.CONFIG.DEFAULT.LOG_MODE;
+		this.ignore_length = data.ignore_length || EMT.CONFIG.DEFAULT.IGNORE_LENGTH;
+		this.field_range = data.field_range || EMT.CONFIG.DEFAULT.FIELD_RANGE;
 
-		var isDuplication = data.isDuplication || global.EMT.CONFIG.DEFAULT.isDuplication;
-		global.EMT.DATA.setDataConfig(isDuplication, this.field_range);
+		var isDuplication = data.isDuplication || EMT.CONFIG.DEFAULT.isDuplication;
+		EMT.DATA.setDataConfig(isDuplication, this.field_range);
 
-		global.EMT.STATISTICS.times = this.write_mode === global.EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
-		global.EMT.LOG.addItem(global.EMT.CONFIG.LOG_TYPE.SYSTEM, "global.EMT Start");
+		EMT.STATISTICS.times = this.write_mode === EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
+		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
 	readFiles: function(fileNames) {
 		var wbList = [];
 		fileNames.forEach(function(fileName) {
-			var wb = XLSX.readFile(global.EMT.CONFIG.PATH.READ + fileName, {cellStyles: true});
+			var wb = XLSX.readFile(EMT.CONFIG.PATH.READ + fileName, {cellStyles: true});
 			wb.fileName = fileName;
 			wbList.push(wb);
 

@@ -3,10 +3,7 @@
  * Created by seunggabi on 2017. 4. 10..
  */
 
-if(global && !global.EMT) global.EMT = {};
-var EMT = global.EMT;
-
-global.EMT.STATISTICS = module.exports = {
+EMT.STATISTICS = {
 	counts: {},
 	constCount: 3,
 	times: 1,

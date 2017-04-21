@@ -18,9 +18,7 @@ Date.prototype.timestamp = function() {
 	return [y, m, d].join("-")+" "+[h, i, s].join(":");
 };
 
-if(global && !global.EMT) global.EMT = {};
-
-global.EMT.LOG = module.exports = {
+EMT.LOG = {
 	PATH: "files/output/",
 	FILE_NAME: "log.txt",
 	status: true,

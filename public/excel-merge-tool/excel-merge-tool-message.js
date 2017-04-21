@@ -3,12 +3,10 @@
  * Created by seunggabi on 2017. 4. 10..
  */
 
-if(global && !global.EMT) global.EMT = {};
-
-global.EMT.MSG = module.exports = {
+EMT.MSG = {
 	$progress: null,
 
-	start: function() {
+	init: function() {
 		this.$progress = global.$("#progressMessage");
 	},
 

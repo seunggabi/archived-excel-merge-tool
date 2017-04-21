@@ -1,10 +1,8 @@
 /**
  * Created by seunggabi on 2017. 2. 26..
  */
-
-if(global && !global.EMT) global.EMT = {};
-
-global.EMT.CONFIG = module.exports = {
+var EMT = {};
+EMT.CONFIG = {
 	PATH: {
 		READ: "files/",
 		WRITE: "files/output/"

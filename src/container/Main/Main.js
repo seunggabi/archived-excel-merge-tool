@@ -8,243 +8,239 @@ import Dropzone from '../../components/DropZone'
 import DropItem from '../../components/DropItem'
 import css from './style.css'
 
-global.EMT = {};
-
-EMT.CONFIG = require("../../../public/excel-merge-tool/excel-merge-tool-config.js");
-EMT.UTIL = require("../../../public/excel-merge-tool/excel-merge-tool-util.js");
-EMT.DATA = require("../../../public/excel-merge-tool/excel-merge-tool-data.js");
-EMT.LOG = require("../../../public/excel-merge-tool/excel-merge-tool-log.js");
-EMT.MSG = require("../../../public/excel-merge-tool/excel-merge-tool-message.js");
-EMT.STATISTICS = require("../../../public/excel-merge-tool/excel-merge-tool-statistics.js");
-EMT.TOOL = require("../../../public/excel-merge-tool/excel-merge-tool.js");
-
 global.$ = require('jquery');
 var Worker = require('workerjs');
 
 class Main extends Component {
-  constructor () {
-    super()
+	constructor () {
+		super();
 
-    this.state = {
-      files: [],
-      isMerge: true,
+		this.state = {
+			files: [],
+			isMerge: true,
 
-      writeMode: 'ALL',
-      ignoreLength: 0,
-      fieldRange: '',
-      isDuplication: false,
-      logMode: true,
-    }
-  }
+			writeMode: 'ALL',
+			ignoreLength: 0,
+			fieldRange: '',
+			isDuplication: false,
+			logMode: true,
+		}
+	}
 
-  onDrop = (files) => {
-    this.setState({
-      files: Array.concat(this.state.files, files)
-    });
-  }
+	onDrop = (files) => {
+		this.setState({
+			files: Array.concat(this.state.files, files)
+		});
+	};
 
-  deleteFile = () => {
-    this.setState({
-      files: []
-    })
-  }
+	deleteFile = () => {
+		this.setState({
+			files: []
+		})
+	};
 
-  readFile = () => {
-    const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state
-    const binaryFiles = []
-    const options = {
-      write_mode: writeMode,
-      log_mode: logMode,
-      ignore_length: ignoreLength,
-      field_range: fieldRange,
-      isDuplication: isDuplication
-    }
+	readFile = () => {
+		const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state
+		const binaryFiles = [];
+		const options = {
+			write_mode: writeMode,
+			log_mode: logMode,
+			ignore_length: ignoreLength,
+			field_range: fieldRange,
+			isDuplication: isDuplication
+		};
 
-    if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
-      if(confirm('필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)')) {
+		if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
+			if(confirm('필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)')) {
 
-      } else {
-        return;
-      }
-    }
-
-    EMT.TOOL.init(options)
-    EMT.MSG.start();
-
-	var $app = $("#app")
-	$("#progressWrapper")
-		.width($app.width())
-		.height($app.height())
-
-    files.forEach((file, index) => {
-      $("."+css.progressWrapper).css("display", "block")
-      const reader = new FileReader()
-
-      reader.onloadend = () => {
-        const binaryFile = new EMT.TOOL.binaryFile(file.name, reader.result)
-        binaryFiles.push(binaryFile)
-
-        if (index === files.length - 1) {
-        	var w = new Worker('/excel-merge-tool-webworker.js')
-	        w.postMessage({
-		        options: options,
-		        binaryFiles: binaryFiles,
-	        })
-			w.onmessage = function(event) {
-				function s2ab(s) {
-					const buf = new ArrayBuffer(s.length);
-					const view = new Uint8Array(buf);
-					for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-					return buf;
-				}
-
-				event.data.binaryFileList.forEach((binaryFile) => {
-					if (binaryFile.fileName !== 'log.txt') {
-						binaryFile.binary = s2ab(binaryFile.binary)
-					}
-					FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
-				})
-				$("."+css.progressWrapper).css("display", "none")
+			} else {
+				return;
 			}
-        }
-      }
-      reader.readAsBinaryString(file)
-    })
-  }
+		}
 
-  handleWriteMode = (event) => {
-    this.setState({ writeMode: event.target.value });
-  }
+		var $app = $("#app");
+		$("#progressWrapper")
+			.width($app.width())
+			.height($app.height());
 
-  handleIgnoreLength = (event) => {
-    const value = event.target.value
+		files.forEach((file, index) => {
+			$("."+css.progressWrapper).css("display", "block");
+			const reader = new FileReader();
 
-    if (!this.checkReg(/\d*/g, value)) {
-      alert('올바르지 않은 입력입니다.')
-      return
-    }
-    this.setState({ ignoreLength: value });
-  }
+			reader.onloadend = () => {
+				var readWorker = new Worker('excel-merge-tool/excel-merge-tool-worker-read.js');
 
-  handleLogMode = (event) => {
-    this.setState({ logMode: event.target.checked });
-  }
+				readWorker.postMessage({
+					name: file.name,
+					result: reader.result
+				});
 
-  handleIsDuplication = (event) => {
-    this.setState({ isDuplication: event.target.checked });
-  }
+				readWorker.onmessage = function(event) {
+					var binaryFile = event.data.binaryFile;
+					binaryFiles.push(binaryFile);
 
-  handleFieldRange = (event) => {
-    this.setState({ fieldRange: event.target.value });
-  }
+					if (index === files.length - 1) {
+						var writeWorker = new Worker('excel-merge-tool/excel-merge-tool-worker-write.js');
+						writeWorker.postMessage({
+							options: options,
+							binaryFiles: binaryFiles,
+						});
+						writeWorker.onmessage = function(event) {
+							function s2ab(s) {
+								const buf = new ArrayBuffer(s.length);
+								const view = new Uint8Array(buf);
+								for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+								return buf;
+							}
 
-  onMergeTab = () => {
-    this.setState({
-      writeMode: 'ALL',
-      isMerge: true
-    })
-  }
+							event.data.binaryFileList.forEach((binaryFile) => {
+								if (binaryFile.fileName !== 'log.txt') {
+									binaryFile.binary = s2ab(binaryFile.binary)
+								}
+								FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
+							});
+							$("."+css.progressWrapper).css("display", "none")
+						}
+					}
+				};
+			};
+			reader.readAsBinaryString(file)
+		})
+	};
 
-  onListTab = () => {
-    this.setState({
-      writeMode: 'LIST',
-      isMerge: false
-    })
-  }
+	handleWriteMode = (event) => {
+		this.setState({ writeMode: event.target.value });
+	};
 
-  checkReg = (reg, text) => {
-    const data = reg.exec(text);
-    if (data) {
-      return text === data[0];
-    }
-    return false;
-  }
+	handleIgnoreLength = (event) => {
+		const value = event.target.value;
 
-  render () {
-    const { files } = this.state
+		if (!this.checkReg(/\d*/g, value)) {
+			alert('올바르지 않은 입력입니다.');
+			return
+		}
+		this.setState({ ignoreLength: value });
+	};
 
-    return (
-    	<div>
-	      <div>
-	        {/* <!-- title -->*/}
-	        <h1 className={css.title}>
-	          Excel Merge Tool
-	        </h1>
+	handleLogMode = (event) => {
+		this.setState({ logMode: event.target.checked });
+	};
 
-	        {/* <!-- dropZone -->*/}
-	        <div className={css.dropzoneWrapper}>
-	          <Dropzone className={css.dropzone} onDrop={this.onDrop}>
-	            {
-	            	files.map(
-	            		(file, index) =>
-	                        <DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
-		            )
+	handleIsDuplication = (event) => {
+		this.setState({ isDuplication: event.target.checked });
+	};
 
-	            }
-	          </Dropzone>
-	          <div className={css.right}>
-	            <button onClick={this.deleteFile}>초기화</button>
-	          </div>
-	        </div>
+	handleFieldRange = (event) => {
+		this.setState({ fieldRange: event.target.value });
+	};
 
-	        {/* <!-- optionTab -->*/}
-	        <div className={css.tabWrapper}>
-	          <div className={css.tabHeader}>
-	            <div onClick={this.onMergeTab} className={cx(css.optionTabTitle, this.state.isMerge ? css.isOn : null)}>
-	              MERGE
-	            </div>
-	            <div onClick={this.onListTab} className={cx(css.optionTabTitle, this.state.isMerge ? null : css.isOn)}>
-	              LIST
-	            </div>
-	          </div>
-	          <div className={css.tabBody}>
-	            <div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
-	              <div>
-	                <label>출력모드</label>
-	                <input type='radio' name='mode' value='ALL' checked={this.state.writeMode === 'ALL'} onChange={this.handleWriteMode} /> ALL
-	                <input type='radio' name='mode' value='NONE' onChange={this.handleWriteMode} /> NONE
-	                <input type='radio' name='mode' value='CONFLICT' onChange={this.handleWriteMode} /> CONFLICT
-	              </div>
-	              <div>
-	                <label>충돌길이제한</label>
-	                <input type='text' value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
-	              </div>
-	              <div>
-	                <label>로그</label>
-	                <input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
-	              </div>
-	            </div>
+	onMergeTab = () => {
+		this.setState({
+			writeMode: 'ALL',
+			isMerge: true
+		})
+	};
 
-	            <div className={cx(css.optionTab, this.state.isMerge ? null : css.isOn)}>
-	              <div>
-	                <label>중복허용</label>
-	                <input type='checkbox' checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
-	              </div>
-	              <div>
-	                <label>필드셀범위</label>
-	                <input type='text' value={this.state.fieldRange} onChange={this.handleFieldRange} />
-	              </div>
-	              <div>
-	                <label>로그</label>
-	                <input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
-	              </div>
-	            </div>
+	onListTab = () => {
+		this.setState({
+			writeMode: 'LIST',
+			isMerge: false
+		})
+	};
 
-	            <div className={css.tabFooter}>
-	              <button onClick={this.readFile}>저장</button>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	      <div id="progressWrapper" className={css.progressWrapper}>
-	        <div className={css.progress}>
-		        <img src={progressImg} />
-		        <div id="progressMessage"></div>
-	        </div>
-		  </div>
-        </div>
-    )
-  }
+	checkReg = (reg, text) => {
+		const data = reg.exec(text);
+		if (data) {
+			return text === data[0];
+		}
+		return false;
+	};
+
+	render () {
+		const { files } = this.state
+
+		return (
+			<div>
+				<div>
+					{/* <!-- title -->*/}
+					<h1 className={css.title}>
+						Excel Merge Tool
+					</h1>
+
+					{/* <!-- dropZone -->*/}
+					<div className={css.dropzoneWrapper}>
+						<Dropzone className={css.dropzone} onDrop={this.onDrop}>
+							{
+								files.map(
+									(file, index) =>
+										<DropItem key={index} name={file.name} css={css} imgSrc={xlsxImg} />
+								)
+
+							}
+						</Dropzone>
+						<div className={css.right}>
+							<button onClick={this.deleteFile}>초기화</button>
+						</div>
+					</div>
+
+					{/* <!-- optionTab -->*/}
+					<div className={css.tabWrapper}>
+						<div className={css.tabHeader}>
+							<div onClick={this.onMergeTab} className={cx(css.optionTabTitle, this.state.isMerge ? css.isOn : null)}>
+								MERGE
+							</div>
+							<div onClick={this.onListTab} className={cx(css.optionTabTitle, this.state.isMerge ? null : css.isOn)}>
+								LIST
+							</div>
+						</div>
+						<div className={css.tabBody}>
+							<div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
+								<div>
+									<label>출력모드</label>
+									<input type='radio' name='mode' value='ALL' checked={this.state.writeMode === 'ALL'} onChange={this.handleWriteMode} /> ALL
+									<input type='radio' name='mode' value='NONE' onChange={this.handleWriteMode} /> NONE
+									<input type='radio' name='mode' value='CONFLICT' onChange={this.handleWriteMode} /> CONFLICT
+								</div>
+								<div>
+									<label>충돌길이제한</label>
+									<input type='text' value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
+								</div>
+								<div>
+									<label>로그</label>
+									<input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
+								</div>
+							</div>
+
+							<div className={cx(css.optionTab, this.state.isMerge ? null : css.isOn)}>
+								<div>
+									<label>중복허용</label>
+									<input type='checkbox' checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
+								</div>
+								<div>
+									<label>필드셀범위</label>
+									<input type='text' value={this.state.fieldRange} onChange={this.handleFieldRange} />
+								</div>
+								<div>
+									<label>로그</label>
+									<input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
+								</div>
+							</div>
+
+							<div className={css.tabFooter}>
+								<button onClick={this.readFile}>저장</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="progressWrapper" className={css.progressWrapper}>
+					<div className={css.progress}>
+						<img src={progressImg} />
+						<div id="progressMessage"></div>
+					</div>
+				</div>
+			</div>
+		)
+	}
 }
 
 export default withStyles(css)(Main)

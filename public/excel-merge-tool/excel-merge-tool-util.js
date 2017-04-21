@@ -2,9 +2,7 @@
  * Created by seunggabi on 2017. 3. 12..
  */
 
-if(global && !global.EMT) global.EMT = {};
-
-global.EMT.UTIL = module.exports = {
+EMT.UTIL = {
 	enterOnce: function(text) {
 		text = this.trim(text);
 		var regEnter = /[\r\n]+/g;
