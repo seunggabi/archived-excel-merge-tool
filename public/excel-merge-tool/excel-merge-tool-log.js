@@ -1,6 +1,7 @@
 /**
  * Created by seunggabi on 2017. 3. 12..
  */
+
 Date.prototype.timestamp = function() {
 	var y = this.getFullYear();
 	var m = this.getMonth() + 1;

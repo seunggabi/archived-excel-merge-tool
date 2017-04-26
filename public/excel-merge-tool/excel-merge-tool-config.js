@@ -1,6 +1,7 @@
 /**
  * Created by seunggabi on 2017. 2. 26..
  */
+
 var EMT = {};
 EMT.CONFIG = {
 	PATH: {

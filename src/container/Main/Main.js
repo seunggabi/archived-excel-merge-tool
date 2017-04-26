@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import FileSaver from 'file-saver'
-import cx from 'classnames'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import Dropzone from '../../components/DropZone'
-import DropItem from '../../components/DropItem'
-import progressImg from './progress.gif'
-import xlsxImg from './xlsxImg.png'
-import css from './style.css'
+import React, { Component } from "react"
+import FileSaver from "file-saver"
+import cx from "classnames"
+import withStyles from "isomorphic-style-loader/lib/withStyles"
+import Dropzone from "../../components/DropZone"
+import DropItem from "../../components/DropItem"
+import progressImg from "./progress.gif"
+import xlsxImg from "./xlsxImg.png"
+import css from "./style.css"
 
-var $ = require('jquery');
-var Worker = require('workerjs');
+var $ = require("jquery");
+var Worker = require("workerjs");
+// var MSG = require("../../../public/excel-merge-tool/excel-merge-tool-message.js");
 
 class Main extends Component {
 	constructor () {
@@ -19,9 +20,9 @@ class Main extends Component {
 			files: [],
 			isMerge: true,
 
-			writeMode: 'ALL',
+			writeMode: "ALL",
 			ignoreLength: 0,
-			fieldRange: '',
+			fieldRange: "",
 			isDuplication: false,
 			logMode: true,
 		}
@@ -50,8 +51,8 @@ class Main extends Component {
 			isDuplication: isDuplication
 		};
 
-		if (writeMode === 'LIST' && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
-			if(confirm('필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)')) {
+		if (writeMode === "LIST" && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
+			if(confirm("필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)")) {
 
 			} else {
 				return;
@@ -68,7 +69,7 @@ class Main extends Component {
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
-				var readWorker = new Worker('excel-merge-tool/excel-merge-tool-worker-read.js');
+				var readWorker = new Worker("excel-merge-tool/excel-merge-tool-worker-read.js");
 
 				readWorker.postMessage({
 					name: file.name,
@@ -80,7 +81,7 @@ class Main extends Component {
 					binaryFiles.push(binaryFile);
 
 					if (index === files.length - 1) {
-						var writeWorker = new Worker('excel-merge-tool/excel-merge-tool-worker-write.js');
+						var writeWorker = new Worker("excel-merge-tool/excel-merge-tool-worker-write.js");
 						writeWorker.postMessage({
 							options: options,
 							binaryFiles: binaryFiles,
@@ -94,10 +95,10 @@ class Main extends Component {
 							}
 
 							event.data.binaryFileList.forEach((binaryFile) => {
-								if (binaryFile.fileName !== 'log.txt') {
+								if (binaryFile.fileName !== "log.txt") {
 									binaryFile.binary = s2ab(binaryFile.binary)
 								}
-								FileSaver.saveAs(new Blob([binaryFile.binary], { type: 'application/octet-stream' }), binaryFile.fileName)
+								FileSaver.saveAs(new Blob([binaryFile.binary], { type: "application/octet-stream" }), binaryFile.fileName)
 							});
 							$("."+css.progressWrapper).css("display", "none")
 						}
@@ -116,7 +117,7 @@ class Main extends Component {
 		const value = event.target.value;
 
 		if (!this.checkReg(/\d*/g, value)) {
-			alert('올바르지 않은 입력입니다.');
+			alert("올바르지 않은 입력입니다.");
 			return
 		}
 		this.setState({ ignoreLength: value });
@@ -136,14 +137,14 @@ class Main extends Component {
 
 	onMergeTab = () => {
 		this.setState({
-			writeMode: 'ALL',
+			writeMode: "ALL",
 			isMerge: true
 		})
 	};
 
 	onListTab = () => {
 		this.setState({
-			writeMode: 'LIST',
+			writeMode: "LIST",
 			isMerge: false
 		})
 	};
@@ -197,32 +198,32 @@ class Main extends Component {
 							<div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
 								<div>
 									<label>출력모드</label>
-									<input type='radio' name='mode' value='ALL' checked={this.state.writeMode === 'ALL'} onChange={this.handleWriteMode} /> ALL
-									<input type='radio' name='mode' value='NONE' onChange={this.handleWriteMode} /> NONE
-									<input type='radio' name='mode' value='CONFLICT' onChange={this.handleWriteMode} /> CONFLICT
+									<input type="radio" name="mode" value="ALL" checked={this.state.writeMode === "ALL"} onChange={this.handleWriteMode} /> ALL
+									<input type="radio" name="mode" value="NONE" onChange={this.handleWriteMode} /> NONE
+									<input type="radio" name="mode" value="CONFLICT" onChange={this.handleWriteMode} /> CONFLICT
 								</div>
 								<div>
 									<label>충돌길이제한</label>
-									<input type='text' value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
+									<input type="text" value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
 								</div>
 								<div>
 									<label>로그</label>
-									<input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
+									<input type="checkbox" checked={this.state.logMode} onChange={this.handleLogMode} />
 								</div>
 							</div>
 
 							<div className={cx(css.optionTab, this.state.isMerge ? null : css.isOn)}>
 								<div>
 									<label>중복허용</label>
-									<input type='checkbox' checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
+									<input type="checkbox" checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
 								</div>
 								<div>
 									<label>필드셀범위</label>
-									<input type='text' value={this.state.fieldRange} onChange={this.handleFieldRange} />
+									<input type="text" value={this.state.fieldRange} onChange={this.handleFieldRange} />
 								</div>
 								<div>
 									<label>로그</label>
-									<input type='checkbox' checked={this.state.logMode} onChange={this.handleLogMode} />
+									<input type="checkbox" checked={this.state.logMode} onChange={this.handleLogMode} />
 								</div>
 							</div>
 
