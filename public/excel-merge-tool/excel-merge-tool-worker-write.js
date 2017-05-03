@@ -23,10 +23,15 @@ function callback(event) {
 	EMT.TOOL.init(options);
 	writeFile = (binaryFiles) => {
 		var wbList = EMT.TOOL.readBinaryFiles(binaryFiles);
+		postMessage({
+			type: "read",
+			time: EMT.STATISTICS.getTime(),
+		});
 		binaryFileList = EMT.TOOL.writeBinaryFile(wbList);
 	};
 	writeFile(binaryFiles);
 	postMessage({
+		type: "write",
 		binaryFileList: binaryFileList
 	});
 }

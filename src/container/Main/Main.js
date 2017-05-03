@@ -49,7 +49,6 @@ class Main extends Component {
 			field_range: fieldRange,
 			isDuplication: isDuplication
 		};
-		const self = this;
 
 		if (writeMode === "LIST" && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
 			if(confirm("필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)")) {
@@ -60,7 +59,7 @@ class Main extends Component {
 		}
 
 		files.forEach((file, index) => {
-			this.setProgress();
+			this.initProgress();
 			this.refs.progressWrapper.style.display = "block";
 			this.showMessage(EMT_CONFIG.MSG.READ_START);
 			const reader = new FileReader();
@@ -73,7 +72,8 @@ class Main extends Component {
 					result: reader.result
 				});
 
-				readWorker.onmessage = function(event) {
+				readWorker.onmessage = (event) => {
+					this.showMessage(EMT_CONFIG.MSG.READ_START);
 					var binaryFile = event.data.binaryFile;
 					binaryFiles.push(binaryFile);
 
@@ -83,21 +83,25 @@ class Main extends Component {
 							options: options,
 							binaryFiles: binaryFiles,
 						});
-						writeWorker.onmessage = function(event) {
-							function s2ab(s) {
-								const buf = new ArrayBuffer(s.length);
-								const view = new Uint8Array(buf);
-								for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
-								return buf;
-							}
-
-							event.data.binaryFileList.forEach((binaryFile) => {
-								if (binaryFile.fileName !== "log.txt") {
-									binaryFile.binary = s2ab(binaryFile.binary)
+						writeWorker.onmessage = (event) => {
+							if (event.data.type === "read") {
+								this.showMessage(EMT_CONFIG.MSG.READ_END.replace("{{TIME}}", event.data.time));
+							} else if(event.data.type === "write") {
+								function s2ab(s) {
+									const buf = new ArrayBuffer(s.length);
+									const view = new Uint8Array(buf);
+									for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF
+									return buf;
 								}
-								FileSaver.saveAs(new Blob([binaryFile.binary], { type: "application/octet-stream" }), binaryFile.fileName)
-							});
-							self.refs.progressWrapper.style.display = "none";
+
+								event.data.binaryFileList.forEach((binaryFile) => {
+									if (binaryFile.fileName !== "log.txt") {
+										binaryFile.binary = s2ab(binaryFile.binary)
+									}
+									FileSaver.saveAs(new Blob([binaryFile.binary], {type: "application/octet-stream"}), binaryFile.fileName)
+								});
+								this.refs.progressWrapper.style.display = "none";
+							}
 						}
 					}
 				};
@@ -106,7 +110,7 @@ class Main extends Component {
 		})
 	};
 
-	setProgress = () => {
+	initProgress = () => {
 		let body = window.document.body;
 		let progressWrapper = this.refs.progressWrapper;
 		progressWrapper.style.width = body.scrollWidth + "px";

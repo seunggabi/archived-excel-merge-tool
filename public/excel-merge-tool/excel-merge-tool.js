@@ -8,7 +8,6 @@ EMT.TOOL = {
 	ignore_length: null,
 	field_range: null,
 	isFirst: true,
-	worker: null,
 
 	init: function(data) {
 		data = data || {};
@@ -53,7 +52,6 @@ EMT.TOOL = {
 		}.bind(this));
 		EMT.STATISTICS.calc();
 
-		// EMT.MSG.setProgress(EMT.CONFIG.MSG.READ_END.replace("{{TIME}}", EMT.STATISTICS.getTime()));
 		return wbList;
 	},
 
