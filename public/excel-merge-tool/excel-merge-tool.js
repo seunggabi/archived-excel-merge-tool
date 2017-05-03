@@ -4,7 +4,6 @@
 
 EMT.TOOL = {
 	write_mode: null,
-	log_mode: null,
 	ignore_length: null,
 	field_range: null,
 	isFirst: true,
@@ -12,11 +11,11 @@ EMT.TOOL = {
 	init: function(data) {
 		data = data || {};
 		this.write_mode = data.write_mode || EMT.CONFIG.DEFAULT.WRITE_MODE;
-		EMT.LOG.status = data.log_mode || EMT.CONFIG.DEFAULT.LOG_MODE;
 		this.ignore_length = data.ignore_length || EMT.CONFIG.DEFAULT.IGNORE_LENGTH;
 		this.field_range = data.field_range || EMT.CONFIG.DEFAULT.FIELD_RANGE;
+		EMT.LOG.status = data.log_mode || EMT.CONFIG.DEFAULT.LOG_MODE;
 
-		var isDuplication = data.isDuplication || EMT.CONFIG.DEFAULT.isDuplication;
+		let isDuplication = data.isDuplication || EMT.CONFIG.DEFAULT.isDuplication;
 		EMT.DATA.setDataConfig(isDuplication, this.field_range);
 
 		EMT.STATISTICS.times = this.write_mode === EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
@@ -24,9 +23,9 @@ EMT.TOOL = {
 	},
 
 	readFiles: function(fileNames) {
-		var wbList = [];
+		let wbList = [];
 		fileNames.forEach(function(fileName) {
-			var wb = XLSX.readFile(EMT.CONFIG.PATH.READ + fileName, {cellStyles: true});
+			let wb = XLSX.readFile(EMT.CONFIG.PATH.READ + fileName, {cellStyles: true});
 			wb.fileName = fileName;
 			wbList.push(wb);
 
@@ -41,22 +40,21 @@ EMT.TOOL = {
 	},
 
 	readBinaryFiles: function(binaryFiles) {
-		var wbList = [];
+		let wbList = [];
 		binaryFiles.forEach(function(binaryFile) {
-			var wb = XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
+			let wb = XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
 			EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
 			EMT.STATISTICS.analyze(wb);
 		}.bind(this));
-		EMT.STATISTICS.calc();
 
 		return wbList;
 	},
 
 	selectXLSX: function(fileNames) {
-		var filesXLSX = [];
+		let filesXLSX = [];
 
 		fileNames.forEach(function(fileName) {
 			if(fileName.lastIndexOf(EMT.CONFIG.EXTENSION) >= 0
@@ -68,7 +66,7 @@ EMT.TOOL = {
 	},
 
 	_mergeSheets: function(wbList) {
-		for(var s in wbList[0].Sheets) {
+		for(let s in wbList[0].Sheets) {
 			this._setDefaultStyle(wbList[0].Sheets[s]);
 		}
 		return wbList.reduce(this._mergeSheet.bind(this));
@@ -77,7 +75,7 @@ EMT.TOOL = {
 	_mergeSheet: function(wb1, wb2) {
 		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.MERGE, "TO "+wb1.fileName+", FROM "+wb2.fileName);
 
-		for(var s in wb2.Sheets) {
+		for(let s in wb2.Sheets) {
 			if(wb1.Sheets.hasOwnProperty(s)) {
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.CONFLICT, s+" Sheet ==> Conflict");
 				wb1.Sheets[s].fileName = wb1.fileName;
@@ -98,12 +96,12 @@ EMT.TOOL = {
 		this._setCellFomula(s2);
 		this._setDefaultStyle(s2);
 
-		for(var c in s2) {
-			var v2 = String(s2[c].v);
+		for(let c in s2) {
+			let v2 = String(s2[c].v);
 			v2 = EMT.UTIL.enterOnce(v2);
 
 			if(s1.hasOwnProperty(c)) {
-				var v1 = EMT.UTIL.enterOnce(String(s1[c].v));
+				let v1 = EMT.UTIL.enterOnce(String(s1[c].v));
 
 				if(c === EMT.CONFIG.KEY.RANGE) {
 					this._extendsRange(s1[c], s2[c]);
@@ -152,7 +150,7 @@ EMT.TOOL = {
 	},
 
 	_setDefaultStyle: function(s) {
-		for(var c in s) {
+		for(let c in s) {
 			if(c.match(EMT.CONFIG.REG.CELL)) {
 				s[c].s = s[c].s || {};
 				s[c].s = EMT.UTIL.mix(EMT.UTIL.clone(s[c].s), EMT.CONFIG.DEFAULT_STYLE);
@@ -161,7 +159,7 @@ EMT.TOOL = {
 	},
 
 	_setCellFomula: function(s) {
-		for(var c in s) {
+		for(let c in s) {
 			if(s[c].hasOwnProperty && s[c].hasOwnProperty(EMT.CONFIG.KEY.FORMULA)) {
 				s[c].t = "s";
 				s[c].v = "="+s[c].f;
@@ -170,12 +168,12 @@ EMT.TOOL = {
 	},
 
 	_extendsRange: function(r1, r2) {
-		var r;
-		var r1Col = r1.match(EMT.CONFIG.REG.COL);
-		var r1Row = r1.match(EMT.CONFIG.REG.ROW);
+		let r;
+		let r1Col = r1.match(EMT.CONFIG.REG.COL);
+		let r1Row = r1.match(EMT.CONFIG.REG.ROW);
 
-		var r2Col = r2.match(EMT.CONFIG.REG.COL);
-		var r2Row = r2.match(EMT.CONFIG.REG.ROW);
+		let r2Col = r2.match(EMT.CONFIG.REG.COL);
+		let r2Row = r2.match(EMT.CONFIG.REG.ROW);
 
 		r = EMT.UTIL.min(r1Col[0], r2Col[0])
 			+ EMT.UTIL.min(r1Row[0], r2Row[0])
@@ -191,12 +189,12 @@ EMT.TOOL = {
 			return text;
 		}
 
-		var fileNameLabel = "["+fileName+"]";
+		let fileNameLabel = "["+fileName+"]";
 		if(text.indexOf(fileNameLabel) >= 0) {
 			fileNameLabel = "";
 		}
 
-		var concatText = text;
+		let concatText = text;
 		if(this.write_mode === EMT.CONFIG.WRITE_MODE.CONFLICT) {
 			concatText = fileNameLabel + String.fromCharCode(13) + text;
 		}
@@ -229,7 +227,7 @@ EMT.TOOL = {
 	},
 
 	_writeFile: function(wbList) {
-		var wb;
+		let wb;
 
 		if(this.write_mode === EMT.CONFIG.WRITE_MODE.LIST) {
 			wb = this._addSheets(wbList);
@@ -242,7 +240,7 @@ EMT.TOOL = {
 	},
 
 	writeBinaryFile: function(wbList) {
-		var binaryFiles = [];
+		let binaryFiles = [];
 		switch(this.write_mode) {
 			case EMT.CONFIG.WRITE_MODE.LIST:
 			case EMT.CONFIG.WRITE_MODE.NONE:
@@ -250,7 +248,7 @@ EMT.TOOL = {
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
 				binaryFiles.push(this._writeBinaryFile(EMT.UTIL.clone(wbList)));
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
-				binaryFiles.push(new this.binaryFile(EMT.LOG.FILE_NAME, EMT.LOG.getBinaryFile()));
+				binaryFiles.push(new this.binaryFile(EMT.CONFIG.WRITE_NAME.LOG, EMT.LOG.getBinaryFile()));
 				break;
 			case EMT.CONFIG.WRITE_MODE.ALL:
 				this.write_mode = EMT.CONFIG.WRITE_MODE.NONE;
@@ -261,7 +259,7 @@ EMT.TOOL = {
 				binaryFiles.push(this._writeBinaryFile(EMT.UTIL.clone(wbList)));
 				this.write_mode = EMT.CONFIG.WRITE_MODE.ALL;
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
-				binaryFiles.push(new this.binaryFile(EMT.LOG.FILE_NAME, EMT.LOG.getBinaryFile()));
+				binaryFiles.push(new this.binaryFile(EMT.CONFIG.WRITE_NAME.LOG, EMT.LOG.getBinaryFile()));
 				break;
 			default:
 				console.log(EMT.CONFIG.MSG.UNDEFINED);
@@ -270,7 +268,7 @@ EMT.TOOL = {
 	},
 
 	_writeBinaryFile: function(wbList) {
-		var wb;
+		let wb;
 
 		if(this.write_mode === EMT.CONFIG.WRITE_MODE.LIST) {
 			wb = this._addSheets(wbList);
@@ -284,9 +282,9 @@ EMT.TOOL = {
 
 	_readSheets: function(wb) {
 		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Read File: "+wb.fileName);
-		for(var s in wb.Sheets) {
+		for(let s in wb.Sheets) {
 			EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
-			var items = this._readCells(s, wb.Sheets[s]);
+			let items = this._readCells(s, wb.Sheets[s]);
 			items.forEach(function(item, index) {
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.NEW, "New Item("+Number(1+index)+"): "+item);
 			}.bind(this));
@@ -300,12 +298,12 @@ EMT.TOOL = {
 	_addSheets: function(wbList) {
 		EMT.DATA.init();
 
-		for (var wb in wbList) {
+		for (let wb in wbList) {
 			this._readSheets(wbList[wb]);
 		}
 
 		if (wbList[0].hasOwnProperty("Sheets")) {
-			for (var s in wbList[0].Sheets) {
+			for (let s in wbList[0].Sheets) {
 				EMT.DATA.addSheet(s, wbList[0].Sheets[s]);
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.NEW, s + " New Data Count: " + EMT.DATA.sizes[s]);
 			}

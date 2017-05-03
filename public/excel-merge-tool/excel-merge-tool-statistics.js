@@ -17,20 +17,21 @@ EMT.STATISTICS = {
 	total: 0,
 
 	analyze: function(wb) {
-		for(var name in wb.Sheets) {
-			if(!this.counts[name]) {
-				this.counts[name] = new this.SheetCount();
-			} else {
+		for(let name in wb.Sheets) {
+			if(this.counts[name]) {
 				this.counts[name].count++;
+			} else {
+				this.counts[name] = new this.SheetCount();
 			}
-			var sheetCount = this.counts[name];
+
+			let sheetCount = this.counts[name];
 			sheetCount.cellCount = EMT.UTIL.max(sheetCount.cellCount, Object.keys(wb.Sheets[name]).length-this.constCount);
 		}
 	},
 
-	calc: function() {
+	_calc: function() {
 		this.total = Object.keys(this.counts).length;
-		for(var c in this.counts) {
+		for(let c in this.counts) {
 			this.total += this.counts[c].cellCount * this.counts[c].count * this.counts[c].count / 2;
 		}
 		this.total *= this.times;
@@ -40,6 +41,7 @@ EMT.STATISTICS = {
 	},
 
 	getTime: function() {
+		this._calc();
 		return this.total / this.cps;
 	}
 };

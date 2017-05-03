@@ -5,8 +5,7 @@
 EMT.UTIL = {
 	enterOnce: function(text) {
 		text = this.trim(text);
-		var regEnter = /[\r\n]+/g;
-		return text.replace(regEnter, String.fromCharCode(13));
+		return text.replace(/[\r\n]+/g, String.fromCharCode(13));
 	},
 
 	isInclude: function(a, b) {
@@ -17,8 +16,8 @@ EMT.UTIL = {
 	},
 
 	max: function(a, b) {
-		var aLength = this.length(a);
-		var bLength = this.length(b);
+		let aLength = this.length(a);
+		let bLength = this.length(b);
 
 		if (aLength > bLength) {
 			return a;
@@ -30,8 +29,8 @@ EMT.UTIL = {
 	},
 
 	min: function(a, b) {
-		var aLength = this.length(a);
-		var bLength = this.length(b);
+		let aLength = this.length(a);
+		let bLength = this.length(b);
 
 		if (aLength < bLength) {
 			return a;
@@ -59,11 +58,15 @@ EMT.UTIL = {
 		return text.replace(/[\r|\n]$/g, "").replace(/^[\r|\n]/g, "");
 	},
 
+	removeEnter: function(text) {
+		return text.replace(/[\r\n]+/g, " ");
+	},
+
 	mix: function(target, mixin) {
-		for (var i in mixin) {
+		for (let i in mixin) {
 			if (mixin.hasOwnProperty(i)) {
 				if (this.isObject(mixin[i])) {
-					target[i] = target[i] || {}
+					target[i] = target[i] || {};
 					target[i] = this.mix(target[i], mixin[i]);
 				} else {
 					if(!target.hasOwnProperty(i)) {
@@ -75,17 +78,15 @@ EMT.UTIL = {
 		return target;
 	},
 
-	factorial: function(n) {
-		if(n === 1) {
-			return 1;
-		}
-		return n * this.factorial(n-1);
+	isObject: function(v) {
+		return v && typeof(v) === "object";
 	},
 
-	isObject: function(v) {
-		if(!v || typeof(v) !== "object") {
-			return false;
-		}
-		return true;
+	isNull: function(datas) {
+		return datas.join("") === "";
+	},
+
+	isSet: function(v) {
+		return typeof(v) !== "undefined";
 	}
 };

@@ -21,7 +21,7 @@ EMT.DATA = {
 	},
 
 	addItem: function(sheetName, datas) {
-		var key = this._getIdentifier(datas);
+		let key = this._getIdentifier(datas);
 
 		if(!this.items[sheetName]) {
 			this.items[sheetName] = {};
@@ -51,8 +51,8 @@ EMT.DATA = {
 			return null;
 		}
 
-		var range = this._getRange(fieldRange);
-		var field = {};
+		let range = this._getRange(fieldRange);
+		let field = {};
 
 		field.range = fieldRange;
 		field.colsIndex = range.cols;
@@ -68,7 +68,7 @@ EMT.DATA = {
 	},
 
 	_getRange: function(fieldRange) {
-		var range = {};
+		let range = {};
 
 		range.rows = fieldRange.match(EMT.CONFIG.REG.ROW);
 		range.cols = fieldRange.match(EMT.CONFIG.REG.COL);
@@ -77,20 +77,20 @@ EMT.DATA = {
 	},
 
 	readCells: function(sheetName, sheet) {
-		var items = [];
-		var item = [];
+		let items = [];
+		let item = [];
 
 		if(!this.field && !this.fields[sheetName]) {
-			var range = this._getRange(sheet[EMT.CONFIG.KEY.RANGE]);
-			var fieldRnage = range.cols[0]+range.rows[0]+":"+range.cols[1]+range.rows[0];
+			let range = this._getRange(sheet[EMT.CONFIG.KEY.RANGE]);
+			let fieldRnage = range.cols[0]+range.rows[0]+":"+range.cols[1]+range.rows[0];
 			this.fields[sheetName] = this._createField(fieldRnage);
 		}
-		var field = this._getField(sheetName);
-		var rowNumber = field.startRow;
+		let field = this._getField(sheetName);
+		let rowNumber = field.startRow;
 
-		var row, col;
-		var cellTable = {};
-		for(var c in sheet) {
+		let row, col;
+		let cellTable = {};
+		for(let c in sheet) {
 			if(c.match(EMT.CONFIG.REG.CELL)) {
 				row = c.match(EMT.CONFIG.REG.ROW)[0];
 				col = c.match(EMT.CONFIG.REG.COL)[0];
@@ -111,12 +111,12 @@ EMT.DATA = {
 		}
 
 		while(cellTable[rowNumber]) {
-			for(var k in cellTable[+field.startRow]) {
+			for(let k in cellTable[+field.startRow]) {
 				item.push(cellTable[rowNumber][k]);
 			}
 			rowNumber++;
 
-			if(!this._isNull(item)) {
+			if(!EMT.UTIL.isNull(item)) {
 				this.addItem(sheetName, item);
 				items.push(item.join(","));
 				item = [];
@@ -130,11 +130,11 @@ EMT.DATA = {
 	},
 
 	addSheet: function(sheetName, sheet) {
-		var field = this._getField(sheetName);
-		var rowNumber = field.startRow;
+		let field = this._getField(sheetName);
+		let rowNumber = field.startRow;
 
-		for(var i in this.items[sheetName]) {
-			for(var j=0; j<field.cols.length; j++) {
+		for(let i in this.items[sheetName]) {
+			for(let j=0; j<field.cols.length; j++) {
 				sheet[field.cols[j] + rowNumber] = {};
 				sheet[field.cols[j] + rowNumber].t = "s";
 				sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
@@ -145,16 +145,12 @@ EMT.DATA = {
 		sheet[EMT.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
 	},
 
-	_isNull: function(datas) {
-		return datas.join("") === "";
-	},
-
 	_getIdentifier: function(datas) {
 		return datas.join(EMT.CONFIG.SPLITTER);
 	},
 
 	_getExtendRange: function(sheetName) {
-		var field = this._getField(sheetName);
+		let field = this._getField(sheetName);
 
 		return field.colsIndex[0]+field.rowsIndex[0]
 			+":"

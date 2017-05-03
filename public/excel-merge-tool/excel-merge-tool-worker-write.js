@@ -4,27 +4,29 @@
 
 importScripts("/excel-merge-tool/excel-merge-tool-worker-load.js");
 
-function callback(event) {
-	var options = event.data.options;
-	var binaryFiles = event.data.binaryFiles;
-	var binaryFileList = [];
+callback = (event) => {
+	let options = event.data.options;
+	let binaryFiles = event.data.binaryFiles;
 
 	EMT.TOOL.init(options);
-	writeFile = (binaryFiles) => {
-		var wbList = EMT.TOOL.readBinaryFiles(binaryFiles);
-		postMessage({
-			type: "read",
-			time: EMT.STATISTICS.getTime(),
-		});
-		binaryFileList = EMT.TOOL.writeBinaryFile(wbList);
-	};
-	writeFile(binaryFiles);
-	postMessage({
+
+	this.postMessage({
 		type: "write",
-		binaryFileList: binaryFileList
+		binaryFileList: writeFile(binaryFiles)
 	});
-}
+};
+
+writeFile = (binaryFiles) => {
+	let wbList = EMT.TOOL.readBinaryFiles(binaryFiles);
+
+	this.postMessage({
+		type: "read",
+		time: EMT.STATISTICS.getTime()
+	});
+
+	return EMT.TOOL.writeBinaryFile(wbList);
+};
 
 (function() {
 	this.onmessage = callback;
-})()
+})();

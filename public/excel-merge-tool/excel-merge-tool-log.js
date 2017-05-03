@@ -3,12 +3,12 @@
  */
 
 Date.prototype.timestamp = function() {
-	var y = this.getFullYear();
-	var m = this.getMonth() + 1;
-	var d = this.getDate();
-	var h = this.getHours();
-	var i = this.getMinutes();
-	var s = this.getSeconds();
+	let y = this.getFullYear();
+	let m = this.getMonth() + 1;
+	let d = this.getDate();
+	let h = this.getHours();
+	let i = this.getMinutes();
+	let s = this.getSeconds();
 
 	m = m>9 ? m : "0"+m;
 	d = d>9 ? d : "0"+d;
@@ -20,8 +20,6 @@ Date.prototype.timestamp = function() {
 };
 
 EMT.LOG = {
-	PATH: "files/output/",
-	FILE_NAME: "log.txt",
 	status: true,
 	items: [],
 
@@ -42,23 +40,13 @@ EMT.LOG = {
 		if(!this.status) {
 			return;
 		}
-        var binaryFile = this._getItems();
+        let binaryFile = this._getItems();
 		this.items = [];
 		return binaryFile;
 	},
 
-	_getItem: function(item) {
-		if(!this.status) {
-			return;
-		}
-		return "["+item.type+"]["+item.time+"] "+this._removeEnter(item.content);
-	},
-
 	_getItems: function() {
-		if(!this.status) {
-			return;
-		}
-		var items = "";
+		let items = "";
 
 		this.items.forEach(function(item) {
 			items += this._getItem(item)+"\n";
@@ -66,11 +54,7 @@ EMT.LOG = {
 		return items;
 	},
 
-	_removeEnter: function(text) {
-		if(!this.status) {
-			return;
-		}
-		var regEnter = /[\r\n]+/g;
-		return text.replace(regEnter, " ");
+	_getItem: function(item) {
+		return "["+item.type+"]["+item.time+"] "+EMT.UTIL.removeEnter(item.content);
 	}
 };

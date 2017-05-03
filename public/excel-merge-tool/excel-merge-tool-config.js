@@ -2,7 +2,7 @@
  * Created by seunggabi on 2017. 2. 26..
  */
 
-var EMT = {};
+let EMT = {};
 EMT.CONFIG = {
 	PATH: {
 		READ: "files/",
@@ -11,7 +11,8 @@ EMT.CONFIG = {
 	WRITE_NAME: {
 		NONE: "merge.xlsx",
 		CONFLICT: "merge_conflict.xlsx",
-		LIST: "merge_list.xlsx"
+		LIST: "merge_list.xlsx",
+		LOG: "log.txt"
 	},
 	EXTENSION: ".xlsx",
 	WRITE_MODE: {
