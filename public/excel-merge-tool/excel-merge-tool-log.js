@@ -55,6 +55,8 @@ EMT.LOG = {
 	},
 
 	_getItem: function(item) {
-		return "["+item.type+"]["+item.time+"] "+EMT.UTIL.removeEnter(item.content);
+		return EMT.UTIL.wrapBracket(item.type)
+			+ EMT.UTIL.wrapBracket(item.time)
+			+ EMT.UTIL.removeEnter(item.content);
 	}
 };

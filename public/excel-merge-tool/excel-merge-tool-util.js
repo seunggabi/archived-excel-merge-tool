@@ -4,8 +4,11 @@
 
 EMT.UTIL = {
 	enterOnce: function(text) {
+		if(typeof(text) !== "string") {
+			return;
+		}
 		text = this.trim(text);
-		return text.replace(/[\r\n]+/g, String.fromCharCode(13));
+		return text.replace(EMT.CONFIG.REG.ENTER, String.fromCharCode(13));
 	},
 
 	isInclude: function(a, b) {
@@ -55,11 +58,17 @@ EMT.UTIL = {
 	},
 
 	trim: function(text) {
-		return text.replace(/[\r|\n]$/g, "").replace(/^[\r|\n]/g, "");
+		if(typeof(text) !== "string") {
+			return;
+		}
+		return text.replace(EMT.CONFIG.REG.ENTER_START, "").replace(EMT.CONFIG.REG.ENTER_END, "");
 	},
 
 	removeEnter: function(text) {
-		return text.replace(/[\r\n]+/g, " ");
+		if(typeof(text) !== "string") {
+			return;
+		}
+		return text.replace(EMT.CONFIG.REG.ENTER, " ");
 	},
 
 	mix: function(target, mixin) {
@@ -78,15 +87,19 @@ EMT.UTIL = {
 		return target;
 	},
 
-	isObject: function(v) {
-		return v && typeof(v) === "object";
-	},
-
 	isNull: function(datas) {
 		return datas.join("") === "";
 	},
 
+	isObject: function(v) {
+		return v && typeof(v) === "object";
+	},
+
 	isSet: function(v) {
 		return typeof(v) !== "undefined";
+	},
+
+	wrapBracket: function(text) {
+		return "["+text+"]";
 	}
 };

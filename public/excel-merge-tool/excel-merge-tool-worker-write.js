@@ -11,7 +11,7 @@ callback = (event) => {
 	EMT.TOOL.init(options);
 
 	this.postMessage({
-		type: "write",
+		type: EMT.CONFIG.WORKER_TYPE.WRITE,
 		binaryFileList: writeFile(binaryFiles)
 	});
 };
@@ -20,7 +20,7 @@ writeFile = (binaryFiles) => {
 	let wbList = EMT.TOOL.readBinaryFiles(binaryFiles);
 
 	this.postMessage({
-		type: "read",
+		type: EMT.CONFIG.WORKER_TYPE.READ,
 		time: EMT.STATISTICS.getTime()
 	});
 

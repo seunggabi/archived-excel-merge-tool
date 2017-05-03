@@ -24,11 +24,15 @@ EMT.CONFIG = {
 		FIELD_RANGE: "",
 		isDuplication: false
 	},
+
 	MSG: {
+		START: "EMT Start",
+		END: "EMT End",
+		MODE: "Mode is {{MODE}}",
+
 		UNDEFINED: "사용되지 않는 모드입니다.",
 		READ_START: "업로드된 파일을 분석을 시작합니다.",
-		READ_END: "분석이 완료되었습니다.\n(작업예상 시간: {{TIME}}초)",
-		PROGRESSING: "작업 중입니다.",
+		READ_END: "분석이 완료되었습니다.<br/>(작업예상 시간: {{TIME}}초)",
 	},
 	LOG_TYPE: {
 		SYSTEM: "SYSTEM  ",
@@ -36,17 +40,26 @@ EMT.CONFIG = {
 		NEW: "NEW     ",
 		CONFLICT: "CONFLICT"
 	},
+	WORKER_TYPE: {
+		READ: "READ",
+		WRITE: "WRITE"
+	},
+
 	USING_CHECK: "$",
 	SPLITTER: "{{$s$}}",
 	REG: {
 		COL: /[A-Z]+/g,
 		ROW: /\d+/g,
-		CELL: /[A-Z]\d+/g
+		CELL: /[A-Z]\d+/g,
+		ENTER: /[\r\n]+/g,
+		ENTER_START: /^[\r|\n]/g,
+		ENTER_END: /[\r|\n]$/g
 	},
 	KEY: {
 		RANGE: "!ref",
 		FORMULA: "f"
 	},
+
 	CONFLICT_STYLE: {
 		fill: {
 			bgColor: {

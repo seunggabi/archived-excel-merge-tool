@@ -19,7 +19,7 @@ EMT.TOOL = {
 		EMT.DATA.setDataConfig(isDuplication, this.field_range);
 
 		EMT.STATISTICS.times = this.write_mode === EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
-		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
+		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.START);
 	},
 
 	binaryFile: function(fileName, binary) {
@@ -177,7 +177,7 @@ EMT.TOOL = {
 			return text;
 		}
 
-		let fileNameLabel = "["+fileName+"]";
+		let fileNameLabel = EMT.UTIL.wrapBracket(fileName);
 		if(text.indexOf(fileNameLabel) >= 0) {
 			fileNameLabel = "";
 		}
@@ -190,50 +190,26 @@ EMT.TOOL = {
 		return concatText;
 	},
 
-	writeFile: function(wbList) {
-		switch(this.write_mode) {
-			case EMT.CONFIG.WRITE_MODE.LIST:
-			case EMT.CONFIG.WRITE_MODE.NONE:
-			case EMT.CONFIG.WRITE_MODE.CONFLICT:
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
-				this._writeFile(EMT.UTIL.clone(wbList));
-				EMT.LOG.writeFile();
-				break;
-			case EMT.CONFIG.WRITE_MODE.ALL:
-				this.write_mode = EMT.CONFIG.WRITE_MODE.NONE;
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
-				this._writeFile(EMT.UTIL.clone(wbList));
-				this.write_mode = EMT.CONFIG.WRITE_MODE.CONFLICT;
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
-				this._writeFile(EMT.UTIL.clone(wbList));
-				this.write_mode = EMT.CONFIG.WRITE_MODE.ALL;
-				EMT.LOG.writeFile();
-				break;
-			default:
-				console.log(EMT.CONFIG.MSG.UNDEFINED);
-		}
-	},
-
 	writeBinaryFile: function(wbList) {
 		let binaryFiles = [];
 		switch(this.write_mode) {
 			case EMT.CONFIG.WRITE_MODE.LIST:
 			case EMT.CONFIG.WRITE_MODE.NONE:
 			case EMT.CONFIG.WRITE_MODE.CONFLICT:
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.MSG.MODE.replace("{{MODE}}", this.write_mode));
 				binaryFiles.push(this._writeBinaryFile(EMT.UTIL.clone(wbList)));
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
+				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.MSG.END);
 				binaryFiles.push(new this.binaryFile(EMT.CONFIG.WRITE_NAME.LOG, EMT.LOG.getBinaryFile()));
 				break;
 			case EMT.CONFIG.WRITE_MODE.ALL:
 				this.write_mode = EMT.CONFIG.WRITE_MODE.NONE;
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.MSG.MODE.replace("{{MODE}}", this.write_mode));
 				binaryFiles.push(this._writeBinaryFile(EMT.UTIL.clone(wbList)));
 				this.write_mode = EMT.CONFIG.WRITE_MODE.CONFLICT;
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Mode is "+this.write_mode);
+				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.MSG.MODE.replace("{{MODE}}", this.write_mode));
 				binaryFiles.push(this._writeBinaryFile(EMT.UTIL.clone(wbList)));
 				this.write_mode = EMT.CONFIG.WRITE_MODE.ALL;
-				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT END");
+				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, EMT.CONFIG.MSG.END);
 				binaryFiles.push(new this.binaryFile(EMT.CONFIG.WRITE_NAME.LOG, EMT.LOG.getBinaryFile()));
 				break;
 			default:

@@ -84,9 +84,9 @@ class Main extends Component {
 							binaryFiles: binaryFiles,
 						});
 						writeWorker.onmessage = (event) => {
-							if (event.data.type === "read") {
+							if (event.data.type === EMT_CONFIG.WORKER_TYPE.READ) {
 								this.showMessage(EMT_CONFIG.MSG.READ_END.replace("{{TIME}}", event.data.time));
-							} else if(event.data.type === "write") {
+							} else if(event.data.type === EMT_CONFIG.WORKER_TYPE.WRITE) {
 								function s2ab(s) {
 									const buf = new ArrayBuffer(s.length);
 									const view = new Uint8Array(buf);
@@ -95,7 +95,7 @@ class Main extends Component {
 								}
 
 								event.data.binaryFileList.forEach((binaryFile) => {
-									if (binaryFile.fileName !== "log.txt") {
+									if (binaryFile.fileName !== EMT_CONFIG.WRITE_NAME.LOG) {
 										binaryFile.binary = s2ab(binaryFile.binary)
 									}
 									FileSaver.saveAs(new Blob([binaryFile.binary], {type: "application/octet-stream"}), binaryFile.fileName)
@@ -170,7 +170,7 @@ class Main extends Component {
 	};
 
 	render () {
-		const { files } = this.state
+		const { files } = this.state;
 
 		return (
 			<div>
