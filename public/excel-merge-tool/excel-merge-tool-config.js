@@ -4,10 +4,6 @@
 
 let EMT = {};
 EMT.CONFIG = {
-	PATH: {
-		READ: "files/",
-		WRITE: "files/output/"
-	},
 	WRITE_NAME: {
 		NONE: "merge.xlsx",
 		CONFLICT: "merge_conflict.xlsx",

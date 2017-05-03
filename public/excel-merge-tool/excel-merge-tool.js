@@ -22,18 +22,6 @@ EMT.TOOL = {
 		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
-	readFiles: function(fileNames) {
-		let wbList = [];
-		fileNames.forEach(function(fileName) {
-			let wb = XLSX.readFile(EMT.CONFIG.PATH.READ + fileName, {cellStyles: true});
-			wb.fileName = fileName;
-			wbList.push(wb);
-
-			EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Read File: "+fileName);
-		}.bind(this));
-		return wbList;
-	},
-
 	binaryFile: function(fileName, binary) {
 		this.fileName = fileName;
 		this.binary = binary;
@@ -224,19 +212,6 @@ EMT.TOOL = {
 			default:
 				console.log(EMT.CONFIG.MSG.UNDEFINED);
 		}
-	},
-
-	_writeFile: function(wbList) {
-		let wb;
-
-		if(this.write_mode === EMT.CONFIG.WRITE_MODE.LIST) {
-			wb = this._addSheets(wbList);
-		} else {
-			wb = this._mergeSheets(wbList);
-		}
-
-		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Write File: "+EMT.CONFIG.WRITE_NAME[this.write_mode]);
-		XLSX.writeFile(wb, EMT.CONFIG.PATH.WRITE + EMT.CONFIG.WRITE_NAME[this.write_mode]);
 	},
 
 	writeBinaryFile: function(wbList) {
