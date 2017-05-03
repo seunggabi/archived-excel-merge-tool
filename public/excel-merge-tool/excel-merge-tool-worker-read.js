@@ -5,8 +5,6 @@
 importScripts("/lib/cpexcel.js");
 importScripts("/lib/jszip.js");
 importScripts("/lib/xlsx.js");
-importScripts("/lib/workerFakeDOM.js");
-importScripts("/lib/jquery.min.js");
 
 importScripts("/excel-merge-tool/excel-merge-tool-config.js");
 importScripts("/excel-merge-tool/excel-merge-tool-data.js");
