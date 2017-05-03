@@ -29,14 +29,14 @@ EMT.TOOL = {
 
 	readBinaryFiles: function(binaryFiles) {
 		let wbList = [];
-		binaryFiles.forEach(function(binaryFile) {
+		binaryFiles.forEach((binaryFile) => {
 			let wb = XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
 			wb.fileName = binaryFile.fileName;
 			wbList.push(wb);
 
 			EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Load File: "+binaryFile.fileName);
 			EMT.STATISTICS.analyze(wb);
-		}.bind(this));
+		});
 
 		return wbList;
 	},
@@ -44,12 +44,12 @@ EMT.TOOL = {
 	selectXLSX: function(fileNames) {
 		let filesXLSX = [];
 
-		fileNames.forEach(function(fileName) {
+		fileNames.forEach((fileName) => {
 			if(fileName.lastIndexOf(EMT.CONFIG.EXTENSION) >= 0
 				&& fileName.lastIndexOf(EMT.CONFIG.USING_CHECK) < 0) {
 				filesXLSX.push(fileName);
 			}
-		}.bind(this));
+		});
 		return filesXLSX;
 	},
 
@@ -260,9 +260,9 @@ EMT.TOOL = {
 		for(let s in wb.Sheets) {
 			EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "Read Sheet: "+s);
 			let items = this._readCells(s, wb.Sheets[s]);
-			items.forEach(function(item, index) {
+			items.forEach((item, index) => {
 				EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.NEW, "New Item("+Number(1+index)+"): "+item);
-			}.bind(this));
+			});
 		}
 	},
 
