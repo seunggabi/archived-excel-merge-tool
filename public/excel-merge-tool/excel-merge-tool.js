@@ -8,6 +8,7 @@ EMT.TOOL = {
 	ignore_length: null,
 	field_range: null,
 	isFirst: true,
+	worker: null,
 
 	init: function(data) {
 		data = data || {};
@@ -20,7 +21,6 @@ EMT.TOOL = {
 		EMT.DATA.setDataConfig(isDuplication, this.field_range);
 
 		EMT.STATISTICS.times = this.write_mode === EMT.CONFIG.WRITE_MODE.ALL ? 2 : 1;
-		EMT.MSG.init();
 		EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.SYSTEM, "EMT Start");
 	},
 
@@ -42,7 +42,6 @@ EMT.TOOL = {
 	},
 
 	readBinaryFiles: function(binaryFiles) {
-		EMT.MSG.setProgress(EMT.CONFIG.MSG.READ_START);
 		var wbList = [];
 		binaryFiles.forEach(function(binaryFile) {
 			var wb = XLSX.read(binaryFile.binary, {type:"binary", cellStyles: true});
@@ -54,7 +53,7 @@ EMT.TOOL = {
 		}.bind(this));
 		EMT.STATISTICS.calc();
 
-		EMT.MSG.setProgress(EMT.CONFIG.MSG.READ_END.replace("{{TIME}}", EMT.STATISTICS.getTime()));
+		// EMT.MSG.setProgress(EMT.CONFIG.MSG.READ_END.replace("{{TIME}}", EMT.STATISTICS.getTime()));
 		return wbList;
 	},
 

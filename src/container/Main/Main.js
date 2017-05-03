@@ -1,16 +1,15 @@
 import React, { Component } from "react"
 import FileSaver from "file-saver"
 import cx from "classnames"
+import Worker from "workerjs"
+
+import EMT_CONFIG from "../../../public/excel-merge-tool/excel-merge-tool-config"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Dropzone from "../../components/DropZone"
 import DropItem from "../../components/DropItem"
 import progressImg from "./progress.gif"
 import xlsxImg from "./xlsxImg.png"
 import css from "./style.css"
-
-var $ = require("jquery");
-var Worker = require("workerjs");
-// var MSG = require("../../../public/excel-merge-tool/excel-merge-tool-message.js");
 
 class Main extends Component {
 	constructor () {
@@ -50,6 +49,7 @@ class Main extends Component {
 			field_range: fieldRange,
 			isDuplication: isDuplication
 		};
+		const self = this;
 
 		if (writeMode === "LIST" && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
 			if(confirm("필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)")) {
@@ -59,13 +59,10 @@ class Main extends Component {
 			}
 		}
 
-		var $app = $("#app");
-		$("#progressWrapper")
-			.width($app.width())
-			.height($app.height());
-
 		files.forEach((file, index) => {
-			$("."+css.progressWrapper).css("display", "block");
+			this.setProgress();
+			this.refs.progressWrapper.style.display = "block";
+			this.showMessage(EMT_CONFIG.MSG.READ_START);
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
@@ -100,13 +97,24 @@ class Main extends Component {
 								}
 								FileSaver.saveAs(new Blob([binaryFile.binary], { type: "application/octet-stream" }), binaryFile.fileName)
 							});
-							$("."+css.progressWrapper).css("display", "none")
+							self.refs.progressWrapper.style.display = "none";
 						}
 					}
 				};
 			};
 			reader.readAsBinaryString(file)
 		})
+	};
+
+	setProgress = () => {
+		let body = window.document.body;
+		let progressWrapper = this.refs.progressWrapper;
+		progressWrapper.style.width = body.scrollWidth + "px";
+		progressWrapper.style.height = body.scrollHeight + "px";
+	};
+
+	showMessage = (msg) => {
+		this.refs.progressMessage.innerHTML = msg;
 	};
 
 	handleWriteMode = (event) => {
@@ -233,10 +241,10 @@ class Main extends Component {
 						</div>
 					</div>
 				</div>
-				<div id="progressWrapper" className={css.progressWrapper}>
+				<div ref="progressWrapper" className={css.progressWrapper}>
 					<div className={css.progress}>
 						<img src={progressImg} />
-						<div id="progressMessage"></div>
+						<div ref="progressMessage"></div>
 					</div>
 				</div>
 			</div>

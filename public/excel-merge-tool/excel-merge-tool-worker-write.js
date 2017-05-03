@@ -11,7 +11,6 @@ importScripts("/lib/jquery.min.js");
 importScripts("/excel-merge-tool/excel-merge-tool-config.js");
 importScripts("/excel-merge-tool/excel-merge-tool-data.js");
 importScripts("/excel-merge-tool/excel-merge-tool-log.js");
-importScripts("/excel-merge-tool/excel-merge-tool-message.js");
 importScripts("/excel-merge-tool/excel-merge-tool-statistics.js");
 importScripts("/excel-merge-tool/excel-merge-tool-util.js");
 importScripts("/excel-merge-tool/excel-merge-tool.js");

@@ -110,3 +110,7 @@ EMT.CONFIG = {
 		}
 	}
 };
+
+if(typeof module !== "undefined") {
+	module.exports = EMT.CONFIG;
+}
