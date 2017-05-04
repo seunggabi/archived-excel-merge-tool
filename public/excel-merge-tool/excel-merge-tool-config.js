@@ -52,7 +52,15 @@ EMT.CONFIG = {
 		READ_START: "업로드된 파일을 분석을 시작합니다.",
 		READ_END: "분석이 완료되었습니다.<br/>(작업예상 시간: {{TIME}}초)",
 		INPUT_FAULT: "올바르지 않은 입력입니다.",
-		FIELD_RANGE: "필드 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)"
+		FIELD_RANGE: "필드 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)",
+
+		OUTPUT_MODE: "추출방식",
+		IGNORE_LENGTH: "무시할 길이",
+		SAVE: "저장",
+		REMOVE: "비우기",
+		LOG: "로그생성",
+		DUPLICATE: "중복허용",
+		RANGE: "필드영역범위"
 	},
 	LOG_TYPE: {
 		SYSTEM: "SYSTEM  ",

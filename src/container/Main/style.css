@@ -104,3 +104,12 @@ button {
 .progress > img {
 	margin-bottom: 5px;
 }
+.inlineBlock {
+	display: inline-block;
+}
+.verticalTop {
+	vertical-align: top;
+}
+input[type=radio] {
+	margin-right: 3px;
+}

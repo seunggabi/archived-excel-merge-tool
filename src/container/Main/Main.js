@@ -190,7 +190,7 @@ class Main extends Component {
 							}
 						</Dropzone>
 						<div className={css.right}>
-							<button onClick={this.deleteFile}>초기화</button>
+							<button onClick={this.deleteFile}>{EMT_CONFIG.MSG.REMOVE}</button>
 						</div>
 					</div>
 
@@ -207,39 +207,46 @@ class Main extends Component {
 						<div className={css.tabBody}>
 							<div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
 								<div>
-									<label>출력모드</label>
-									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.ALL}
-									       checked={this.state.writeMode === EMT_CONFIG.WRITE_MODE.ALL} onChange={this.handleWriteMode} /> ALL
-									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.NONE} onChange={this.handleWriteMode} /> NONE
-									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.CONFLICT} onChange={this.handleWriteMode} /> CONFLICT
+									<div className={cx(css.inlineBlock, css.verticalTop)}>
+										<label>{EMT_CONFIG.MSG.OUTPUT_MODE}</label>
+									</div>
+									<div className={css.inlineBlock}>
+										<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.ALL}
+									        checked={this.state.writeMode === EMT_CONFIG.WRITE_MODE.ALL} onChange={this.handleWriteMode} />
+											{EMT_CONFIG.WRITE_MODE.ALL}({EMT_CONFIG.WRITE_MODE.NONE} + {EMT_CONFIG.WRITE_MODE.CONFLICT})<br />
+										<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.NONE} onChange={this.handleWriteMode} />
+											{EMT_CONFIG.WRITE_MODE.NONE}<br />
+										<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.CONFLICT} onChange={this.handleWriteMode} />
+											{EMT_CONFIG.WRITE_MODE.CONFLICT}
+									</div>
 								</div>
 								<div>
-									<label>충돌길이제한</label>
+									<label>{EMT_CONFIG.MSG.IGNORE_LENGTH}</label>
 									<input type="text" value={this.state.ignoreLength} onChange={this.handleIgnoreLength} />
 								</div>
 								<div>
-									<label>로그</label>
+									<label>{EMT_CONFIG.MSG.LOG}</label>
 									<input type="checkbox" checked={this.state.logMode} onChange={this.handleLogMode} />
 								</div>
 							</div>
 
 							<div className={cx(css.optionTab, this.state.isMerge ? null : css.isOn)}>
 								<div>
-									<label>중복허용</label>
+									<label>{EMT_CONFIG.MSG.DUPLICATE}</label>
 									<input type="checkbox" checked={this.state.isDuplication} onChange={this.handleIsDuplication} />
 								</div>
 								<div>
-									<label>필드셀범위</label>
+									<label>{EMT_CONFIG.MSG.RANGE}</label>
 									<input type="text" value={this.state.fieldRange} onChange={this.handleFieldRange} />
 								</div>
 								<div>
-									<label>로그</label>
+									<label>{EMT_CONFIG.MSG.LOG}</label>
 									<input type="checkbox" checked={this.state.logMode} onChange={this.handleLogMode} />
 								</div>
 							</div>
 
 							<div className={css.tabFooter}>
-								<button onClick={this.readFile}>저장</button>
+								<button onClick={this.readFile}>{EMT_CONFIG.MSG.SAVE}</button>
 							</div>
 						</div>
 					</div>
