@@ -134,13 +134,15 @@ EMT.DATA = {
 		let rowNumber = field.startRow;
 
 		for(let i in this.items[sheetName]) {
-			for(let j=0; j<field.cols.length; j++) {
-				sheet[field.cols[j] + rowNumber] = {};
-				sheet[field.cols[j] + rowNumber].t = "s";
-				sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
-				sheet[field.cols[j] + rowNumber].s = EMT.CONFIG.DEFAULT_STYLE;
+			if(this.items[sheetName].hasOwnProperty(i)) {
+				for (let j = 0; j < field.cols.length; j++) {
+					sheet[field.cols[j] + rowNumber] = {};
+					sheet[field.cols[j] + rowNumber].t = "s";
+					sheet[field.cols[j] + rowNumber].v = this.items[sheetName][i].datas[j];
+					sheet[field.cols[j] + rowNumber].s = EMT.CONFIG.DEFAULT_STYLE;
+				}
+				rowNumber++;
 			}
-			rowNumber++;
 		}
 		sheet[EMT.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
 	},

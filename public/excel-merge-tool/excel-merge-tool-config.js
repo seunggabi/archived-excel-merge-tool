@@ -24,11 +24,29 @@ EMT.CONFIG = {
 		FIELD_RANGE: "",
 		isDuplication: false
 	},
+	STATISTICS: {
+		TIME: {
+			NONE: 1,
+			CONFLICT: 1,
+			ALL: 2,
+			LIST: 1
+		}
+	},
 
 	MSG: {
 		START: "EMT Start",
 		END: "EMT End",
 		MODE: "Mode is {{MODE}}",
+		LOAD: "Load File: {{FILE}}",
+		MERGE: "TO {{TO}} FROM {{FROM}}",
+		SHEET_READ: "Read Sheet: {{SHEET}}",
+		SHEET_CONFLICT: "{{SHEET}} Sheet ==> Conflict",
+		SHEET_NEW: "{{SHEET}} Sheet ==> New",
+		CELL_CONFLICT: "{{CELL}} Cell ==> Conflict ({{VALUE}})",
+		WRITE: "Write File: {{FILE}}",
+		READ: "Read File: {{FILE}}",
+		NEW: "New Item({{INDEX}}): {{ITEM}}",
+		COUNT: "{{SHEET}} New Data Count: {{SIZE}}",
 
 		UNDEFINED: "사용되지 않는 모드입니다.",
 		READ_START: "업로드된 파일을 분석을 시작합니다.",
@@ -57,65 +75,77 @@ EMT.CONFIG = {
 	},
 	KEY: {
 		RANGE: "!ref",
-		FORMULA: "f"
 	},
 
-	CONFLICT_STYLE: {
-		fill: {
-			bgColor: {
-				rgb: "FFFFFF"
+	XLSX: {
+		READ_OPTION: {
+			type: "binary",
+			cellStyles: true
+		},
+		WRITE_OPTION: {
+			type: "binary"
+		},
+		TYPE: {
+			STRING: "s",
+			FORMULA: "f"
+		},
+		CONFLICT_STYLE: {
+			fill: {
+				bgColor: {
+					rgb: "FFFFFF"
+				},
+				fgColor: {
+					rgb: "FFFF00"
+				}
 			},
-			fgColor: {
-				rgb: "FFFF00"
+			font: {
+				color: {
+					rgb: "FF0000"
+				}
+			},
+			alignment: {
+				vertical: "top",
+				wrapText: true
+			},
+			border: {
+				top: {
+					style: "thin",
+					color: {
+						rgb: "000000"
+					}
+				},
+				bottom: {
+					style: "thin",
+					color: {
+						rgb: "000000"
+					}
+				},
+				left: {
+					style: "thin",
+					color: {
+						rgb: "000000"
+					}
+				},
+				right: {
+					style: "thin",
+					color: {
+						rgb: "000000"
+					}
+				}
 			}
 		},
-		font: {
-			color: {
-				rgb: "FF0000"
-			}
-		},
-		alignment: {
-			vertical: "top",
-			wrapText: true
-		},
-		border: {
-			top: {
-				style: "thin",
-				color: {
-					rgb: "000000"
-				}
+		DEFAULT_STYLE: {
+			alignment: {
+				vertical: "top",
+				wrapText: true
 			},
-			bottom: {
-				style: "thin",
-				color: {
-					rgb: "000000"
+			fill: {
+				bgColor: {
+					rgb: "FFFFFF"
+				},
+				fgColor: {
+					rgb: "FFFFFF"
 				}
-			},
-			left: {
-				style: "thin",
-				color: {
-					rgb: "000000"
-				}
-			},
-			right: {
-				style: "thin",
-				color: {
-					rgb: "000000"
-				}
-			}
-		}
-	},
-	DEFAULT_STYLE: {
-		alignment: {
-			vertical: "top",
-			wrapText: true
-		},
-		fill: {
-			bgColor: {
-				rgb: "FFFFFF"
-			},
-			fgColor: {
-				rgb: "FFFFFF"
 			}
 		}
 	}
