@@ -19,7 +19,7 @@ class Main extends Component {
 			files: [],
 			isMerge: true,
 
-			writeMode: "ALL",
+			writeMode: EMT_CONFIG.WRITE_MODE.ALL,
 			ignoreLength: 0,
 			fieldRange: "",
 			isDuplication: false,
@@ -50,10 +50,8 @@ class Main extends Component {
 			isDuplication: isDuplication
 		};
 
-		if (writeMode === "LIST" && !this.checkReg(/[A-Z]+\d+:[A-Z]+\d+/g, fieldRange)) {
-			if(confirm("필드셀 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)")) {
-
-			} else {
+		if (writeMode === EMT_CONFIG.WRITE_MODE.LIST && !this.checkReg(EMT_CONFIG.REG.RANGE, fieldRange)) {
+			if(!confirm(EMT_CONFIG.MSG.FIELD_RANGE)) {
 				return;
 			}
 		}
@@ -65,7 +63,7 @@ class Main extends Component {
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
-				var readWorker = new Worker("excel-merge-tool/excel-merge-tool-worker-read.js");
+				var readWorker = new Worker(EMT_CONFIG.WORKER_FILE.READ);
 
 				readWorker.postMessage({
 					name: file.name,
@@ -78,7 +76,7 @@ class Main extends Component {
 					binaryFiles.push(binaryFile);
 
 					if (index === files.length - 1) {
-						var writeWorker = new Worker("excel-merge-tool/excel-merge-tool-worker-write.js");
+						var writeWorker = new Worker(EMT_CONFIG.WORKER_FILE.WRITE);
 						writeWorker.postMessage({
 							options: options,
 							binaryFiles: binaryFiles,
@@ -128,8 +126,8 @@ class Main extends Component {
 	handleIgnoreLength = (event) => {
 		const value = event.target.value;
 
-		if (!this.checkReg(/\d*/g, value)) {
-			alert("올바르지 않은 입력입니다.");
+		if (!this.checkReg(EMT_CONFIG.REG.ROW, value)) {
+			alert(EMT_CONFIG.MSG.INPUT_FAULT);
 			return
 		}
 		this.setState({ ignoreLength: value });
@@ -149,14 +147,14 @@ class Main extends Component {
 
 	onMergeTab = () => {
 		this.setState({
-			writeMode: "ALL",
+			writeMode: EMT_CONFIG.WRITE_MODE.ALL,
 			isMerge: true
 		})
 	};
 
 	onListTab = () => {
 		this.setState({
-			writeMode: "LIST",
+			writeMode: EMT_CONFIG.WRITE_MODE.LIST,
 			isMerge: false
 		})
 	};
@@ -210,9 +208,10 @@ class Main extends Component {
 							<div className={cx(css.optionTab, this.state.isMerge ? css.isOn : null)}>
 								<div>
 									<label>출력모드</label>
-									<input type="radio" name="mode" value="ALL" checked={this.state.writeMode === "ALL"} onChange={this.handleWriteMode} /> ALL
-									<input type="radio" name="mode" value="NONE" onChange={this.handleWriteMode} /> NONE
-									<input type="radio" name="mode" value="CONFLICT" onChange={this.handleWriteMode} /> CONFLICT
+									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.ALL}
+									       checked={this.state.writeMode === EMT_CONFIG.WRITE_MODE.ALL} onChange={this.handleWriteMode} /> ALL
+									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.NONE} onChange={this.handleWriteMode} /> NONE
+									<input type="radio" name="mode" value={EMT_CONFIG.WRITE_MODE.CONFLICT} onChange={this.handleWriteMode} /> CONFLICT
 								</div>
 								<div>
 									<label>충돌길이제한</label>

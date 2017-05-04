@@ -51,12 +51,19 @@ EMT.CONFIG = {
 		UNDEFINED: "사용되지 않는 모드입니다.",
 		READ_START: "업로드된 파일을 분석을 시작합니다.",
 		READ_END: "분석이 완료되었습니다.<br/>(작업예상 시간: {{TIME}}초)",
+		INPUT_FAULT: "올바르지 않은 입력입니다.",
+		FIELD_RANGE: "필드 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)"
 	},
 	LOG_TYPE: {
 		SYSTEM: "SYSTEM  ",
 		MERGE: "MERGE   ",
 		NEW: "NEW     ",
 		CONFLICT: "CONFLICT"
+	},
+
+	WORKER_FILE: {
+		READ: "excel-merge-tool/excel-merge-tool-worker-read.js",
+		WRITE: "excel-merge-tool/excel-merge-tool-worker-write.js"
 	},
 	WORKER_TYPE: {
 		READ: "READ",
@@ -66,6 +73,7 @@ EMT.CONFIG = {
 	USING_CHECK: "$",
 	SPLITTER: "{{$s$}}",
 	REG: {
+		RANGE: /[A-Z]+\d+:[A-Z]+\d+/g,
 		COL: /[A-Z]+/g,
 		ROW: /\d+/g,
 		CELL: /[A-Z]\d+/g,
