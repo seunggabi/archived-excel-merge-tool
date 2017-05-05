@@ -8,12 +8,12 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Dropzone from "../../components/DropZone"
 import DropItem from "../../components/DropItem"
 
-import progressImg from "./progress.gif"
-import xlsxImg from "./xlsxImg.png"
-import listBefore from "./LIST_before.png"
-import listAfter from "./LIST_after.png"
-import mergeBefore from "./MERGE_before.png"
-import mergeAfter from "./MERGE_after.png"
+import progressImg from "./img/progress.gif"
+import xlsxImg from "./img/xlsxImg.png"
+import listBefore from "./img/LIST_before.png"
+import listAfter from "./img/LIST_after.png"
+import mergeBefore from "./img/MERGE_before.png"
+import mergeAfter from "./img/MERGE_after.png"
 
 import css from "./style.css"
 
@@ -50,7 +50,7 @@ class Main extends Component {
 	};
 
 	readFile = () => {
-		const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state
+		const { files, writeMode, logMode, ignoreLength, fieldRange, isDuplication } = this.state;
 		const binaryFiles = [];
 		const options = {
 			write_mode: writeMode,
@@ -73,7 +73,7 @@ class Main extends Component {
 			const reader = new FileReader();
 
 			reader.onloadend = () => {
-				var readWorker = new Worker(EMT_CONFIG.WORKER_FILE.READ);
+				var readWorker = new Worker(EMT_CONFIG.FILES.WORKER_READ);
 
 				readWorker.postMessage({
 					name: file.name,
@@ -86,7 +86,7 @@ class Main extends Component {
 					binaryFiles.push(binaryFile);
 
 					if (index === files.length - 1) {
-						var writeWorker = new Worker(EMT_CONFIG.WORKER_FILE.WRITE);
+						var writeWorker = new Worker(EMT_CONFIG.FILES.WORKER_WRITE);
 						writeWorker.postMessage({
 							options: options,
 							binaryFiles: binaryFiles,
@@ -203,8 +203,9 @@ class Main extends Component {
 
 							}
 						</Dropzone>
-						<div className={css.right}>
-							<button onClick={this.deleteFile}>{EMT_CONFIG.MSG.REMOVE}</button>
+						<div className={css.dropzonButtonWrapper}>
+							<a href={EMT_CONFIG.FILES.SAMPLE}><button className={css.floatLeft}>{EMT_CONFIG.MSG.DOWNLOAD}</button></a>
+							<button className={css.floatRight} onClick={this.deleteFile}>{EMT_CONFIG.MSG.REMOVE}</button>
 						</div>
 					</div>
 

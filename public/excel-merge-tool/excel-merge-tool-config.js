@@ -61,7 +61,8 @@ EMT.CONFIG = {
 		REMOVE: "비우기",
 		LOG: "로그생성",
 		DUPLICATE: "중복허용",
-		RANGE: "필드영역범위"
+		RANGE: "필드범위",
+		DOWNLOAD: "샘플받기"
 	},
 	LOG_TYPE: {
 		SYSTEM: "SYSTEM  ",
@@ -70,9 +71,10 @@ EMT.CONFIG = {
 		CONFLICT: "CONFLICT"
 	},
 
-	WORKER_FILE: {
-		READ: "excel-merge-tool/excel-merge-tool-worker-read.js",
-		WRITE: "excel-merge-tool/excel-merge-tool-worker-write.js"
+	FILES: {
+		SAMPLE: "/excel-merge-tool/data/EMT-sample.zip",
+		WORKER_READ: "excel-merge-tool/excel-merge-tool-worker-read.js",
+		WORKER_WRITE: "excel-merge-tool/excel-merge-tool-worker-write.js"
 	},
 	WORKER_TYPE: {
 		READ: "READ",

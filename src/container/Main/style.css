@@ -16,7 +16,7 @@ body > div {
 	margin: 10px auto 30px;
 }
 .dropzone {
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	min-height: 150px;
 	text-align: center;
 	border: 5px dotted black;
@@ -53,6 +53,7 @@ body > div {
 	padding: 15px;
 	border: 1px solid gray;
 	position: relative;
+	margin-bottom:30px;
 }
 .tabWrapper .tabBody input {
 	margin-left: 10px;
@@ -77,11 +78,19 @@ body > div {
 	right: 15px;
 	bottom: 15px;
 }
+.dropzonButtonWrapper {
+	height: 40px;
+}
 button {
-	width: 80px;
+	width: auto;
+	min-width: 80px;
 	height: 40px;
 	font-size: 1.2em;
 	font-weight: bold;
+	-webkit-appearance: none;
+	background-color: #e7e7e7;
+	border: 1px solid gray;
+	border-radius: 5px;
 }
 .right {
 	text-align: right;
@@ -132,4 +141,14 @@ input[type=radio] {
 	display: none;
 	color: blue;
 	margin-bottom:5px;
+}
+a {
+	color: black;
+	text-decoration: none;
+}
+.floatLeft {
+	float: left;
+}
+.floatRight {
+	float: right;
 }
