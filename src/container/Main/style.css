@@ -2,7 +2,7 @@ html, body {
 	height: 100%;
 }
 body {
-	margin: 10px 20px;
+	margin: 10px 15px;
 }
 body > div {
 	min-width: 400px;
@@ -10,8 +10,7 @@ body > div {
 	margin: 0 auto;
 }
 .title {
-	padding-top: 100px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 .dropzoneWrapper {
 	margin: 10px auto 30px;
@@ -50,8 +49,10 @@ body > div {
 }
 .tabWrapper .tabBody {
 	clear: both;
+	height: 220px;
 	padding: 15px;
 	border: 1px solid gray;
+	position: relative;
 }
 .tabWrapper .tabBody input {
 	margin-left: 10px;
@@ -72,6 +73,9 @@ body > div {
 }
 .tabWrapper .tabFooter {
 	text-align: right;
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
 }
 button {
 	width: 80px;
@@ -124,9 +128,8 @@ input[type=radio] {
 	display: inline-block !important;
 }
 .dropMessage {
-	min-height: inherit;
-	font-size: 2rem;
 	font-weight: bold;
 	display: none;
 	color: blue;
+	margin-bottom:5px;
 }

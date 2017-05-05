@@ -33,6 +33,10 @@ class Main extends Component {
 		}
 	}
 
+	componentDidMount () {
+		this.refs.body.style.display = "block";
+	}
+
 	onDrop = (files) => {
 		this.setState({
 			files: Array.concat(this.state.files, files)
@@ -177,7 +181,7 @@ class Main extends Component {
 		const { files } = this.state;
 
 		return (
-			<div>
+			<div ref="body" style={{display: "none"}}>
 				<div>
 					{/* <!-- title -->*/}
 					<h1 className={css.title}>
