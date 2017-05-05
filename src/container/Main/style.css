@@ -25,7 +25,7 @@ body > div {
 .dropItem {
 	display: inline-block;
 }
-.dropItem .xlsxImg {
+.xlsxImg {
 	width: 150px;
 	height: 150px;
 }
@@ -121,5 +121,12 @@ input[type=radio] {
 	width: 400px;
 }
 .isOn {
-	display: inline-block;
+	display: inline-block !important;
+}
+.dropMessage {
+	min-height: inherit;
+	font-size: 2rem;
+	font-weight: bold;
+	display: none;
+	color: blue;
 }

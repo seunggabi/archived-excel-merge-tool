@@ -53,9 +53,10 @@ EMT.CONFIG = {
 		READ_END: "분석이 완료되었습니다.<br/>(작업예상 시간: {{TIME}}초)",
 		INPUT_FAULT: "올바르지 않은 입력입니다.",
 		FIELD_RANGE: "필드 범위가 입력되지 않았습니다. 자동으로 감지하시겠습니까?(자동감지 높이 1)",
+		DROP_MESSAGE: "여기에 엑셀파일을 드롭하세요!",
 
 		OUTPUT_MODE: "추출방식",
-		IGNORE_LENGTH: "무시할 길이",
+		IGNORE_LENGTH: "무시길이",
 		SAVE: "저장",
 		REMOVE: "비우기",
 		LOG: "로그생성",

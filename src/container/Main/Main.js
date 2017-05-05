@@ -7,6 +7,7 @@ import EMT_CONFIG from "../../../public/excel-merge-tool/excel-merge-tool-config
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Dropzone from "../../components/DropZone"
 import DropItem from "../../components/DropItem"
+
 import progressImg from "./progress.gif"
 import xlsxImg from "./xlsxImg.png"
 import listBefore from "./LIST_before.png"
@@ -186,6 +187,10 @@ class Main extends Component {
 					{/* <!-- dropZone -->*/}
 					<div className={css.dropzoneWrapper}>
 						<Dropzone className={css.dropzone} onDrop={this.onDrop}>
+							<div className={cx(css.dropMessage, (!files.length ? css.isOn : null))}>
+								<img className={css.xlsxImg} src={xlsxImg} /><br/>
+								{EMT_CONFIG.MSG.DROP_MESSAGE}
+							</div>
 							{
 								files.map(
 									(file, index) =>
