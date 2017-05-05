@@ -14,7 +14,7 @@ body > div {
 	margin-bottom: 20px;
 }
 .dropzoneWrapper {
-	margin: 10px auto 60px;
+	margin: 10px auto 30px;
 }
 .dropzone {
 	margin-bottom: 15px;
@@ -112,4 +112,14 @@ button {
 }
 input[type=radio] {
 	margin-right: 3px;
+}
+.example {
+	margin-bottom: 30px;
+	display: none;
+}
+.example img {
+	width: 400px;
+}
+.isOn {
+	display: inline-block;
 }

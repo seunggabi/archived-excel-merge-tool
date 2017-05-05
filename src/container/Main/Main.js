@@ -9,6 +9,11 @@ import Dropzone from "../../components/DropZone"
 import DropItem from "../../components/DropItem"
 import progressImg from "./progress.gif"
 import xlsxImg from "./xlsxImg.png"
+import listBefore from "./LIST_before.png"
+import listAfter from "./LIST_after.png"
+import mergeBefore from "./MERGE_before.png"
+import mergeAfter from "./MERGE_after.png"
+
 import css from "./style.css"
 
 class Main extends Component {
@@ -192,6 +197,15 @@ class Main extends Component {
 						<div className={css.right}>
 							<button onClick={this.deleteFile}>{EMT_CONFIG.MSG.REMOVE}</button>
 						</div>
+					</div>
+
+					<div className={cx(css.example, (this.state.isMerge ? css.isOn : null))}>
+						<img className={css.before} src={mergeBefore} />
+						<img className={css.after} src={mergeAfter} />
+					</div>
+					<div className={cx(css.example, (this.state.isMerge ? null : css.isOn))}>
+						<img className={css.before} src={listBefore} />
+						<img className={css.after} src={listAfter} />
 					</div>
 
 					{/* <!-- optionTab -->*/}
