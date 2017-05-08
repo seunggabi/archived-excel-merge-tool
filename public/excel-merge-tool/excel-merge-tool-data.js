@@ -81,7 +81,7 @@ EMT.DATA = {
 		let item = [];
 
 		if(!this.field && !this.fields[sheetName]) {
-			let range = this._getRange(sheet[EMT.CONFIG.KEY.RANGE]);
+			let range = this._getRange(sheet[EMT.CONFIG.XLSX.TYPE.RANGE]);
 			let fieldRnage = range.cols[0]+range.rows[0]+":"+range.cols[1]+range.rows[0];
 			this.fields[sheetName] = this._createField(fieldRnage);
 		}
