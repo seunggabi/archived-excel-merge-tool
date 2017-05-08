@@ -144,7 +144,7 @@ EMT.DATA = {
 				rowNumber++;
 			}
 		}
-		sheet[EMT.CONFIG.KEY.RANGE] = this._getExtendRange(sheetName);
+		sheet[EMT.CONFIG.XLSX.TYPE.RANGE] = this._getExtendRange(sheetName);
 	},
 
 	_getIdentifier: function(datas) {

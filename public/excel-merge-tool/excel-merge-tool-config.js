@@ -22,7 +22,8 @@ EMT.CONFIG = {
 		LOG_MODE: true,
 		IGNORE_LENGTH: 0,
 		FIELD_RANGE: "",
-		isDuplication: false
+		isDuplication: false,
+		FIELD_RANGE_PLACEHOLDER: "B2:E2",
 	},
 	STATISTICS: {
 		TIME: {
@@ -93,9 +94,6 @@ EMT.CONFIG = {
 		ENTER_START: /^[\r|\n]/g,
 		ENTER_END: /[\r|\n]$/g
 	},
-	KEY: {
-		RANGE: "!ref",
-	},
 
 	XLSX: {
 		READ_OPTION: {
@@ -107,7 +105,8 @@ EMT.CONFIG = {
 		},
 		TYPE: {
 			STRING: "s",
-			FORMULA: "f"
+			FORMULA: "f",
+			RANGE: "!ref"
 		},
 		CONFLICT_STYLE: {
 			fill: {
