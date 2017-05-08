@@ -87,6 +87,7 @@ EMT.CONFIG = {
 		RANGE: /[A-Z]+\d+:[A-Z]+\d+/g,
 		COL: /[A-Z]+/g,
 		ROW: /\d+/g,
+		NUMBER: /\d*/g,
 		CELL: /[A-Z]\d+/g,
 		ENTER: /[\r\n]+/g,
 		ENTER_START: /^[\r|\n]/g,
