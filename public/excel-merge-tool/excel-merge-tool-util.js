@@ -101,5 +101,9 @@ EMT.UTIL = {
 
 	wrapBracket: function(text) {
 		return "["+text+"]";
+	},
+
+	getEnter: function() {
+		return String.fromCharCode(13) + String.fromCharCode(10);
 	}
 };
