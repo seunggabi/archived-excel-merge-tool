@@ -99,7 +99,7 @@ EMT.TOOL = {
 				if(s1.hasOwnProperty(c)) {
 					let v1 = EMT.UTIL.enterOnce(String(s1[c].v));
 
-					if(c === EMT.CONFIG.KEY.RANGE) {
+					if(c === EMT.CONFIG.XLSX.TYPE.RANGE) {
 						this._extendsRange(s1[c], s2[c]);
 					}
 					else if(v1.length < this.ignore_length && v2.length < this.ignore_length) {

@@ -261,7 +261,8 @@ class Main extends Component {
 								</div>
 								<div>
 									<label>{EMT_CONFIG.MSG.RANGE}</label>
-									<input type="text" value={this.state.fieldRange} onChange={this.handleFieldRange} />
+									<input type="text" value={this.state.fieldRange}
+									       placeholder={EMT_CONFIG.DEFAULT.FIELD_RANGE_PLACEHOLDER} onChange={this.handleFieldRange} />
 								</div>
 								<div>
 									<label>{EMT_CONFIG.MSG.LOG}</label>
