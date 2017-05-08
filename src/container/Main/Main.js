@@ -136,7 +136,7 @@ class Main extends Component {
 	handleIgnoreLength = (event) => {
 		const value = event.target.value;
 
-		if (!this.checkReg(EMT_CONFIG.REG.ROW, value)) {
+		if (!this.checkReg(EMT_CONFIG.REG.NUMBER, value)) {
 			alert(EMT_CONFIG.MSG.INPUT_FAULT);
 			return
 		}
@@ -170,9 +170,9 @@ class Main extends Component {
 	};
 
 	checkReg = (reg, text) => {
-		const data = reg.exec(text);
-		if (data) {
-			return text === data[0];
+		let data = text.match(reg);
+		if(data) {
+			return data[0] === text;
 		}
 		return false;
 	};

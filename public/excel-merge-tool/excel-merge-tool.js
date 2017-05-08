@@ -110,7 +110,7 @@ EMT.TOOL = {
 							s1[c].t = EMT.CONFIG.XLSX.TYPE.STRING;
 							s1[c].v = v1;
 						} else {
-							s1[c].v = EMT.UTIL.trim(v1 + String.fromCharCode(13) + v2);
+							s1[c].v = EMT.UTIL.trim(v1 + EMT.UTIL.getEnter() + v2);
 						}
 					}
 					else if(!EMT.UTIL.isInclude(v1, v2)) {
@@ -121,10 +121,10 @@ EMT.TOOL = {
 
 						if(!s1.isMerge) {
 							s1[c].v = this._concatFileName(s1.fileName, v1)
-								+ String.fromCharCode(13)
+								+ EMT.UTIL.getEnter()
 								+ this._concatFileName(s2.fileName, v2);
 						} else {
-							s1[c].v += String.fromCharCode(13)
+							s1[c].v += EMT.UTIL.getEnter()
 								+ this._concatFileName(s2.fileName, v2);
 						}
 
@@ -199,7 +199,7 @@ EMT.TOOL = {
 
 		let concatText = text;
 		if(this.write_mode === EMT.CONFIG.WRITE_MODE.CONFLICT) {
-			concatText = fileNameLabel + String.fromCharCode(13) + text;
+			concatText = fileNameLabel + EMT.UTIL.getEnter() + text;
 		}
 
 		return concatText;
