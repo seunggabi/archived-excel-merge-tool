@@ -35,6 +35,10 @@ class Main extends Component {
 
 	componentDidMount () {
 		this.refs.body.style.display = "block";
+		(window.adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-7862651467603727",
+			enable_page_level_ads: true
+		})
 	}
 
 	onDrop = (files) => {
