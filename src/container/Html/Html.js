@@ -25,6 +25,7 @@ class Html extends React.Component {
     return (
       <html className="no-js" lang="en">
         <head>
+          <meta name="google-site-verification" content="eICS6mpI1XLBgLCQaLFYKf2qgvqasMr1HFDhDmhoLFE" />
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <title>{title}</title>
