@@ -75,7 +75,7 @@ EMT.TOOL = {
 					wb2.Sheets[s].fileName = wb2.fileName;
 					wb1.Sheets[s] = this._mergeCells(wb1.Sheets[s], wb2.Sheets[s]);
 				} else {
-					EMT.LOG.addItem(EMT.LOG_TYPE.NEW,
+					EMT.LOG.addItem(EMT.CONFIG.LOG_TYPE.NEW,
 						EMT.CONFIG.MSG.SHEET_NEW.replace("{{SHEET}}", s));
 					wb1.Sheets[s] = wb2.Sheets[s];
 					wb1.SheetNames.push(s);
