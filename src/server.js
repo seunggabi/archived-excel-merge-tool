@@ -34,6 +34,7 @@ import { getTodos } from './actions';
 import { port, auth } from './config';
 
 const app = express();
+let counter = 0;
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -90,6 +91,7 @@ app.use('/graphql', expressGraphQL(req => ({
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
+  console.log("방문자 수: "+ ++counter);
   try {
     const store = configureStore({
       user: req.user || null,
