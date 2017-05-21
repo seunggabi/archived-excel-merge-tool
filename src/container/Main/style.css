@@ -152,3 +152,6 @@ a {
 .floatRight {
 	float: right;
 }
+.hidden {
+	display: none;
+}
