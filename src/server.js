@@ -36,6 +36,27 @@ import { port, auth } from './config';
 const app = express();
 let counter = 0;
 
+function getUserIP(req) {
+    var ipAddress;
+
+    if(!!req.hasOwnProperty('sessionID')){
+        ipAddress = req.headers['x-forwarded-for'];
+    } else {
+        if(!ipAddress){
+            var forwardedIpsStr = req.header('x-forwarded-for');
+
+            if(forwardedIpsStr){
+                var forwardedIps = forwardedIpsStr.split(',');
+                ipAddress = forwardedIps[0];
+            }
+            if(!ipAddress){
+                ipAddress = req.connection.remoteAddress;
+            }
+        }
+    }
+    return ipAddress;
+}
+
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
@@ -91,7 +112,7 @@ app.use('/graphql', expressGraphQL(req => ({
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
-  console.log("방문자 수: "+ ++counter);
+  console.log("["+(new Date()).toString()+"]["+getUserIP(req)+"]"+" 방문자 수: "+ ++counter);
   try {
     const store = configureStore({
       user: req.user || null,
