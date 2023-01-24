@@ -71,4 +71,6 @@ fabric.properties
 # *.ipr
 
 # End of https://www.gitignore.io/api/webstorm
->>>>>>> a1faa3f0c56fb4efb326cb90fc43a113bb3c8a00
+.idea/vcs.xml
+public/images/
+*.txt
