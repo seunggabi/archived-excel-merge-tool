@@ -1,0 +1,13 @@
+.idea
+build
+database.sqlite
+node_modules
+ncp-debug.log
+npm-debug.log
+.DS_Store
+.vscode
+*.xlsx
+/files/*
+
+public/images/
+*.txt
